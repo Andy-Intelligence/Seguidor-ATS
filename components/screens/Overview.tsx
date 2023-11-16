@@ -49,7 +49,7 @@ import { linkedInSignInUser } from '@/backend/actions/user.actions';
 import { getAllPostedJobs } from '@/backend/actions/job.actions';
 
 register()
-const </div>Overview =  () => {
+const Overview =  () => {
   const router = useRouter()
 
 

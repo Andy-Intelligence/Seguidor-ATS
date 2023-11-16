@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link';
+import {useEffect} from 'react'
 import {FiLink2} from 'react-icons/fi'
 import {
   Select,
@@ -16,8 +17,37 @@ import JobRoleCard from "@/components/cards/JobRoleCard"
 import AllJobsLeftSideBarSearchFilter from "@/components/sharedComponents/AllJobsLeftSideBarSearchFilter"
 import AllJobsNavSearchFilter from "@/components/sharedComponents/AllJobsNavSearchFilter"
 import { Checkbox } from "@/components/ui/checkbox"
+import { createGoogleMeetLink, createMeeting } from '@/lib/meetApi';
+import { fetchUser } from '@/backend/actions/user.actions';
+import { getAuthUrl, getTokens } from '@/lib/auth'
+import {useRouter} from 'next/navigation'
+import axios from 'axios';
+
+
 export default function Home() {
+  // const router = useRouter()
     const displaySwitch= false
+ 
+  
+    //  useEffect(()=> {
+      // const me = async ()=> {
+      //   const a = await fetchUser()
+      //   router.push(`jobs/${a}`)
+        
+      
+      // const b =  createGoogleMeetLink({code:d, title:"mee", description:"you", startTime:'2023-01-01T10:00:00Z', endTime:'2023-01-01T11:00:00Z' })
+      //   console.log('Google Meet Link:', b);
+      // }
+      
+
+        // me()
+    // },[])
+
+
+
+
+
+
   return (
     <div className="flex flex-col">
             <nav className="navbar p-4 flex justify-between w-full items-center ">

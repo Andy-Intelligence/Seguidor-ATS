@@ -2,6 +2,8 @@
 import { revalidatePath } from "next/cache";
 import User from "../models/userModels/user.model";
 import { connectToDB } from "../mongoDb/connect"
+import { getAuthUrl } from "@/lib/auth";
+import { createGoogleMeetLink } from "@/lib/meetApi";
 
 
 
@@ -46,9 +48,7 @@ export async function linkedInSignInUser() {
 
 
 
-
-
-export async function fetchUser(userId: string | undefined) {
+  export async function fetchUser(userId: string | undefined) {
     connectToDB();
     try {
   const res = await User.findOne({ id: userId }).exec() 
@@ -58,6 +58,34 @@ export async function fetchUser(userId: string | undefined) {
       throw new Error(`Failed to fetch user: ${error.message}`);
     }
   }
+
+// export async function fetchUser() {
+//     connectToDB();
+
+//     const authurl = getAuthUrl()
+//       console.log(authurl)
+//       return authurl
+
+    // try {
+      
+      // const a = await createMeeting(authurl)
+    
+
+// const meetingDetails = {
+//   title: 'My Next.js Meeting',
+//   description: 'A meeting about Next.js development',
+//   startTime: '2023-11-16T14:00:00Z', // Replace with your desired start time
+//   endTime: '2023-11-16T15:00:00Z', // Replace with your desired end time
+// };
+
+// const googleMeetLink = await createGoogleMeetLink(meetingDetails);
+// console.log('Google Meet link:', googleMeetLink);
+      
+//       // console.log("meeting",a)
+//     } catch (error: any) {
+//       throw new Error(`Failed to fetch user: ${error.message}`);
+    // }
+  // }
 
 
 interface Params {
