@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -24,4 +27,252 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+
+
+
+body{
+  color:#181818;
+}
+
+
+.swiper {
+  /* background-color: blue; */
+  /* width: 100%;
+  height: 100%; */
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #F8F8F8;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} */
+
+.swiper {
+  /* width: 1000px; */
+  /* height: 300px; */
+  /* margin: 20px auto; */
+}
+
+
+.underline{
+  background-color:#989898;
+  height: 0.2px;
+}
+.navbar{
+  background-color: #FFFFFF;
+}
+.navbarSearchInput{
+  background-color: #F2F1F1;
+}
+.leftSideBar{
+  background-color: #FFFFFF;
+}
+.sidebarUnderline{
+  background-color: #DED8E1;
+  height: 0.5px;
+}
+.navBarSelect{
+  background: #F8F8F8;
+}
+.navbarOverviewContainer{
+  background-color: #F8F8F8;
+}
+.summary{
+  background-color: #FFFFFF;
+}
+.summaryText{
+  color: #989898;
+}
+.summaryCardTotal{
+  color:#3637EE;
+}
+.summaryNavButton{
+  color:#3637EE;
+}
+.activeJobsHeader {
+  background-color: rgba(109, 143, 100, 0.2); /* 20% opacity */
+}
+.activeJobsButton{
+  background-color: rgba(109, 143, 100, 0); /* 20% opacity */
+}
+.jobRoleTag{
+  background-color: #BBC6F9;
+}
+.jobRoleTag2{
+  background-color: rgba(109, 143, 100, 0.2); /* 20% opacity */
+}
+.jobRoleCard{
+  border:0.1px solid #989898;
+  border-radius: 4px;
+  background-color:#FFFFFF;
+}
+.jobRoleBackground{
+  background-color: #FFFFFF;
+}
+.taskBackgrorund{
+background-color: rgba(117, 208, 214, 0.2); /* 20% opacity */
+}
+.activeTaskBackground {
+  background-color: rgba(225, 238, 222, 0.7); /* Here, 0.7 represents the opacity (70%) */
+}
+.dailyTaskTagBackgroundColor{
+  background-color: #69A959;
+}
+.dailyTaskTimeColor {
+  color: rgba(0, 0, 0, 0.5);
+}
+.dailyTaskBackgroundColor{
+  background-color: #FFFFFF;
+}
+.messageBackground{
+  background-color: #F8F8F8;
+}
+.sendButton{
+  color: #989898;
+  text-decoration: underline;
+}
+.seeAllBtnColor{
+  color: #3637EE;
+}
+.selectorBackgroundColor{
+  background-color: #F8F8F8;
+}
+.allJobsFilterLinksbackground{
+  background-color: #F8F8F8;
+}
+.allJobsFilterLinksActivebackground{
+  background-color:  #3637EE;
+  color: #FFFFFF;
+}
+.rejectButton{
+  background-color: #B3261E;
+  color: #FFFFFF;
+}
+.moveToInterviewButton{
+  background-color: #3637EE;
+  color: #FFFFFF;
+}
+.allJobsLeftSideBarSearchFilter{
+  background-color: #FFFFFF;
+}
+.formHeaderColor{
+  color: #989898;
+}
+.candidateExperienceColor{
+  color: #989898;
+}
+.color98{
+  color: #989898;
+}
+.bgColorFF{
+  background-color: #FFFFFF;
+}
+.bgColor98{
+  background-color: #989898;
+}
+.bgColorF8{
+  background-color: #F8F8F8;
+}
+.candidateStatusFilter{
+  background-color: #FFFFFF;
+}
+.applicantCardMainContainer{
+  background-color: #FFFFFF;
+}
+.applicantCard{
+  background-color: #F8F8F8;
+}
+.applicantTagColor {
+  background-color: rgba(105, 169, 89, 0.1); /* 10% opacity */
+}
+.applicantInfoBg{
+  background-color: #FFFFFF;
+}
+.reject{
+  color: #B3261E;
+}
+.scheduleInterview{
+  color: #3637EE;
+}
+.linkBlue{
+  color: #3637EE;
+}
+.btnGreen{
+  background-color: #538E53;
+}
+.whiteBgFE{
+  background-color: #FEFEFE;
+}
+.whiteBgFF{
+  background-color: #FFFFFF;
+}
+.inputGreen{
+  background-color: #538E53;
+}
+.jobDiv {
+  border: 1px solid #F8F8F8;
+  padding: 2rem 4rem;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.17),
+    0px 0px 3px 0px rgba(0, 0, 0, 0.08);
+}
+
+.jobDiv h2 {
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem;
+}
+
+.jobsDiv p {
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5rem;
+  color: gray;
+}
+.ApplyButton {
+  height: 2.8125rem;
+  width: 100%;
+  color: var(--Text-color-Active-white, #F9F9F9);
+  margin-top: 2rem;
+  padding: 0.625rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  background: var(--Primay-color-Active-green, #538e53);
+}
+.components{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 1rem;
+  /* background-color: #FFFFFF; */
+}
+.degree {
+  margin-top: 1rem;
+  display: flex;
+  height: 1.9375rem;
+  padding: 0.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  background: rgba(54, 55, 238, 0.1);
+  border-radius: 6.25rem;
+  margin-left: 1rem;
 }
