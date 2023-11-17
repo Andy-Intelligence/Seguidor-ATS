@@ -67,7 +67,7 @@ const JobRoleCard = ({jobtitle,jobtype,employmentstatus,jobdescription,applicati
             <div className='flex items-center justify-between w-full p-2'>
                 <div className='flex flex-col w-full'>
                     <div className='flex flex-row items-center justify-between w-full'>
-                        <div className='flex items-center justify-center'>{jobtitle}</div>
+                        <div className='flex items-center justify-center break-all whitespace-normal'>{jobtitle}</div>
                         <div className='flex items-center justify-center space-x-4'>
                         <div>
                         <Form {...form}>
@@ -110,27 +110,27 @@ const JobRoleCard = ({jobtitle,jobtype,employmentstatus,jobdescription,applicati
 
                     </div>
                     <div className='flex items-center gap-[8px] text-[12px]'>
-                        <div className='jobRoleTag flex items-center justify-center rounded-[100px] p-[10px] h-[24px] '>{jobtype}</div>
+                        <div className='jobRoleTag flex items-center justify-center rounded-[100px] p-[10px] h-[24px] break-all whitespace-normal'>{jobtype}</div>
                         <div className='bg-black h-[5px] w-[5px] rounded-full'></div>
-                        <div className='jobRoleTag2 flex items-center justify-center rounded-[100px] p-[10px] h-[24px] '>{employmentstatus}</div>
+                        <div className='jobRoleTag2 flex items-center justify-center rounded-[100px] p-[10px] h-[24px] break-all whitespace-normal'>{employmentstatus}</div>
                     </div>
                     
                 </div>
 
             </div>
 
-        <div className='text-[14px] font-[400] text-left p-2 flex items-start justify-start'>{jobdescription}</div>
+        <div className='text-[14px] font-[400] text-left p-2 flex items-start justify-start break-all whitespace-normal'>{jobdescription}</div>
         <div className='underline w-full'></div>
         <div className='flex items-center justify-start space-x-2 w-full text-[12px] font-[400] p-2'>
-            <div className='flex items-center justify-center '>All applicants:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/></div><span className='text-[12px] font-[500]'> +500</span></div>
+            <div className='flex items-center justify-center '>All applicants:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/></div><span className='text-[12px] font-[500] break-all whitespace-normal'> +500</span></div>
             <div className='bg-black h-[5px] w-[5px] rounded-full'></div>
-            <div className='flex items-center justify-center'>Best Match:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/></div><span className='text-[12px] font-[500]'> +10</span></div>
+            <div className='flex items-center justify-center'>Best Match:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/></div><span className='text-[12px] font-[500] break-all whitespace-normal'> +10</span></div>
         </div>
         <div className='underline w-full'></div>
         <div className='flex items-center justify-start space-x-2 w-full text-[12px] font-[400] p-2'>
-            <div className='flex items-center justify-center'>Posted by:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><span className='text-[12px] font-[400]'>Kelvin Chigozie</span></div></div>
+            <div className='flex items-center justify-center'>Posted by:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><span className='text-[12px] font-[400] break-all whitespace-normal'>Kelvin Chigozie</span></div></div>
             <div className='bg-black h-[5px] w-[5px] rounded-full'></div>
-            <div className='flex items-center justify-center'>Interviewer:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><span className='text-[12px] font-[400]'>Mary Sansa</span></div></div>
+            <div className='flex items-center justify-center'>Interviewer:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><span className='text-[12px] font-[400] break-all whitespace-normal'>Mary Sansa</span></div></div>
         </div>
     </main>
   )

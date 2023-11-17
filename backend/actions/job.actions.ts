@@ -404,6 +404,62 @@ console.log(res)
 
 
 
+export async function getAllApplicant() {
+  // console.log("a");
+  connectToDB();
+
+  try {
+    const res = await Application.find({ }).populate({
+      path: 'noteAndFeedBack',
+      populate: {
+        path: 'sender',
+        populate: {
+          path: 'name',
+        },
+        
+      },
+    }) // Add fields you want to populate 'field1 field2' .populate("noteAndFeedBack")
+console.log(res)
+    if (!res) {
+      console.log('Applicants not found');
+      return {};
+    }
+    const applicant = JSON.parse(JSON.stringify(res))
+
+    // const applicant = job.applications.find((app:any) => {return app._id.toString() === applicantId});
+
+    
+
+    // console.log('singleapplicant', applicant);
+
+    return applicant || {};
+  } catch (error) {
+    console.error('Error searching in the database for applicant:', error);
+    return {};
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 interface JobParams {
   // userIdd?: string | null | undefined;

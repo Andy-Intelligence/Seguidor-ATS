@@ -46,7 +46,7 @@ import DailyTaskCard from '../cards/DailyTaskCard';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { linkedInSignInUser } from '@/backend/actions/user.actions';
-import { getAllPostedJobs } from '@/backend/actions/job.actions';
+import { getAllApplicant, getAllPostedJobs } from '@/backend/actions/job.actions';
 
 register()
 const Overview =  () => {
@@ -62,6 +62,43 @@ const Overview =  () => {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
   const [allJobs, setAllJobs] =  React.useState<any>([])
+
+
+
+
+
+  const [applicant,setAllApplicant] = useState<any>()
+  // const [job,setJob] = useState<any>()
+  // console.log("me",params?.jobId)
+
+  useEffect(()=>{
+// console.log("firing")
+const fetchData = async () => {
+  try {
+    // const jobId = params?.id;
+    const res = await getAllApplicant();
+    // const res2 = await getSingleJob({ jobId:params?.jobId });
+    // setJob(res2)
+    // setApplicant(res?.applications);
+    // console.log("applicant", applicant);
+    return res
+  } catch (error) {
+    console.error("Error fetching all applicant:", error);
+  }
+};
+
+fetchData().then((a)=>{
+    setAllApplicant(a)
+
+});
+
+  },[])
+
+
+
+
+
+
 
 
   useEffect(()=>{
@@ -251,6 +288,7 @@ const Overview =  () => {
                           <div className='text-[14px] text-left font-[400]'>Andidiong Usoro</div>
                           <div className='text-[12px] font-[400] text-left'>usoroandidiong@gmail.com</div>
                           <div className='messageBackground p-1 text-[14px] font-[400] my-2'>quidem m corporis!</div>
+                          <div>@andy</div>
 
                           <form>
                             <input type='text' placeholder='write here...' className='messageBackground rounded-[4px] h-[40px] w-full'/>
