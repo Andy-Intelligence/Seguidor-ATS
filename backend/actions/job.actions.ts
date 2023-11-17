@@ -13,12 +13,7 @@ import Comment from "../models/commentModel/comment";
 
 
 
-cloudinary.config({
-  cloud_name: 'dm7gmrkki',
-  api_key: '398486115139613',
-  api_secret: 'R7wAMNqAU3WCOG5eZgT_DOjBg8Y',
-});
- 
+
 
 
 export async function linkedInCreateJob() {
@@ -59,7 +54,7 @@ export async function linkedInCreateJob() {
   
       const data = await response.json();
       // Handle the data returned from the API
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       throw new Error(`Failed to create job: ${error}`);
     }
@@ -256,7 +251,7 @@ export async function jobApplication({
       // Update the user's 'books' field to include the book's ID
       const job = await Job.findOne({ _id: "654f451b9d9a151d64d0a5c7" });
       const c = job?.applications?.push(createdApplication?._id?.toString());
-      console.log(c);
+      // console.log(c);
 
       // Save the updated user
       await job.save();
@@ -331,7 +326,7 @@ export async function sendComment({content,sender,receiver,applicantId}:Params):
         // Update the user's 'books' field to include the book's ID
         const applicant = await Application.findOne({ _id: applicantId });
         const c = applicant?.noteAndFeedBack?.push(createdComment?._id?.toString());
-        console.log(c)
+        // console.log(c)
   
         // Save the updated user
         await applicant.save();
@@ -375,7 +370,7 @@ export async function getSingleApplicant({ applicantId,jobId }: ApplicantParams)
         
       },
     }) // Add fields you want to populate 'field1 field2' .populate("noteAndFeedBack")
-console.log(res)
+// console.log(res)
     if (!res) {
       console.log('Applicant not found');
       return {};
