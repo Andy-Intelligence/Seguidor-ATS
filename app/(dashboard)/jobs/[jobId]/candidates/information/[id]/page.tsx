@@ -6,7 +6,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 // import { getSingleApplicant } from '@/backend/actions/applications.actions';
-import { getSingleApplicant, getSingleJob } from '@/backend/actions/job.actions';
+import { getSingleApplicant } from '@/backend/actions/job.actions';
+import { getSingleJob } from '@/backend/actions/job.actions';
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import convertToStandardDate from '@/lib/utils';
@@ -160,6 +161,11 @@ fetchData().then((a)=>{
                         </span>
                     </div>
                     </div> */}
+                    
+                    <div className='flex flex-col items-center gap-2'>
+                          <h1 className='text-[22px] font-[400] '>{applicant?.name} <span className='applicantTagColor px-2 rounded-[30px] text-[14px] font-[400] py-1'>Applied</span> </h1>
+                        <h3 className='candidateExperienceColor text-[16px] font-[400] '>{applicant?.email}</h3>
+                      </div>
                     <div className="flex space-x-8">
   <div className="relative cursor-pointer transition-transform transform group">
     <div className="bg-gray-300 w-12 h-12 rounded-full flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">

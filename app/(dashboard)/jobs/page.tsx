@@ -18,7 +18,7 @@ import AllJobsLeftSideBarSearchFilter from "@/components/sharedComponents/AllJob
 import AllJobsNavSearchFilter from "@/components/sharedComponents/AllJobsNavSearchFilter"
 import { Checkbox } from "@/components/ui/checkbox"
 import { createGoogleMeetLink, createMeeting } from '@/lib/meetApi';
-import { fetchUser } from '@/backend/actions/user.actions';
+// import { fetchUser } from '@/backend/actions/user.actions';
 import { getAuthUrl, getTokens } from '@/lib/auth'
 import {useRouter} from 'next/navigation'
 import axios from 'axios';
