@@ -9,6 +9,7 @@ const cloudinary = require('cloudinary').v2;
 
 import { uploadToCloudinary } from "@/lib/cloudinaryUtil";
  
+import Comment from "../models/commentModel/comment";
 
 
 
@@ -272,6 +273,86 @@ export async function jobApplication({
 
 
 
+
+
+
+
+
+
+export async function fetchMessage(userId: string) {
+  connectToDB();
+    try {
+  
+      return await User.findOne({ id: userId })
+    } catch (error: any) {
+      throw new Error(`Failed to fetch user: ${error.message}`);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+interface Params {
+  content?:string | null | undefined;
+  sender?:string | null | undefined;
+  receiver?:string | null | undefined;
+  applicantId?:string | null | undefined;
+  // bio?:string | null | undefined;
+  // image?:string | null | undefined;
+  // path?:string | null | undefined;
+  // email?:string | null | undefined;
+  // objectId?:string | null | undefined;
+}
+
+export async function sendComment({content,sender,receiver,applicantId}:Params):Promise<void>{
+  connectToDB();
+
+  
+  try {
+
+   
+        const user = await User.findOne({ id: sender });
+      
+      
+      const createdComment = await Comment.create(
+      {content:content,receiver:receiver, sender:user._id})
+   
+      
+
+      if (createdComment) {
+        // Update the user's 'books' field to include the book's ID
+        const applicant = await Application.findOne({ _id: applicantId });
+        const c = applicant?.noteAndFeedBack?.push(createdComment?._id?.toString());
+        console.log(c)
+  
+        // Save the updated user
+        await applicant.save();
+      }
+
+   
+
+      // if (path === '/profile/edit'){
+      //     revalidatePath(path);
+      // }
+
+   
+  } catch (error:any) {
+      throw new Error(`Failed to create comment:${error.message}`)
+  }
+
+}
+
+
+
+
 interface ApplicantParams{
   applicantId:string;
   jobId:string;
@@ -284,7 +365,16 @@ export async function getSingleApplicant({ applicantId,jobId }: ApplicantParams)
   connectToDB();
 
   try {
-    const res = await Application.findOne({ _id: applicantId }); // Add fields you want to populate 'field1 field2'
+    const res = await Application.findOne({ _id: applicantId }).populate({
+      path: 'noteAndFeedBack',
+      populate: {
+        path: 'sender',
+        populate: {
+          path: 'name',
+        },
+        
+      },
+    }) // Add fields you want to populate 'field1 field2' .populate("noteAndFeedBack")
 console.log(res)
     if (!res) {
       console.log('Applicant not found');

@@ -10,6 +10,8 @@ import { getSingleApplicant, getSingleJob } from '@/backend/actions/job.actions'
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import convertToStandardDate from '@/lib/utils';
+import { UserAuth } from '@/context/MyContext';
+import { sendComment } from '@/backend/actions/job.actions';
 
 
 
@@ -60,6 +62,10 @@ interface ApplicantInfoProp{
 export default function Page({ params }: { params: { id: string,jobId:string; } }) {
   // const router = useRouter()
 
+  const { user } = UserAuth() ?? { user: null };
+      
+    const [comment, setComment] = useState({content:""})
+
   const [value, setValue] = useState(0);
   const [applicant,setApplicant] = useState<any>()
   const [job,setJob] = useState<any>()
@@ -86,31 +92,22 @@ fetchData().then((a)=>{
 
 });
 
-
-
   },[params?.id])
 
-  // useEffect(() => {
-  //   console.log("firing")
-  //   const fetchData = async () => {
-  //     try {
-  //       const applicantId = params?.id;
-  //       const res = await getSingleApplicant({ applicantId: params?.id });
-  //       // console.log("applicant", res);
-  //       return res;
-  //     } catch (error) {
-  //       console.error("Error fetching single job:", error);
-  //     }
-  //   };
-  
-  //   const fetchDataAndSetApplicant = async () => {
-  //     const result = await fetchData();
-  //     setApplicant(result);
-  //   };
-  
-  //   fetchDataAndSetApplicant();
-  //   console.log(applicant)
-  // }, [params?.id]);
+  const handleSubmit = async (e:any,applicantId:any)=>{
+    e.preventDefault()
+    
+    // console.log(chapter) 
+
+    // console.log("chapterId",chapter?._id)
+   const book =  await sendComment({content:comment?.content,sender:user?.uid,receiver:applicant._id,applicantId:params?.id})
+  //  "651b4d41ab245ed190e19ee0"
+    
+  //  console.log(book)  
+  //  setSearchResult(book)
+ 
+  setComment({ content: "" });
+  }
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -136,11 +133,11 @@ fetchData().then((a)=>{
 
             <div className='w-full flex items-center justify-between'>
               <div className='flex flex-row justify-between items-center w-full'>
-                  <div className='flex flex-row gap-2 items-start justify-center'>
+                  <div className='flex flex-row gap-4 items-center justify-center'>
                     <div className='flex items-start justify-start'>
                         <img className='h-[80px] w-[80px] rounded-full' alt='profile-img' src='http://res.cloudinary.com/dm7gmrkki/image/upload/v1699822046/dc4fumkfrhy2ssjzzdje.png'/>
                     </div>
-                    <div className='flex flex-col items-start text-left justify-start'>
+                    {/* <div className='flex flex-col items-start text-left justify-start'>
                         <div className='flex items-center gap-2'>
                           <h1 className='text-[22px] font-[400] '>{applicant?.name} </h1><span className='applicantTagColor px-2 rounded-[30px] text-[14px] font-[400] py-1'>Applied</span>
                         </div>
@@ -162,7 +159,34 @@ fetchData().then((a)=>{
                             <BiLogoLinkedin size={25}/>
                         </span>
                     </div>
-                    </div>
+                    </div> */}
+                    <div className="flex space-x-8">
+  <div className="relative cursor-pointer transition-transform transform group">
+    <div className="bg-gray-300 w-12 h-12 rounded-full flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.97 17.33C20.97 17.69 20.89 18.06 20.72 18.42C20.55 18.78 20.33 19.12 20.04 19.44C19.55 19.98 19.01 20.37 18.4 20.62C17.8 20.87 17.15 21 16.45 21C15.43 21 14.34 20.76 13.19 20.27C12.04 19.78 10.89 19.12 9.75 18.29C8.6 17.45 7.51 16.52 6.47 15.49C5.44 14.45 4.51 13.36 3.68 12.22C2.86 11.08 2.2 9.94 1.72 8.81C1.24 7.67 1 6.58 1 5.54C1 4.86 1.12 4.21 1.36 3.61C1.6 3 1.98 2.44 2.51 1.94C3.15 1.31 3.85 1 4.59 1C4.87 1 5.15 1.06 5.4 1.18C5.66 1.3 5.89 1.48 6.07 1.74L8.39 5.01C8.57 5.26 8.7 5.49 8.79 5.71C8.88 5.92 8.93 6.13 8.93 6.32C8.93 6.56 8.86 6.8 8.72 7.03C8.59 7.26 8.4 7.5 8.16 7.74L7.4 8.53C7.29 8.64 7.24 8.77 7.24 8.93C7.24 9.01 7.25 9.08 7.27 9.16C7.3 9.24 7.33 9.3 7.35 9.36C7.53 9.69 7.84 10.12 8.28 10.64C8.73 11.16 9.21 11.69 9.73 12.22C10.27 12.75 10.79 13.24 11.32 13.69C11.84 14.13 12.27 14.43 12.61 14.61C12.66 14.63 12.72 14.66 12.79 14.69C12.87 14.72 12.95 14.73 13.04 14.73C13.21 14.73 13.34 14.67 13.45 14.56L14.21 13.81C14.46 13.56 14.7 13.37 14.93 13.25C15.16 13.11 15.39 13.04 15.64 13.04C15.83 13.04 16.03 13.08 16.25 13.17C16.47 13.26 16.7 13.39 16.95 13.56L20.26 15.91C20.52 16.09 20.7 16.3 20.81 16.55C20.91 16.8 20.97 17.05 20.97 17.33Z" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10"/>
+                </svg></div>
+    <div className="absolute top-full left-1/2 transform -translate-x-1/2 p-2 bg-white shadow-md rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+    {applicant?.mobile}
+    </div>
+  </div>
+
+  <div className="relative cursor-pointer transition-transform transform group">
+    <div className="bg-gray-300 w-12 h-12 rounded-full flex items-center justify-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg></div>
+    <div className="absolute top-full left-1/2 transform -translate-x-1/2 p-2 bg-white shadow-md rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+    {applicant?.email}
+    </div>
+  </div>
+
+  <div className="relative cursor-pointer transition-transform transform group">
+    <div className="bg-gray-300 w-12 h-12 rounded-full flex items-center justify-center"><BiLogoLinkedin className='visible hover:hidden' size={25}/></div>
+    <div className="absolute top-full left-1/2 transform -translate-x-1/2 p-2 bg-white shadow-md rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      {applicant?.linkedin}
+    </div>
+  </div>
+</div>
                 </div>
 
                 <div className='flex flex-col items-center gap-2'>
@@ -285,23 +309,24 @@ fetchData().then((a)=>{
                   <CustomTabPanel value={value} index={3}>
                     <div className='w-full '>
                       <form className='flex flex-col items-end gap-2'>
-                        <textarea className='bgColorF8 w-full h-[5rem] p-1' rows={4} cols={50} placeholder="Write a note or feedback here..."></textarea>
-                        <button type='submit' className='px-2 py-1 rounded-[4px] bgColorF8 flex '>Send</button>
+                        <textarea  value={comment?.content} onChange={(e)=> setComment({...comment,content:e.target.value})} className='bgColorF8 w-full h-[5rem] p-1' rows={4} cols={50} placeholder="Write a note or feedback here..."></textarea>
+                        <button onClick={(e)=>handleSubmit(e,applicant?._id)} type='submit' className='px-2 py-1 rounded-[4px] bgColorF8 flex '>Send</button>
                       </form>
 
 
-                      
-                      <div className='flex flex-row gap-2 items-start justify-center'>
+                     { applicant?.noteAndFeedBack?.slice().reverse().map((item: any) => {
+                     return( <div className='flex flex-row gap-2 items-start justify-start w-full'>
                         <div className='flex items-start justify-start'>
-                            <img className='h-[42px] w-[42px] rounded-full' alt='profile-img' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600'/>
+                            <img className='h-[42px] w-[42px] rounded-full' alt='profile-img' src='https://cdn.pixabay.com/photo/2018/08/28/12/41/avatar-3637425_640.png'/>
                         </div>
                         <div className='flex flex-col items-start text-left justify-start'>
                             <div className='flex items-center gap-2'>
-                              <h1 className='text-[16px] font-[400] '>Neel DeshMukh </h1>
+                              <h1 className='text-[16px] font-[400] '>{item?.sender?.name} </h1>
                             </div>
-                            <p className=' text-[14px] font-[400] '>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem corporis consequatur, consequuntur aspernatur perspiciatis non. Itaque error ea dicta obcaecati.</p>
+                            <p className=' text-[14px] font-[400] '>{item?.content}</p>
                         </div>
-                    </div>
+                    </div>)
+                      })}
                       
                     </div>
                   </CustomTabPanel>

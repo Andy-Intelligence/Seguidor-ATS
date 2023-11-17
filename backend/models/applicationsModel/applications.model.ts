@@ -16,7 +16,7 @@ Applicant:{type: mongoose.Schema.Types.ObjectId,
     coverletter:{type:String,},
     attachments:{type:String,},
     video:{type:String,},
-    noteAndFeedBack:[{type:mongoose.Schema.Types.ObjectId, ref:"noteAndFeedBack",}],
+    noteAndFeedBack:[{type:mongoose.Schema.Types.ObjectId, ref:"Comment",}],
 },
 {
     timestamps: true, // Enable timestamps (createdAt and updatedAt)
