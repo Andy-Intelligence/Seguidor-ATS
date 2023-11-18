@@ -337,9 +337,13 @@ React.useEffect(()=>{
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="m@example.com">m@example.com</SelectItem>
-                  <SelectItem value="m@google.com">m@google.com</SelectItem>
-                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectItem value="Tech">Tech</SelectItem>
+                  <SelectItem value="ICT">ICT</SelectItem>
+                  <SelectItem value="Marketing">Marketing</SelectItem>
+                  <SelectItem value="Accounting">Accounting</SelectItem>
+                  <SelectItem value="Administrative">Administrative</SelectItem>
+                  <SelectItem value="Sanitary">Sanitary</SelectItem>
+                  <SelectItem value="Cyber Security">Cyber Security</SelectItem>
                 </SelectContent>
               </Select>
               {/* <FormDescription>
@@ -363,9 +367,12 @@ React.useEffect(()=>{
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="m@example.com">m@example.com</SelectItem>
-                  <SelectItem value="m@google.com">m@google.com</SelectItem>
-                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectItem value="Lagos">Lagos</SelectItem>
+                  <SelectItem value="Abuja">Abuja</SelectItem>
+                  <SelectItem value="Anambra">Anambra</SelectItem>
+                  <SelectItem value="Portharcourt">Portharcourt</SelectItem>
+                  <SelectItem value="Jos">Jos</SelectItem>
+                  <SelectItem value="AkwaIbom">AkwaIbom</SelectItem>
                 </SelectContent>
               </Select>
               {/* <FormDescription>
@@ -389,9 +396,9 @@ React.useEffect(()=>{
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="m@example.com">m@example.com</SelectItem>
-                  <SelectItem value="m@google.com">m@google.com</SelectItem>
-                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectItem value="hybrid">hybrid</SelectItem>
+                  <SelectItem value="remote">remote</SelectItem>
+                  <SelectItem value="On-site">On-site</SelectItem>
                 </SelectContent>
               </Select>
               {/* <FormDescription>
@@ -415,9 +422,24 @@ React.useEffect(()=>{
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="m@example.com">m@example.com</SelectItem>
-                  <SelectItem value="m@google.com">m@google.com</SelectItem>
-                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectItem value="1">1</SelectItem>
+                  <SelectItem value="2">2</SelectItem>
+                  <SelectItem value="3">3</SelectItem>
+                  <SelectItem value="4">4</SelectItem>
+                  <SelectItem value="5">5</SelectItem>
+                  <SelectItem value="6">6</SelectItem>
+                  <SelectItem value="7">7</SelectItem>
+                  <SelectItem value="8">8</SelectItem>
+                  <SelectItem value="9">9</SelectItem>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="11">11</SelectItem>
+                  <SelectItem value="12">12</SelectItem>
+                  <SelectItem value="13">13</SelectItem>
+                  <SelectItem value="14">14</SelectItem>
+                  <SelectItem value="15">15</SelectItem>
+                  <SelectItem value="16">16</SelectItem>
+                  <SelectItem value="17">17</SelectItem>
+                  <SelectItem value="18">18</SelectItem>
                 </SelectContent>
               </Select>
               {/* <FormDescription>
@@ -466,9 +488,10 @@ React.useEffect(()=>{
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="m@example.com">m@example.com</SelectItem>
-                  <SelectItem value="m@google.com">m@google.com</SelectItem>
-                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectItem value="UnderGraduate">UnderGraduate</SelectItem>
+                  <SelectItem value="Bachelors Degree">Bachelors Degree</SelectItem>
+                  <SelectItem value="Masters">Masters</SelectItem>
+                  <SelectItem value="PHD">PHD</SelectItem>
                 </SelectContent>
               </Select>
               {/* <FormDescription>
