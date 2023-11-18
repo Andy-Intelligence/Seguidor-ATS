@@ -16,6 +16,7 @@ import AllJobsNavSearchFilter from "@/components/sharedComponents/AllJobsNavSear
 import { getAllPostedJobs } from '@/backend/actions/job.actions';
 import { useEffect,useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Navbar from '@/components/sharedComponents/Navbar';
 
 
 export default function Home() {
@@ -40,9 +41,21 @@ export default function Home() {
           e.preventDefault()
           router.push(`${id}/candidates`)
       }
-  
+
+
+      const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+  const filteredjobs = allJobs.filter((job:any) =>
+    job.jobTitle.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   return (
     <div className="flex flex-col gap-2">
+      <div className="">
+      <Navbar onSearch={handleSearch}/>  
+      </div>
          <nav className="navbar p-4 flex justify-between w-full items-center ">
       <div className="flex items-center gap-[47px] text-[16px] font-[400]">
         <Link href="/jobs/all">
@@ -117,7 +130,7 @@ export default function Home() {
       </div>
     </nav>
         <main className="grid grid-cols-2 gap-4">
-        {allJobs?.map((item:any)=>{
+        {filteredjobs?.map((item:any)=>{
                       return (
                         <div onClick={(e)=>handleClick(e,item?._id)}>
                         <JobRoleCard

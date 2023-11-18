@@ -9,10 +9,20 @@ interface Interview extends Document {
 }
 
 const interviewSchema = new mongoose.Schema({
-  applicant: { type: mongoose.Schema.Types.ObjectId, ref: 'Applicant', required: true },
-  scheduledTime: { type: Date, required: true },
+  interviewer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  applicant: { type: mongoose.Schema.Types.ObjectId, ref: 'Application', required: true },
+  job:{type:mongoose.Schema.Types.ObjectId,ref:'Job',required:true},
+  scheduledDate: { type: Date, },
+  interviewStartTime: { type: String, },
+  interviewEndTime: { type: String, },
+  title:{type:String},
+  description:{type:String},
+  summary:{type:String},
+  venue:{type:String},
+  details:{type:String},
+  inviteLink:{type:String},
   status: { type: String, enum: ['scheduled', 'completed', 'canceled','rejected'], default: 'scheduled' },
-  googleMeetLink:{type:String},
+  // googleMeetLink:{type:String},
 });
 
 

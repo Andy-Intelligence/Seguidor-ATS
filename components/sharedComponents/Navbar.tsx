@@ -8,26 +8,62 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useState } from 'react';
 
 
+interface SearchProp{
+  onSearch?:(searchQuery: string)=>void;
+}
 
-const Navbar = () => {
+
+const Navbar = ({onSearch}:SearchProp) => {
+
+
+// const [query,setQuery] = useState<any>()
+
+// const handleInput = (event:any)=>{
+//   setQuery(event?.target?.value)
+// }
+
+
+// const filteredItems = items?.filter((items:any)=>{
+//   items?.name.toLocaleLowerCase().indexOf(query.toLocaleLowerCase() !== -1)
+// })
+const [searchQuery, setSearchQuery] = useState<string>('');
+
+const handleSearch = (event: any) => {
+  const query = event.target.value;
+
+  if (onSearch) {
+    onSearch(query);
+  }
+
+  setSearchQuery(query);
+};
+
+
   return (
     <nav className="navbar p-4 flex justify-between w-full items-center ">
       <div className="flex items-center gap-[47px] text-[16px] font-[400]">
         <Link href="/overview">
-          Overview
-        </Link>
-        <Link className='flex flex-col items-center justify-center' href="/mailbox">
           <div>
-            Mailbox
+            Overview
           </div>
           <svg width="63" height="8" viewBox="0 0 63 8" fill="none" xmlns="http://www.w3.org/2000/svg">
            <path d="M0 8C0 3.58172 3.58172 0 8 0H55C59.4183 0 63 3.58172 63 8H0Z" fill="#69A959"/>
           </svg>
         </Link>
+        <Link className='flex flex-col items-center justify-center' href="/mailbox">
+          <div>
+            Mailbox
+          </div>
+          
+        </Link>
         <Link href="/jobs/all">
+          <div>
           Jobs
+          </div>
+          
         </Link>
       </div>
       <form className=' flex justify-center items-center  '>
@@ -44,7 +80,11 @@ const Navbar = () => {
             type="text"
             placeholder="I am looking for..."
             className="navbarSearchInput rounded-[4px] p-2 w-[400px] h-[40px] block pl-12 font-[500] text-[14px]"
+            onChange={handleSearch}
+          value={searchQuery}
           />
+           {/* <button onClick={() =>{onSearch && onSearch(searchQuery)}}>Search</button> */}
+          
         </div>
       </form>
       
@@ -94,8 +134,8 @@ const Navbar = () => {
               </div>
           </div>
           </SelectItem>  
-          <SelectItem value="dark">Dark</SelectItem>
-          <SelectItem value="system">System</SelectItem>
+          <SelectItem value="null1">null1</SelectItem>
+          <SelectItem value="null2">null2</SelectItem>
         </SelectContent>
       </Select>
 

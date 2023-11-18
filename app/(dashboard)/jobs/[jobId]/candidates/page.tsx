@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 import { useEffect,useState } from "react"
 import { useRouter } from 'next/navigation';
+import Navbar from "@/components/sharedComponents/Navbar"
 
 
 
@@ -61,9 +62,20 @@ export default function Home({ params }: { params: { jobId: string } }) {
         e.preventDefault()
         router.push(`candidates/information/${id}`)
     }
+    const [searchQuery, setSearchQuery] = useState<string>('');
 
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+  const filteredApplicant = applicant.filter((applicant:any) =>
+    applicant.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
+    <div>
+        <div className="">
+            <Navbar onSearch={handleSearch}/>
+        </div>
     <div className="flex flex-col">
             <AllJobsNavSearchFilter displaySwitch={false}/>
 
@@ -112,7 +124,7 @@ export default function Home({ params }: { params: { jobId: string } }) {
                     </div>
                     <div className="applicantCardMainContainer grid grid-cols-3 gap-4 p-2">
                         {/* <Link href={'/candidates/information'}> */}
-                        {applicant?.map((applicant:any)=>{
+                        {filteredApplicant?.map((applicant:any)=>{
 
                             return (
                         <div onClick={(e)=>handleClick(e,applicant?._id)}>
@@ -137,6 +149,7 @@ export default function Home({ params }: { params: { jobId: string } }) {
                 </section>
             </div>
         
+    </div>
     </div>
   )
 }

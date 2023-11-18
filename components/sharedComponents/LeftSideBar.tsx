@@ -95,7 +95,7 @@ const LeftSidebar = () => {
   return (
     <aside className=" text-black p-4 space-y-4 min-h-screen flex flex-col items-center w-[201px]">
       <Link href={'/'}>
-      <div className="flex flex-col items-center text-2xl font-bold">Logo</div>
+      <div className="flex flex-col items-center text-3xl font-bold">Seguidor</div>
       </Link>
       {/* Button with Icon */} 
         <div className='sidebarUnderline w-full'></div>
@@ -121,10 +121,10 @@ const LeftSidebar = () => {
 
       {/* Sidebar Links */}
       <div className=" flex flex-col items-left space-y-2 gap-[20px]">
-        <Link href="/candidates">
+        <Link href="/allcandidates">
           Candidates
         </Link>
-        <Link href="/interviews">
+        <Link href="/tasks">
           Interviews
         </Link>
         <Link href="/talent-board">

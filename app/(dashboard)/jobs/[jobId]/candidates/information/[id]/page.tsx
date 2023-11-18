@@ -5,16 +5,75 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+
 // import { getSingleApplicant } from '@/backend/actions/applications.actions';
-import { getSingleApplicant } from '@/backend/actions/job.actions';
+import { getSingleApplicant, scheduleInterview } from '@/backend/actions/job.actions';
 import { getSingleJob } from '@/backend/actions/job.actions';
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import convertToStandardDate from '@/lib/utils';
 import { UserAuth } from '@/context/MyContext';
 import { sendComment } from '@/backend/actions/job.actions';
+// import DayScheduleButton from '@/components/buttons/dayschedule';
 
 
+
+
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
+import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
+import { StaticDateTimePicker } from '@mui/x-date-pickers/StaticDateTimePicker';
+
+
+
+
+
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { renderTimeViewClock } from '@mui/x-date-pickers/timeViewRenderers';
+import dayjs, { Dayjs } from 'dayjs';
+
+ 
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+ 
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import Navbar from '@/components/sharedComponents/Navbar';
+ 
+const formSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+})
+
+
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -24,6 +83,8 @@ interface TabPanelProps {
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
+
+  
   
   return (
     <div
@@ -60,12 +121,26 @@ interface ApplicantInfoProp{
   email?:string;
 }
 
+
+
+
+
 export default function Page({ params }: { params: { id: string,jobId:string; } }) {
   // const router = useRouter()
 
   const { user } = UserAuth() ?? { user: null };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
       
     const [comment, setComment] = useState({content:""})
+
+    // const [startValue, setStartValue] = React.useState<Dayjs | null>();
+    const [endValue, setEndValue] = React.useState<any>();
+    const [startDateValue, setStartDateValue] = React.useState<any>();
+    // const [startValue, setStartValue] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
+    // const [endValue, setEndValue] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
 
   const [value, setValue] = useState(0);
   const [applicant,setApplicant] = useState<any>()
@@ -114,7 +189,77 @@ fetchData().then((a)=>{
     setValue(newValue);
   };
 
+ 
+  const formSchema = z.object({
+    title: z.string().min(2, {
+      message: "title must be at least 2 characters.",
+    }),
+    description: z.string().min(2, {
+      message: "description must be at least 2 characters.",
+    }),
+    summary: z.string().min(2, {
+      message: "summary must be at least 2 characters.",
+    }),
+    venue: z.string().min(2, {
+      message: "venue must be at least 2 characters.",
+    }),
+    details: z.string().min(2, {
+      message: "details must be at least 2 characters.",
+    }),
+    inviteLink: z.string().min(2, {
+      message: "inviteLink must be at least 2 characters.",
+    }),
+  })
+   
+ // 2. Define a submit handler.
+ async function onSubmit(values: z.infer<typeof formSchema>) {
+  // Do something with the form values.
+  // ✅ This will be type-safe and validated.
+
+  await scheduleInterview({
+interviewer:user?.uid,
+applicant:applicant?._id,
+job:job?._id,
+scheduledDate:startDateValue,
+interviewEndTime:endValue,
+title:values?.title,
+description:values?.description,
+summary:values?.summary,
+venue:values?.venue,
+details:values?.details,
+inviteLink:values?.inviteLink,
+    
+  })
+
+
+
+  console.log(values)
+}
+
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      summary: "",
+      venue: "",
+      details: "",
+      inviteLink: "",
+    },
+  })
+ 
+
+
+ 
+
+
+
   return (
+    <div>
+      <div>
+        <Navbar/>
+      </div>
     <div className="applicantInfoBg w-full min-h-screen p-2 gap-2 flex flex-col">
             <div className="w-full flex items-center justify-between">
               <div className='color98 font-[400] text-[22px]'>Applicant</div>
@@ -201,7 +346,176 @@ fetchData().then((a)=>{
                 <div className='flex flex-col items-center gap-2'>
                   <div className='flex flex-row items-start gap-4'>
                     <span className='reject font-[400] text-[16px]'>Reject</span>
-                    <span className='scheduleInterview font-[400] text-[16px]'>Schedule Interview</span>
+                    <div>
+                    {/* <Button >Open modal</Button> */}
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                      className='overflow-scroll'
+                    >
+                      <Box sx={style}>
+                      {/* <DayScheduleButton /> */}
+
+            <div className='overflow-y-scroll h-screen mt-10 w-full'>
+
+                      <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-full">
+
+
+
+
+                        <h1>Interview Date</h1>
+  
+<LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer
+        components={[
+          'DateTimePicker',
+          'MobileDateTimePicker',
+          'DesktopDateTimePicker',
+          'StaticDateTimePicker',
+        ]}
+      >
+        <DemoItem label="">
+          <StaticDateTimePicker defaultValue={dayjs('2022-04-17T15:30')} value={startDateValue}
+          onChange={(newValue) => setStartDateValue(newValue)} />
+        </DemoItem>
+      </DemoContainer>
+    </LocalizationProvider>
+
+    <h1>Interview End Time</h1>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['TimePicker']}>
+        <TimePicker
+          label=""
+          viewRenderers={{
+            hours: renderTimeViewClock,
+            minutes: renderTimeViewClock,
+            seconds: renderTimeViewClock,
+          }}
+          value={endValue}
+          onChange={(newValue) => setEndValue(newValue)}
+        />
+      </DemoContainer>
+    </LocalizationProvider>
+
+
+
+                          <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Title</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="title" {...field} />
+                                </FormControl>
+                                <FormDescription>
+                                  This is your public display name.
+                                </FormDescription>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="description"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="description" {...field} />
+                                </FormControl>
+                                {/* <FormDescription>
+                                  This is your public display name.
+                                </FormDescription> */}
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="summary"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Summary</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="summary" {...field} />
+                                </FormControl>
+                                {/* <FormDescription>
+                                  This is your public display name.
+                                </FormDescription> */}
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="venue"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Venue</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="venue" {...field} />
+                                </FormControl>
+                                {/* <FormDescription>
+                                  This is your public display name.
+                                </FormDescription> */}
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="details"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Details</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="details" {...field} />
+                                </FormControl>
+                                {/* <FormDescription>
+                                  This is your public display name.
+                                </FormDescription> */}
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="inviteLink"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>InviteLink</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="inviteLink" {...field} />
+                                </FormControl>
+                                {/* <FormDescription>
+                                  This is your public display name.
+                                </FormDescription> */}
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+
+                          <Button type="submit">Submit</Button>
+                        </form>
+                      </Form>
+
+                        {/* <Typography id="modal-modal-title" variant="h6" component="h2">
+                          Text in a modal
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        </Typography>  */}
+                        </div>
+                      </Box>
+                    </Modal>
+                  </div>
+                    <span onClick={handleOpen} className='hover:cursor-pointer scheduleInterview font-[400] text-[16px]'>Schedule Interview</span>
+
+
                   </div>
                   <div className='flex items-center justify-center gap-2'>
                     <span>
@@ -341,6 +655,7 @@ fetchData().then((a)=>{
                   </CustomTabPanel>
                 </Box>
               </section>
+    </div>
     </div>
   )
 }

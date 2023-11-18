@@ -5,7 +5,12 @@ import Navbar from "@/components/sharedComponents/Navbar"
 export default function Home() {
   return (
     <div>
+      <div className="mb-4">
+      <Navbar/>  
+      </div>
+      <div className="p-2">
       <Overview/>
+      </div>
     </div>
   )
 }

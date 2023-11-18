@@ -48,6 +48,7 @@ import { createJob, linkedInCreateJob,  } from '@/backend/actions/job.actions';
 import { linkedInSignInUser,  } from '@/backend/actions/user.actions';
 import { useContext } from 'react';
 import {UserAuth} from '@/context/MyContext'
+import Navbar from '@/components/sharedComponents/Navbar';
 
 const items = [
   {
@@ -272,6 +273,11 @@ React.useEffect(()=>{
     }
   }
   return (
+    <div>
+      <div>
+        <Navbar/>
+      </div>
+    
     <main className="flex flex-row justify-between gap-4 w-full">
     <div className="bgColorFF w-2/3 p-2">
           <Form {...form}>
@@ -918,6 +924,7 @@ React.useEffect(()=>{
     </div>
 
     </main>
+    </div>
   )
 }
 

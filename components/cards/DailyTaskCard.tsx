@@ -1,14 +1,40 @@
+import { extractTimeWithMeridian } from '@/lib/utils';
 import React from 'react'
 
-const DailyTaskCard = () => {
+interface TaskProp {
+  applicantImg:string;
+  taskStartTime:string;
+  taskEndTime:string;
+  applicantName:string;
+  applicantJob:string;
+  jobTitle:string;
+  jobType:string;
+  employmentStatus:string;
+  inviteLink:string;
+  interviewer:string;
+
+}
+
+
+const DailyTaskCard = ({
+  applicantImg,
+  taskStartTime,
+  taskEndTime,
+  applicantName,
+  applicantJob,
+  jobTitle,
+  jobType,
+  employmentStatus,
+  inviteLink,
+  interviewer,}:TaskProp) => {
   return (
-    <main className='flex items-start w-full gap-[47px] '>
-        <div className='dailyTaskTimeColor font-[700] text-[20.58px]'>9:00</div>
+    <main className='flex items-start w-full '>
+        <div className='dailyTaskTimeColor font-[700] text-[15.58px]'>{extractTimeWithMeridian(taskStartTime)}</div>
     <div className='taskBackgrorund flex items-center justify-center w-full rounded-[22.87px]'>
-        <div className='flex flex-col items-center  justify-center w-1/2 border-r border-black p-4'>
-            <img className='h-[43px] w-[43px] rounded-full' alt='profile-img' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600'/>
-            <h1 className='text-[22px] font-[400] '>Neel DeshMukh</h1>
-            <h3 className='text-[14px] font-[400] '>Full Stack Developer @Sky</h3>
+        <div className='flex flex-col items-center  justify-center w-1/2 border-r border-black '>
+            <img className='h-[43px] w-[43px] rounded-full' alt='profile-img' src={applicantImg}/>
+            <h1 className='text-[22px] font-[400] '>{applicantName}</h1>
+            <h3 className='text-[14px] font-[400] '>{applicantJob}</h3>
             <div className='flex items-center justify-center gap-4 mt-3'>
                 <span>
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,14 +56,16 @@ const DailyTaskCard = () => {
             </div>
         </div>
         <div className='flex flex-col items-center justify-center gap-1 w-1/2 p-4'>
-            <div className='flex text-[22px] font-[400] justify-start'>
-                <span>
+            <div className='flex text-[22px] font-[400] justify-start w-full'>
+              <span>
                 <svg width="37" height="38" viewBox="0 0 37 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.95325 26.0235L18.6742 34.0274L32.3952 26.0235" stroke="#181818" strokeWidth="2.28683" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M4.95325 19.163L18.6742 27.1669L32.3952 19.163" stroke="#181818" strokeWidth="2.28683" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M4.95325 12.3026L18.6742 20.3064L32.3952 12.3026L18.6742 4.29866L4.95325 12.3026Z" stroke="#181818" strokeWidth="2.28683" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-            </span>Product Manager</div>
+              </span>
+            <span className='flex items-start justify-start'>{jobTitle}</span>
+            </div>
             <div className='flex flex-row items-center justify-start gap-4 w-full'>
                   <div className='flex items-center justify-center gap-1'>
                     <span>
@@ -50,7 +78,7 @@ const DailyTaskCard = () => {
                       </svg>
                     </span>
                     <span className='text-[12px] font-[400]'>
-                        Product Designer
+                       {jobTitle}
                     </span>
                   </div>
                   <div className='flex items-center justify-center gap-1'>
@@ -61,7 +89,7 @@ const DailyTaskCard = () => {
                     </svg>
                     </span>
                     <span className='text-[12px] font-[400]'>
-                        On Site
+                        {jobType}
                     </span>
                   </div>
                   <div className='flex items-center justify-center gap-1'>
@@ -72,7 +100,7 @@ const DailyTaskCard = () => {
                     </svg>
                     </span>
                     <span className='text-[12px] font-[400]'>
-                        Per Time
+                        {employmentStatus}
                     </span>
                   </div>
               </div>
@@ -84,18 +112,18 @@ const DailyTaskCard = () => {
                 </span>
                 <div >
                     <a className='linkBlue text-[12px] font-[400]' href='https://'>
-                        googlemeet.whatever.com
+                        {inviteLink}
                     </a>
                 </div>
               </div>
-            <div className='text-[12px] font-[500]'>9:00 - 10:00</div>
+            <div className='text-[12px] font-[500]'>{extractTimeWithMeridian(taskStartTime)} - {extractTimeWithMeridian(taskEndTime)}</div>
             <div className='flex items-center justify-center gap-1 text-[12px] font-[500]'>
                 <div className='flex items-center justify-center'>
                     Assigned to:
                  </div>
                 <div className='flex items-center justify-center gap-1'>
                     <img className='h-[15px] w-[15px] rounded-full' alt='profile-img' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600'/>
-                    <span>Kelvin Chikezie</span>
+                    <span>{interviewer}</span>
                     <span>
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9.94501 2.69992L3.78751 9.21742C3.55501 9.46492 3.33001 9.95242 3.28501 10.2899L3.00751 12.7199C2.91001 13.5974 3.54001 14.1974 4.41001 14.0474L6.82501 13.6349C7.16251 13.5749 7.63501 13.3274 7.86751 13.0724L14.025 6.55492C15.09 5.42992 15.57 4.14742 13.9125 2.57992C12.2625 1.02742 11.01 1.57492 9.94501 2.69992Z" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>

@@ -117,3 +117,25 @@ export default function convertToStandardDate(dateString:any) {
   const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds} ${ampm}`;
   return formattedDate;
 }
+
+
+export function extractTimeWithMeridian(dateTimeString:any) {
+  const dateObject = new Date(dateTimeString);
+
+  // Extracting hours and minutes
+  const hours = dateObject.getUTCHours();
+  const minutes = dateObject.getUTCMinutes();
+
+  // Determine AM or PM
+  const meridian = hours >= 12 ? 'PM' : 'AM';
+
+  // Convert hours to 12-hour format
+  const formattedHours = hours % 12 || 12;
+
+  // Format the time as a string
+  const formattedTime = `${formattedHours}:${String(minutes).padStart(2, '0')} ${meridian}`;
+
+  return formattedTime;
+}
+
+

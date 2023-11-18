@@ -26,10 +26,8 @@ export default function RootLayout({
       <LeftSidebar/>
       </section>
       <section className="navbarOverviewContainer grow flex flex-col">
-        <div>
-          <Navbar/>
-        </div>
-        <div className="p-2">
+        
+        <div className="">
         <MyProvider>
           {/* <Overview/> */}{children}
         </MyProvider>

@@ -10,6 +10,7 @@ const cloudinary = require('cloudinary').v2;
 import { uploadToCloudinary } from "@/lib/cloudinaryUtil";
  
 import Comment from "../models/commentModel/comment";
+import Interview from "../models/interviewModel/interview";
 
 
 
@@ -173,9 +174,19 @@ export async function getAllPostedJobs(){
   connectToDB()
   try {
     // .populate("author")
-  const res = await Job.find({})
+  const res = await Job.find({}).populate({
+    path: 'applications',
+    populate: {
+      path: 'noteAndFeedBack',
+      populate: {
+        path: 'sender receiver',
+        // model: 'User Applicant', // Replace with the actual model name for sender and receiver
+      },
+    },
+  })
+  .exec();
   const jobs = JSON.parse(JSON.stringify(res))
-  console.log("jobs",jobs)
+  // console.log("jobs",jobs)
   return jobs
 
 } catch (error:any) {
@@ -197,11 +208,6 @@ interface Params {
   coverletter?:any;
   yearsofexperience?:string | undefined | null;
   portfolioworksample?:any;
-  // bio?:string | null | undefined;
-  // image?:string | null | undefined;
-  // path?:string | null | undefined;
-  // email?:string | null | undefined;
-  // objectId?:string | null | undefined;
 }
 
 
@@ -398,45 +404,53 @@ export async function getSingleApplicant({ applicantId,jobId }: ApplicantParams)
 
 
 
-
-export async function getAllApplicant() {
-  // console.log("a");
+// function to get all applicants
+export async function getAllApplicantComment() {
   connectToDB();
-
+      const a = await Application.find({})
   try {
-    const res = await Application.find({ }).populate({
-      path: 'noteAndFeedBack',
-      populate: {
-        path: 'sender',
-        populate: {
-          path: 'name',
-        },
-        
-      },
-    }) // Add fields you want to populate 'field1 field2' .populate("noteAndFeedBack")
-console.log(res)
+    const res = await Comment.find({}).populate('sender')
+    // .populate('receiver')
+    // .exec();
+    console.log("Applicants", res);
+
     if (!res) {
       console.log('Applicants not found');
       return {};
     }
-    const applicant = JSON.parse(JSON.stringify(res))
 
-    // const applicant = job.applications.find((app:any) => {return app._id.toString() === applicantId});
+    const applicants = JSON.parse(JSON.stringify(res));
 
-    
-
-    // console.log('singleapplicant', applicant);
-
-    return applicant || {};
+    return applicants || {};
   } catch (error) {
-    console.error('Error searching in the database for applicant:', error);
+    console.error('Error searching in the database for applicants:', error);
     return {};
   }
 }
 
 
+export async function getAllApplicant() {
+  connectToDB();
+      
+  try {
+    const a = await Application.find({})
+    // .populate('receiver')
+    // .exec();
+    console.log("Applicants", a);
 
+    if (!a) {
+      console.log('Applicants not found');
+      return {};
+    }
 
+    const applicants = JSON.parse(JSON.stringify(a));
+
+    return applicants || {};
+  } catch (error) {
+    console.error('Error searching in the database for applicants:', error);
+    return {};
+  }
+}
 
 
 
@@ -487,4 +501,94 @@ export async function getSingleJob({jobId}:JobParams){
     
     return {}
   }  
+}
+
+
+interface InterviewProps {
+  interviewer?:string;
+  applicant?:string;
+  job?:string;
+  scheduledDate?:string;
+  interviewEndTime?:string;
+  title?:string;
+  description?:string;
+  summary?:string;
+  venue?:string;
+  details?:string;
+  inviteLink?:string;}
+
+
+
+export async function scheduleInterview({
+  interviewer,
+  applicant,
+  job,
+  scheduledDate,
+  interviewEndTime,
+  title,
+  description,
+  summary,
+  venue,
+  details,
+  inviteLink}:InterviewProps){
+
+    try {
+  
+      const user = await User.findOne({ id: interviewer });
+  
+      const scheduledInterview = await Interview.create({
+  interviewer:user?._id,
+  applicant:applicant,
+  job:job,
+  scheduledDate:scheduledDate,
+  interviewEndTime:interviewEndTime,
+  title:title,
+  description:description,
+  summary:summary,
+  venue:venue,
+  details:details,
+  inviteLink:inviteLink
+      });
+  
+      if (scheduledInterview) {
+        // Update the user's 'books' field to include the book's ID
+        // const job = await Job.findOne({ _id: "654f451b9d9a151d64d0a5c7" });
+        // const c = job?.applications?.push(createdApplication?._id?.toString());
+        // console.log(c);
+  
+        // Save the updated user
+        await scheduledInterview.save();
+      }
+  
+      // Additional logic after application creation if needed
+  
+    } catch (error: any) {
+      throw new Error(`Failed to create Interview: ${error.message}`);
+    }
+
+
+}
+
+
+export async function getAllScheduledInterviews() {
+  connectToDB();
+      // const a = await Interview.find({})
+  try {
+    const res = await Interview.find({}).populate('applicant').populate("interviewer").populate("job")
+    // .populate('receiver')
+    // .exec();
+    console.log("Interviews", res);
+
+    if (!res) {
+      console.log('Interviews not found');
+      return {};
+    }
+
+    const interviews = JSON.parse(JSON.stringify(res));
+
+    return interviews || {};
+  } catch (error) {
+    console.error('Error finding all Interviews:', error);
+    return {};
+  }
 }

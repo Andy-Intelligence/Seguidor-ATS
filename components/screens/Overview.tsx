@@ -14,7 +14,6 @@ import {PiCaretLeftBold} from 'react-icons/pi'
 import {PiCaretRightBold} from 'react-icons/pi'
 import { register } from 'swiper/element/bundle';
 
-
 import {
   Select,
   SelectContent,
@@ -46,7 +45,7 @@ import DailyTaskCard from '../cards/DailyTaskCard';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { linkedInSignInUser } from '@/backend/actions/user.actions';
-import { getAllApplicant, getAllPostedJobs } from '@/backend/actions/job.actions';
+import { getAllApplicant, getAllApplicantComment, getAllPostedJobs, getAllScheduledInterviews } from '@/backend/actions/job.actions';
 
 register()
 const Overview =  () => {
@@ -67,8 +66,10 @@ const Overview =  () => {
 
 
 
-  const [applicant,setAllApplicant] = useState<any>()
-  // const [job,setJob] = useState<any>()
+  const [allApplicant,setAllApplicant] = useState<any>()
+  const [totalComment,setTotalComment] = useState<any>()
+  const [tasks,setTasks] = useState<any>()
+  const [job,setJob] = useState<any>()
   // console.log("me",params?.jobId)
 
   useEffect(()=>{
@@ -76,10 +77,11 @@ const Overview =  () => {
 const fetchData = async () => {
   try {
     // const jobId = params?.id;
-    const res = await getAllApplicant();
+    const res = await getAllApplicantComment();
+    
     // const res2 = await getSingleJob({ jobId:params?.jobId });
     // setJob(res2)
-    // setApplicant(res?.applications);
+    setAllApplicant(allApplicant);
     // console.log("applicant", applicant);
     return res
   } catch (error) {
@@ -89,11 +91,24 @@ const fetchData = async () => {
 
 fetchData().then((a)=>{
     setAllApplicant(a)
-
-});
-
+    
+    
+  });
   },[])
 
+
+
+  useEffect(()=>{
+    const me = async ()=>{
+
+      const scheduledInterviews = await getAllScheduledInterviews()
+      setTasks(scheduledInterviews)
+     console.log(scheduledInterviews)
+    }
+    me()
+
+
+      },[])
 
 
 
@@ -103,14 +118,21 @@ fetchData().then((a)=>{
 
   useEffect(()=>{
     const me = async ()=>{
-    
+
       const allJobs = await getAllPostedJobs()
       setAllJobs(allJobs)
-    
-    //  const a = await linkedInSignInUser()
-    //  console.log(allJobs)
+     console.log(allJobs)
     }
     me()
+
+    let totalNoteAndFeedBack = allJobs.reduce((acc:any, job:any) => {
+      return acc + job.applications.reduce((accApp:any, application:any) => {
+        return accApp + application.noteAndFeedBack.length;
+      }, 0);
+    }, 0);
+
+    setTotalComment(totalNoteAndFeedBack)
+
       },[])
 
 
@@ -119,31 +141,35 @@ fetchData().then((a)=>{
     router.push('/jobs/all')
   }
   const handleRouteToTask = ()=>{
-    router.push('/candidates/tasks')
+    router.push('/tasks')
   }
 
-  const frameworks = [ //note that the value should start with small letter while the label should start with big letter
-    {
-      value: "cashier",
-      label: "Cashier",
-    },
-    {
-      value: "attendant",
-      label: "Attendant",
-    },
-    {
-      value: "caterer",
-      label: "Caterer",
-    },
-    {
-      value: "mechanic",
-      label: "Mechanic",
-    },
-    {
-      value: "nurse",
-      label: "Nurse",
-    },
-  ]
+  // const frameworks = [
+  //    //note that the value should start with small letter while the label should start with big letter
+  //    allJobs.map((item:any)=>{
+  //     return (
+  //       {
+  //         value: item?.jobTitle,
+  //         label: item?.jobTitle
+  //       }
+  //     )
+  //    })
+  // ]
+
+  // const frameworks = allJobs.map((item: any) => {
+  //   return {
+  //     value: item?.jobTitle,
+  //     label: item?.jobTitle,
+  //   };
+  // });
+
+  const frameworks = allJobs.map((item: any) => {
+    return {
+      value: item?.jobTitle.toLowerCase(),
+      label: item?.jobTitle.charAt(0).toUpperCase() + item?.jobTitle.slice(1),
+    };
+  });
+  
 
   return (
     <main className='flex flex-col items-center space-y-4'>
@@ -163,15 +189,15 @@ fetchData().then((a)=>{
             className='mySwiper summaryMainContainer w-[75vw] flex flex-row items-center justify-center gap-[41px]  '
             >
             
-            <SwiperSlide><div><Summary summaryHeader='Posted Jobs' summaryTotal={allJobs?.length}/></div></SwiperSlide>
-            <SwiperSlide><div><Summary summaryHeader='Applicants' summaryTotal={123} /></div></SwiperSlide>
+            <SwiperSlide><div><Summary  summaryHeader='Posted Jobs' summaryTotal={allJobs?.length}/></div></SwiperSlide>
+            <SwiperSlide><div><Summary  summaryHeader='Applicants' summaryTotal={allApplicant?.length} /></div></SwiperSlide>
             <SwiperSlide><div><Summary summaryHeader='Team' summaryTotal={10} /></div></SwiperSlide>
             <SwiperSlide><div><Summary summaryHeader='Employed' summaryTotal={23} /></div></SwiperSlide>
             </Swiper>
 
             <div className = " text-white flex items-center justify-center" ref={(node) => setNextEl(node)}><PiCaretRightBold size={45} className= "summaryNavButton"/></div>       
         </div>
-        <div className='flex flex-row  justify-evenly w-full '>
+        <div className='flex flex-row gap-2 justify-evenly w-full '>
             <section className='w-[424px]'>
                   <header className='activeJobsHeader flex flex-row items-center justify-between w-full rounded-[4px] '>
                     <div className='flex flex-row items-center justify-between w-full pl-2'>
@@ -188,7 +214,7 @@ fetchData().then((a)=>{
                               className="w-[200px] flex items-center justify-between activeJobsButton font-[400] text-[20px]"
                             >
                               {value
-                                ? frameworks?.find((framework) => framework?.value === value)?.label
+                                ? frameworks?.find((framework:any) => framework?.value === value)?.label
                                 : "Select Job Role"}
                               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -198,7 +224,7 @@ fetchData().then((a)=>{
                               <CommandInput placeholder="Search Job Role..." />
                               <CommandEmpty>No Job Role found.</CommandEmpty>
                               <CommandGroup>
-                                {frameworks.map((framework) => (
+                                {frameworks.map((framework:any) => (
                                   <CommandItem
                                     key={framework.value}
                                     value={framework?.value}
@@ -227,6 +253,7 @@ fetchData().then((a)=>{
                     {allJobs?.map((item:any)=>{
                       return (
                         <JobRoleCard 
+                        key = {item?._id}
                         jobtitle ={item?.jobTitle}
                         jobtype ={item?.jobType}
                         employmentstatus ={item?.employmentStatus}
@@ -244,7 +271,7 @@ fetchData().then((a)=>{
                   </div>
             </section>
 
-            <div className='flex flex-col space-y-8'>
+            <div className='flex flex-col w-full space-y-8'>
            
               <section onClick={handleRouteToTask} className='w-full dailyTaskBackgroundColor p-2 flex flex-col gap-2'>
                 <div className='flex items-center space-x-1'>
@@ -260,7 +287,23 @@ fetchData().then((a)=>{
                   </div>
 
                 </div> 
-                <DailyTaskCard/>
+                {tasks?.reverse().slice().map((task:any)=>{
+                  return (
+                    <DailyTaskCard 
+                    applicantImg={task?.applicant?.passport}
+                    taskStartTime = {task?.scheduledDate}
+                    taskEndTime = {task?.interviewEndTime}
+                    applicantName = {task?.applicant?.name}
+                    applicantJob = {task?.job?.jobTitle}
+                    jobTitle = {task?.job?.jobTitle}
+                    jobType = {task?.job?.jobType}
+                    employmentStatus = {task?.job?.employmentStatus}
+                    inviteLink = {task?.inviteLink}
+                    interviewer = {task?.interviewer?.name}
+                    />
+                  )
+                })}
+                
               </section> 
        
 
@@ -274,21 +317,28 @@ fetchData().then((a)=>{
 
                     </div>
                     <div className='dailyTaskTagBackgroundColor flex items-center justify-center text-white h-[19px] w-[22px] rounded-[2px] text-[14px] font-[400]'>
-                      2
+                    {/* {totalComment} */}4
                     </div>
+
+                    
+
+
+                    
 
                   </div> 
 
-                  <div>
-                          <div className='flex items-start justify-start gap-[6px]'>
+                  <div className='gap-2'> 
+                    {/* {allApplicant?.slice().reverse().map((item:any)=>{
+                      return (
+                    <div className='flex items-start justify-start gap-[6px]'>
                         <div>
                           <img className='h-[30px] w-[30px] rounded-full' alt='profile-img' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600'/>
                         </div>
                         <div className='flex flex-col w-full'>
-                          <div className='text-[14px] text-left font-[400]'>Andidiong Usoro</div>
-                          <div className='text-[12px] font-[400] text-left'>usoroandidiong@gmail.com</div>
-                          <div className='messageBackground p-1 text-[14px] font-[400] my-2'>quidem m corporis!</div>
-                          <div>@andy</div>
+                          <div className='text-[14px] text-left font-[400]'>{item?.sender?.name}</div>
+                          <div className='text-[12px] font-[400] text-left'>{item?.sender?.email}usoroandidiong@gmail.com</div>
+                          <div className='messageBackground p-1 text-[14px] font-[400] my-2'>{item?.content}</div>
+                          <Link href={`candidates/information/655139e4fb0268f5fb1a9105`}><span className='text-blue'>@andy{item?.receiver.name}</span></Link>
 
                           <form>
                             <input type='text' placeholder='write here...' className='messageBackground rounded-[4px] h-[40px] w-full'/>
@@ -298,6 +348,47 @@ fetchData().then((a)=>{
                             </div>
                         </div>
                         </div>
+                      )
+                    })} */}
+
+{
+allJobs?.slice().reverse().map((job:any) => {
+  return (
+    job?.applications?.slice().reverse().map((applications:any) => {
+      return (
+        applications?.noteAndFeedBack?.slice().reverse().map((noteAndFeedBack:any) => {
+          return (
+            <div className='flex items-start justify-start gap-[6px] my-2'>
+              <div>
+                <img className='h-[30px] w-[30px] rounded-full' alt='profile-img' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600'/>
+              </div>
+              <div className='flex flex-col w-full'>
+                <div className='text-[14px] text-left font-[400]'>{noteAndFeedBack?.sender?.name}</div>
+                <div className='text-[12px] font-[400] text-left'>{noteAndFeedBack?.sender?.email}usoroandidiong@gmail.com</div>
+                <div className='messageBackground p-1 text-[14px] font-[400] my-2'>{noteAndFeedBack?.content}</div>
+                <div className=''>
+                <Link href={`jobs/${job._id}/candidates/information/655139e4fb0268f5fb1a9105`}><span className='text-blue-800'>@{noteAndFeedBack?.receiver.name}</span></Link>
+                </div>
+                {/* <form>
+                  <input type='text' placeholder='write here...' className='messageBackground rounded-[4px] h-[40px] w-full'/>
+                </form>
+                <div className='w-full flex justify-end items-end '>
+                  <div className='sendButton flex items-end text-[14px] font-[400]'>Send</div>
+                </div> */}
+              </div>
+            </div>
+          )
+        })
+      )
+    })
+  )
+})
+}
+
+
+
+
+                          
                   </div>
               </section>
 
