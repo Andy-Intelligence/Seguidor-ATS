@@ -56,6 +56,12 @@ import {
 import { Input } from "@/components/ui/input"
 import Navbar from '@/components/sharedComponents/Navbar';
  
+
+
+
+
+
+
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -130,6 +136,8 @@ export default function Page({ params }: { params: { id: string,jobId:string; } 
   // const router = useRouter()
 
   const { user } = UserAuth() ?? { user: null };
+
+  const router = useRouter();
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -273,6 +281,8 @@ jobTitle:job?.jobTitle,
     applicantEmail:applicant?.email,
     jobTitle:job?.jobTitle,
   })
+
+  router.back()
  } 
 
 
