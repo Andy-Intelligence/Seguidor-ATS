@@ -267,6 +267,8 @@ jobTitle:job?.jobTitle,
  const handleReject = async ()=>{
 
   await RejectInterview({
+    applicant:applicant?._id,
+    job:job?._id,
     applicantName:applicant?.name,
     applicantEmail:applicant?.email,
     jobTitle:job?.jobTitle,
@@ -365,7 +367,7 @@ jobTitle:job?.jobTitle,
 
                 <div className='flex flex-col items-center gap-2'>
                   <div className='flex flex-row items-start gap-4'>
-                    <span onClick={handleReject} className='reject font-[400] text-[16px]'>Reject</span>
+                    <span onClick={handleReject} className='hover:cursor-pointer reject font-[400] text-[16px]'>Reject</span>
                     <div>
                     {/* <Button >Open modal</Button> */}
                     <Modal
