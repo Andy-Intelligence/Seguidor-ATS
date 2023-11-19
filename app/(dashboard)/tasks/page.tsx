@@ -5,6 +5,7 @@ import DailyTaskCard from "@/components/cards/DailyTaskCard"
 import JobRoleCard from "@/components/cards/JobRoleCard"
 import AllJobsLeftSideBarSearchFilter from "@/components/sharedComponents/AllJobsLeftSideBarSearchFilter"
 import AllJobsNavSearchFilter from "@/components/sharedComponents/AllJobsNavSearchFilter"
+import Navbar from "@/components/sharedComponents/Navbar"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -31,10 +32,22 @@ export default function Page() {
       },[])
 
 
+      const [searchQuery, setSearchQuery] = useState<string>('');
 
+      const handleSearch = (query: string) => {
+        setSearchQuery(query);
+      };
+      const filteredTask = tasks?.filter((task:any) =>
+        task?.applicant?.name?.toLowerCase().includes(searchQuery?.toLowerCase())
+      );
+    
 
 
   return (
+    <div>
+      <div>
+        <Navbar onSearch={handleSearch}/>
+      </div>
     <div className="flex flex-col">
             <AllJobsNavSearchFilter displaySwitch={false}/>
 
@@ -56,7 +69,7 @@ export default function Page() {
                   </div>
 
                 </div> 
-                {tasks?.reverse().slice().map((task:any)=>{
+                {filteredTask?.reverse().slice().map((task:any)=>{
                   return (
                     <DailyTaskCard 
                     applicantImg={task?.applicant?.passport}
@@ -75,6 +88,7 @@ export default function Page() {
               </section>
             </div>
         
+    </div>
     </div>
   )
 }

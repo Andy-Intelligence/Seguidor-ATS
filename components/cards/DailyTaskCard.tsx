@@ -111,7 +111,7 @@ const DailyTaskCard = ({
                 </svg>
                 </span>
                 <div >
-                    <a className='linkBlue text-[12px] font-[400]' href='https://'>
+                    <a className='linkBlue text-[12px] font-[400]' href={`https://${inviteLink}`}>
                         {inviteLink}
                     </a>
                 </div>

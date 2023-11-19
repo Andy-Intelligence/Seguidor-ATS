@@ -56,11 +56,11 @@ const LeftSidebar = () => {
         if(!mongoDbUser){
           await updateUser( {
             userId:googleUser.uid,
+            name:googleUser?.displayName,
+            email:googleUser.email,
             // authProvider:googleUser.providerData,
             // objectId:mongoDbUser?._id,
             // username:userInfo?.username || user?.username,
-            name:googleUser?.displayName,
-            email:googleUser.email,
             // bio:userInfo?.bio || "",
             // image:userInfo?.image || user?.imageUrl
             
