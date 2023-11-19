@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
 // import { getSingleApplicant } from '@/backend/actions/applications.actions';
-import { getSingleApplicant, scheduleInterview } from '@/backend/actions/job.actions';
+import { RejectInterview, getSingleApplicant, scheduleInterview } from '@/backend/actions/job.actions';
 import { getSingleJob } from '@/backend/actions/job.actions';
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -36,6 +36,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { renderTimeViewClock } from '@mui/x-date-pickers/timeViewRenderers';
 import dayjs, { Dayjs } from 'dayjs';
+import { toast } from "@/components/ui/use-toast"
 
  
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -234,6 +235,15 @@ jobTitle:job?.jobTitle,
     
   })
 
+  toast({
+    title: "You submitted the following values:",
+    description: (
+      <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+        <code className="text-white">Form Submitted</code>
+      </pre>
+    ),
+  })
+
 
 
   console.log(startDateValue,endValue,values)
@@ -254,7 +264,14 @@ jobTitle:job?.jobTitle,
  
 
 
- 
+ const handleReject = async ()=>{
+
+  await RejectInterview({
+    applicantName:applicant?.name,
+    applicantEmail:applicant?.email,
+    jobTitle:job?.jobTitle,
+  })
+ } 
 
 
 
@@ -348,7 +365,7 @@ jobTitle:job?.jobTitle,
 
                 <div className='flex flex-col items-center gap-2'>
                   <div className='flex flex-row items-start gap-4'>
-                    <span className='reject font-[400] text-[16px]'>Reject</span>
+                    <span onClick={handleReject} className='reject font-[400] text-[16px]'>Reject</span>
                     <div>
                     {/* <Button >Open modal</Button> */}
                     <Modal

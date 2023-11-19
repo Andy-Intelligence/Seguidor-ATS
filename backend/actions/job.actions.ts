@@ -10,8 +10,10 @@ const cloudinary = require('cloudinary').v2;
 import { uploadToCloudinary } from "@/lib/cloudinaryUtil";
  import {Resend} from "resend"
  import Welcome from "../../app/emails/Welcome"
+ import Reject from "../../app/emails/Rejected"
 import Comment from "../models/commentModel/comment";
 import Interview from "../models/interviewModel/interview";
+import RejectedInterview from "../models/interviewModel/rejectInterview"
 import { formatEmailDate, formatEmailEndTime, formatEmailStartTime } from "@/lib/utils";
 
 
@@ -608,6 +610,136 @@ export async function scheduleInterview({
 
 
 }
+
+
+
+
+
+
+
+
+interface RejectInterviewProps {
+  interviewer?:string;
+  applicant?:string;
+  job?:string;
+  scheduledDate?:string;
+  interviewEndTime?:string;
+  title?:string;
+  description?:string;
+  summary?:string;
+  venue?:string;
+  details?:string;
+  inviteLink?:string;
+  applicantEmail:string;
+  applicantName?:string;
+  jobTitle?:string;
+}
+
+
+
+
+
+
+
+export async function RejectInterview({
+  interviewer,
+  applicant,
+  job,
+  scheduledDate,
+  interviewEndTime,
+  title,
+  description,
+  summary,
+  venue,
+  details,
+  inviteLink,
+  applicantEmail,
+  applicantName,
+  jobTitle
+}:RejectInterviewProps){
+  
+
+
+    const resend = new Resend(process.env.resendapikey);
+    try {
+
+  
+      const user = await User.findOne({ id: interviewer });
+      // const userr = JSON.parse(JSON.stringify(res))
+  
+      const rejectedInterview = await RejectedInterview.create({
+        applicant:applicant,
+        job:job,
+  // interviewer:user?._id,
+  // scheduledDate:scheduledDate,
+  // interviewEndTime:interviewEndTime,
+  // title:title,
+  // description:description,
+  // summary:summary,
+  // venue:venue,
+  // details:details,
+  // inviteLink:inviteLink
+      });
+  
+      if (rejectedInterview) {
+        // Update the user's 'books' field to include the book's ID
+        // const job = await Job.findOne({ _id: "654f451b9d9a151d64d0a5c7" });
+        // const c = job?.applications?.push(createdApplication?._id?.toString());
+        // console.log(c);
+  
+        // Save the updated user
+        await rejectedInterview.save();
+        
+          if(rejectedInterview){
+            console.log("sending")
+            console.log(applicantEmail)
+          resend.emails.send({
+            from: 'onboarding@resend.dev',
+            // to: 'usoroandidiong@gmail.com',
+            to:String(applicantEmail),
+            subject: 'Thank You for Applying!',
+            // html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+            react:Reject({
+              name:applicantName, 
+              // interviewer:user?.name,
+              job:jobTitle,
+              // scheduledDate:formatEmailDate(scheduledDate),
+              // interviewStartTime:formatEmailStartTime(scheduledDate),
+              // interviewEndTime:formatEmailEndTime(interviewEndTime),
+              // title,
+              // description,
+              // summary,
+              // venue,
+              // details,
+              // inviteLink
+            })
+          });
+          console.log("sent")
+        }
+      }
+  
+      // Additional logic after application creation if needed
+  
+    } catch (error: any) {
+      throw new Error(`Failed to Reject Interview: ${error.message}`);
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 export async function getAllScheduledInterviews() {
