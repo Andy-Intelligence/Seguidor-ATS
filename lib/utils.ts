@@ -139,3 +139,54 @@ export function extractTimeWithMeridian(dateTimeString:any) {
 }
 
 
+export function formatEmailDate(inputDate:any) {
+  const date = new Date(inputDate);
+
+  // Format date
+  const formattedDate = new Intl.DateTimeFormat('en', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+
+  // Format time
+  const formattedTime = new Intl.DateTimeFormat('en', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  }).format(date);
+
+  // Combine formatted date and time
+  const result = `${formattedDate} by ${formattedTime}`;
+
+  return result;
+}
+
+
+export function formatEmailStartTime(inputDate:any) {
+  const date = new Date(inputDate);
+
+  // Format time
+  const formattedTime = new Intl.DateTimeFormat('en', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  }).format(date);
+
+  return formattedTime;
+}
+
+export function formatEmailEndTime(inputDate:any) {
+  const date = new Date(inputDate);
+
+  // Format time
+  const formattedTime = new Intl.DateTimeFormat('en', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  }).format(date);
+
+  return formattedTime;
+}
+
+

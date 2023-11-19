@@ -8,9 +8,11 @@ import Application from "../models/applicationsModel/applications.model";
 const cloudinary = require('cloudinary').v2;
 
 import { uploadToCloudinary } from "@/lib/cloudinaryUtil";
- 
+ import {Resend} from "resend"
+ import Welcome from "../../app/emails/Welcome"
 import Comment from "../models/commentModel/comment";
 import Interview from "../models/interviewModel/interview";
+import { formatEmailDate, formatEmailEndTime, formatEmailStartTime } from "@/lib/utils";
 
 
 
@@ -515,7 +517,11 @@ interface InterviewProps {
   summary?:string;
   venue?:string;
   details?:string;
-  inviteLink?:string;}
+  inviteLink?:string;
+  applicantEmail:string;
+  applicantName?:string;
+  jobTitle?:string;
+}
 
 
 
@@ -530,11 +536,20 @@ export async function scheduleInterview({
   summary,
   venue,
   details,
-  inviteLink}:InterviewProps){
+  inviteLink,
+  applicantEmail,
+  applicantName,
+  jobTitle
+}:InterviewProps){
+  
 
+
+    const resend = new Resend(process.env.resendapikey);
     try {
+
   
       const user = await User.findOne({ id: interviewer });
+      // const userr = JSON.parse(JSON.stringify(res))
   
       const scheduledInterview = await Interview.create({
   interviewer:user?._id,
@@ -558,6 +573,31 @@ export async function scheduleInterview({
   
         // Save the updated user
         await scheduledInterview.save();
+        
+          if(scheduledInterview){
+            console.log("sending")
+            console.log(applicantEmail)
+          resend.emails.send({
+            from: 'onboarding@resend.dev',
+            // to: 'usoroandidiong@gmail.com',
+            to:String(applicantEmail),
+            subject: 'Thank You for Applying!',
+            // html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+            react:Welcome({name:applicantName, 
+              interviewer:user?.name,
+              job:jobTitle,
+              scheduledDate:formatEmailDate(scheduledDate),
+              interviewStartTime:formatEmailStartTime(scheduledDate),
+              interviewEndTime:formatEmailEndTime(interviewEndTime),
+              title,
+              description,
+              summary,
+              venue,
+              details,
+              inviteLink})
+          });
+          console.log("sent")
+        }
       }
   
       // Additional logic after application creation if needed

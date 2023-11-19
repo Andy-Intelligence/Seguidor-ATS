@@ -220,20 +220,23 @@ fetchData().then((a)=>{
 interviewer:user?.uid,
 applicant:applicant?._id,
 job:job?._id,
-scheduledDate:startDateValue,
-interviewEndTime:endValue,
+scheduledDate:startDateValue.toISOString(),
+interviewEndTime:endValue.toISOString(),
 title:values?.title,
 description:values?.description,
 summary:values?.summary,
 venue:values?.venue,
 details:values?.details,
 inviteLink:values?.inviteLink,
+applicantEmail:applicant?.email,
+applicantName:applicant?.name,
+jobTitle:job?.jobTitle,
     
   })
 
 
 
-  console.log(values)
+  console.log(startDateValue,endValue,values)
 }
 
 

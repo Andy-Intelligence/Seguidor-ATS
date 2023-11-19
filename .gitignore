@@ -38,3 +38,5 @@ next-env.d.ts
 cp.ts
 
 .react-email
+
+react-email-starter
