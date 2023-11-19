@@ -2,8 +2,6 @@
 import { revalidatePath } from "next/cache";
 import User from "../models/userModels/user.model";
 import { connectToDB } from "../mongoDb/connect"
-import { getAuthUrl } from "@/lib/auth";
-import { createGoogleMeetLink } from "@/lib/meetApi";
 
 
 
