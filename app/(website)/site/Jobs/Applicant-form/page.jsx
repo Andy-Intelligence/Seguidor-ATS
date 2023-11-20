@@ -1,4 +1,5 @@
-import Nav from "@/app/comps/Nav";
+// import Nav from "@/app/comps/Nav";
+import Nav from "../../../../../app/(website)/site/comps/Nav";
 const Page = () => {
     return (
         <div>
