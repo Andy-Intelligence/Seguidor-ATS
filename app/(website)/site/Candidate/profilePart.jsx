@@ -35,7 +35,7 @@ const ProfilePart = () => {
        {/* ) : ( */}
         <div className="userhandler">
           <img
-            src={user.photoURL}
+            src={"https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png"}
             alt="User-signed-in"
             width={50}
             height={20}
