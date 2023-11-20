@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Google from "../images/continue-with-google-centre-google-logo.svg";
-import { UserAuth } from "../context/AuthContext";
+// import { UserAuth } from "../context/AuthContext";
 import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 
