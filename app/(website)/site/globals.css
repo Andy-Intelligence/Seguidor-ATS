@@ -302,13 +302,13 @@ li:active {
   line-height: 44px;
 }
 /* Company form */
-form {
+/* form {
   max-width: 50%;
   box-sizing: border-box;
   margin-left: 41rem;
   margin-top: -34rem;
   padding: 3rem;
-}
+} */
 
 input {
   width: 100%;
@@ -496,11 +496,11 @@ input[type="search"]::placeholder {
   margin-top: -1.5rem;
 }
 
-.form {
+/* .form {
   max-width: 50%;
   margin-top: -20rem;
   background-color: white;
-}
+} */
 
 .form input[type="submit"] {
   background-color: green;
