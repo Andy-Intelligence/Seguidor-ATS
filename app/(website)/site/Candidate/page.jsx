@@ -1,6 +1,7 @@
 "use client";
 import ProfilePart from "./profilePart";
-import ProfileDetails from "./profileDetails.jsx";
+// import ProfileDetails from "./profileDetails.jsx";
+import ProfileDetails from "./ProfileDetails";
 import CandidateHeader from "./CandidateHeader";
 import Footer from '../comps/Footer/Footer'
 import Nav from "../comps/Nav";
