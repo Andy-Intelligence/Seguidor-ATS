@@ -187,11 +187,11 @@ span {
 
 .getStarted {
   background: #3637ee;
-  margin-left: 3rem;
+  margin-top: 1rem;
   padding: 0.5rem 3rem;
   border-radius: 8px;
   color: var(--material-theme-white, #fff);
-  margin-top: -2rem;
+  /* margin-top: -2rem; */
 }
 
 /* Landing-page styles */
