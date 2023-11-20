@@ -4,17 +4,17 @@ import Link from "next/link";
 import Image from "next/image";
 
 const ProfileDetails = () => {
-  const [hasProfile, setHasProfile] = useState(false);
+  // const [hasProfile, setHasProfile] = useState(false);
 
-  useEffect(() => {
-    if (localStorage.getItem("Cname")) {
-      setHasProfile(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("Cname")) {
+  //     setHasProfile(true);
+  //   }
+  // }, []);
 
   return (
     <div className="form-container">
-      {hasProfile ? (
+      {/* {hasProfile ? (
         <form className="form">
           <label htmlFor="user-company-name">Company Name:</label>
           <input
@@ -63,7 +63,7 @@ const ProfileDetails = () => {
           </Link>
           <p>Click the icon to add an image</p>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
