@@ -5,7 +5,7 @@ Welcome to the Seguidor Job Application Platform! We have streamlined our applic
 ## Application Landing Page
 
 To apply for a job with Seguidor, visit our Application Landing Page:
-[Application Landing Page](https://seguidor-7hradwrod-andy-intelligence.vercel.app/site)
+[Application Landing Page](https://seguidor-5zhse8pl6-andy-intelligence.vercel.app)
 
 This is where candidates can explore job openings, submit their applications, and learn more about our company.
 
