@@ -3,12 +3,14 @@
 Welcome to the Seguidor Job Application Platform! We have streamlined our application process to make it easy for candidates to apply and for hiring managers to track applications.
 
 ## Application Landing Page
+
 To apply for a job with Seguidor, visit our Application Landing Page:
 [Application Landing Page](https://seguidor-7hradwrod-andy-intelligence.vercel.app/site)
 
 This is where candidates can explore job openings, submit their applications, and learn more about our company.
 
 ## Hiring Manager Dashboard
+
 Hiring managers can track and manage applications through our dedicated Hiring Manager Dashboard:
 [Hiring Manager Dashboard](https://seguidor-7hradwrod-andy-intelligence.vercel.app/)
 
@@ -16,18 +18,19 @@ Upon accessing the dashboard, hiring managers will find tools to efficiently rev
 
 Thank you for choosing Seguidor! We look forward to connecting with talented individuals and making the hiring process seamless for our team.
 
-
-
-
-
-
-
-
-
-
-
-
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+# design file link
+https://www.figma.com/file/HB91nBpmMgXpQ9SUUBMn5M/Winning-Team?type=design&node-id=51-955&mode=design&t=y0PwMLjCIISujnaT-0
+
+
+# team info
+https://docs.google.com/document/d/1KTY8KA_yLXE6HMfa5rj43MRiBWH6sgeBDRn5_JZunDc/edit
+
+
+
+
+
 
 ## Getting Started
 
