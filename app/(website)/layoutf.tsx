@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import '../globals.css'
 import Navbar from '@/components/sharedComponents/Navbar'
 import LeftSidebar from '@/components/sharedComponents/LeftSideBar'
-import { MyProvider } from '@/context/MyContext'
+// import { MyProvider } from '@/context/MyContext'
 import Link from 'next/link';
 import {FiLink2} from 'react-icons/fi'
 import {

@@ -46,7 +46,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { useState,useEffect } from "react"
 import { createJob, getSingleJob, jobApplication, linkedInCreateJob,  } from '@/backend/actions/job.actions';
 // import { useContext } from 'react';
-import {UserAuth} from '@/context/MyContext'
+// import {UserAuth} from '@/context/MyContext'
 import { fileToBase64 } from "@/lib/utils";
 
 const FormSchema = z.object({

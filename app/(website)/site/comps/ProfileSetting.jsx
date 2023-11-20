@@ -3,7 +3,7 @@
 import React from 'react';
 
 import Image from "next/image";
-import { UserAuth } from "../context/AuthContext";
+// import { UserAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 // import rightArrow from "../images/arrowright2.svg";
 import userEdit from "../images/useredit.svg";
@@ -11,38 +11,38 @@ import profiler from "../images/profile.png";
 import editor from "../images/Frame 1518.svg";
 import Link from "next/link";
 const ProfilePart = () => {
-  const { user } = UserAuth();
-  const [loading, setLoading] = useState(true);
+  // const { user } = UserAuth();
+  // const [loading, setLoading] = useState(true);
 
-  const fileInputRef = React.useRef();
+  // const fileInputRef = React.useRef();
 
-  const handleImageClick =() => {
+  // const handleImageClick =() => {
 
-    fileInputRef.current.click()
-  };
+  //   fileInputRef.current.click()
+  // };
 
-  const handleFileSelect = (event) => {
-    const selectedFile = event.target.files[0]
+  // const handleFileSelect = (event) => {
+  //   const selectedFile = event.target.files[0]
 
-    if (selectedFile) {
-        console.log('Selected file:', selectedFile)
-    }
-  }
+  //   if (selectedFile) {
+  //       console.log('Selected file:', selectedFile)
+  //   }
+  // }
 
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1));
-      setLoading(false);
-    };
+  // useEffect(() => {
+  //   const checkAuthentication = async () => {
+  //     await new Promise((resolve) => setTimeout(resolve, 1));
+  //     setLoading(false);
+  //   };
 
-    checkAuthentication();
-  }, [user]);
+  //   checkAuthentication();
+  // }, [user]);
 
 
  
   return (
     <>
-      {loading ? null : !user ? (
+      {/* {loading ? null : !user ? (
         <div>
           <Link href="/SignUp">
             <Image
@@ -53,25 +53,27 @@ const ProfilePart = () => {
             />
           </Link>
           <p>Click the icon to add image</p>
-        </div>
-      ) : (
-        <div className="p-8 ">
-          <h1 className="text-center text-3xl">Settings</h1>
-          <div className="preview">
-            <Image
-              src={user.photoURL}
-              alt="User-signed-in"
-              width={60}
-              height={20}
-              quality={100}
-              className=" profile-mover"
-            />
-            <h1 className="text-center">{user.displayName}</h1>
-          </div>
+        </div> */}
+      {/* ) : ( */}
 
-          <div className="vertical-rule"></div>
 
-          <div className="setting-form">
+        {/* // <div className="p-8 ">
+        //   <h1 className="text-center text-3xl">Settings</h1>
+        //   <div className="preview">
+        //     <Image */}
+        {/* //       src={user.photoURL}
+        //       alt="User-signed-in"
+        //       width={60}
+        //       height={20}
+        //       quality={100}
+        //       className=" profile-mover"
+        //     />
+        //     <h1 className="text-center">{user.displayName}</h1>
+        //   </div> */}
+
+        {/* //   <div className="vertical-rule"></div> */}
+
+          {/* <div className="setting-form">
             <form className="form">
               <label htmlFor="full-name">Full Name:</label>
               <input
@@ -111,17 +113,17 @@ const ProfilePart = () => {
                 className="text-white bg-green-800"
               />
             </form>
-          </div>
+          </div> */}
           {/* <div className="paragraph">
             <p>{user.displayName}</p>
             <p className="text-xs">{user.email}</p>
           </div> */}
-           <Image
+           {/* <Image
             src={editor}
             alt="change-profile"
             className=" cursor-pointer  setting-camera"
             onClick={handleImageClick}
-          />
+          /> */}
 
           {/*<div className="profile-setting">
             <Image
@@ -138,8 +140,8 @@ const ProfilePart = () => {
             width={25}
             className=" cursor-pointer  right-arrow"
           /> */}
-        </div>
-      )}
+        {/* </div>
+      )} */}
     </>
   );
 };

@@ -14,7 +14,7 @@ import { getSingleJob } from '@/backend/actions/job.actions';
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import convertToStandardDate from '@/lib/utils';
-import { UserAuth } from '@/context/MyContext';
+// import { UserAuth } from '@/context/MyContext';
 import { sendComment } from '@/backend/actions/job.actions';
 // import DayScheduleButton from '@/components/buttons/dayschedule';
 
@@ -136,7 +136,7 @@ interface ApplicantInfoProp{
 export default function Page({ params }: { params: { id: string,jobId:string; } }) {
   // const router = useRouter()
 
-  const { user } = UserAuth() ?? { user: null };
+  // const { user } = UserAuth() ?? { user: null };
 
   const router = useRouter();
 

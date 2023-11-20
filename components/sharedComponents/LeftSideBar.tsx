@@ -5,7 +5,7 @@ import { fetchUser, updateUser } from "@/backend/actions/user.actions";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 // import { UserState } from '../redux/store'; // Import your RootState type
-import { UserAuth } from '@/context/MyContext';
+// import { UserAuth } from '@/context/MyContext';
 import { usePathname } from "next/navigation";
 import { useEffect } from 'react';
 import  {OrganizationSwitcher, SignOutButton, SignedIn} from "@clerk/nextjs"
@@ -13,7 +13,7 @@ import  {OrganizationSwitcher, SignOutButton, SignedIn} from "@clerk/nextjs"
 
 const LeftSidebar = () => {
 
-  const { user, googleSignIn, logOut } = UserAuth() ?? { user: null };
+  // const { user, googleSignIn, logOut } = UserAuth() ?? { user: null };
   const pathname = usePathname()
   const router = useRouter();
 
@@ -43,50 +43,50 @@ const LeftSidebar = () => {
   
     
   
-    const handleSignIn = async ()=>{
+    // const handleSignIn = async ()=>{
       // console.log("ff")
-      if(googleSignIn){
-      try {
-        const res = await googleSignIn() 
-        // console.log(res)
-        const googleUser = (res as any).user
-        console.log("hell",googleUser)
+      // if(googleSignIn){
+      // try {
+      //   const res = await googleSignIn() 
+      //   // console.log(res)
+      //   const googleUser = (res as any).user
+      //   console.log("hell",googleUser)
         
        
-        const mongoDbUser = await fetchUser(googleUser.uid) //check if the user from google is present in our database
-        if(!mongoDbUser){
-          await updateUser( {
-            userId:googleUser.uid,
-            name:googleUser?.displayName,
-            email:googleUser.email,
+        // const mongoDbUser = await fetchUser(googleUser.uid) //check if the user from google is present in our database
+        // if(!mongoDbUser){
+        //   await updateUser( {
+        //     userId:googleUser.uid,
+        //     name:googleUser?.displayName,
+        //     email:googleUser.email,
             // authProvider:googleUser.providerData,
             // objectId:mongoDbUser?._id,
             // username:userInfo?.username || user?.username,
             // bio:userInfo?.bio || "",
             // image:userInfo?.image || user?.imageUrl
             
-        })
-        console.log("created")
-        }
-        else{
-          //  router.push("/book");
-          console.log("hello")
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    }
-    const handleSignOut = async (e:any)=>{
-      if (logOut) {
-        try {
-          await logOut();
-          // Successfully signed out
-        } catch (error) {
-          console.error("Error signing out:", error);
-        }
-      }
-    }
+    //     })
+    //     console.log("created")
+    //     }
+    //     else{
+    //       //  router.push("/book");
+    //       console.log("hello")
+    //     }
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+    // }
+    // const handleSignOut = async (e:any)=>{
+    //   if (logOut) {
+    //     try {
+    //       await logOut();
+    //       // Successfully signed out
+    //     } catch (error) {
+    //       console.error("Error signing out:", error);
+    //     }
+    //   }
+    // }
   
   
 

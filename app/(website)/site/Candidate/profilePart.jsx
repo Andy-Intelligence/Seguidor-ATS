@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { UserAuth } from "../context/AuthContext";
+// import { UserAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 import rightArrow from "../images/arrowright2.svg";
 import userEdit from "../images/useredit.svg";
@@ -7,20 +7,20 @@ import profiler from "../images/profile.png";
 import editor from "../images/Frame 1518.svg";
 import Link from "next/link";
 const ProfilePart = () => {
-  const { user } = UserAuth();
-  const [loading, setLoading] = useState(true);
+  // const { user } = UserAuth();
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1));
-      setLoading(false);
-    };
+  // useEffect(() => {
+  //   const checkAuthentication = async () => {
+  //     await new Promise((resolve) => setTimeout(resolve, 1));
+  //     setLoading(false);
+  //   };
 
-    checkAuthentication();
-  }, [user]);
+  //   checkAuthentication();
+  // }, [user]);
   return (
     <>
-      {loading ? null : !user ? (
+      {/* {loading ? null : !user ? ( */}
         <div className="userhandler">
           <Link href="/SignUp">
             <Image
@@ -32,9 +32,9 @@ const ProfilePart = () => {
           </Link>
           <p>Click the icon to add image</p>
         </div>
-      ) : (
+       {/* ) : ( */}
         <div className="userhandler">
-          <Image
+          <img
             src={user.photoURL}
             alt="User-signed-in"
             width={50}
@@ -43,8 +43,10 @@ const ProfilePart = () => {
             className=" mover"
           />
           <div className="paragraph">
-            <p>{user.displayName}</p>
-            <p className="text-xs">{user.email}</p>
+            {/* <p>{user.displayName}</p> */}
+            <p>{"dummy name dum"}</p>
+            {/* <p className="text-xs">{user.email}</p> */}
+            <p className="text-xs">{"dummyemail@gmail.com"}</p>
           </div>
           <Image
             src={editor}
@@ -67,7 +69,7 @@ const ProfilePart = () => {
             className=" cursor-pointer  right-arrow"
           />
         </div>
-      )}
+      {/* )} */}
     </>
   );
 };
