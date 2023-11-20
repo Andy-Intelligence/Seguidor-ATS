@@ -45,10 +45,11 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
 import { createJob, linkedInCreateJob,  } from '@/backend/actions/job.actions';
-import { linkedInSignInUser,  } from '@/backend/actions/user.actions';
-import { useContext } from 'react';
-import {UserAuth} from '@/context/MyContext'
+// import { linkedInSignInUser,  } from '@/backend/actions/user.actions';
+// import { useContext } from 'react';
+// import {UserAuth} from '@/context/MyContext'
 import Navbar from '@/components/sharedComponents/Navbar';
+import { currentUser } from '@clerk/nextjs';
 
 const items = [
   {
@@ -155,7 +156,7 @@ const style = {
 
 
 export default function Home() {
-  const {user} = UserAuth()
+  // const {user} = UserAuth()
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -204,9 +205,10 @@ React.useEffect(()=>{
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values?.jobtitle)
+    const user = await currentUser()
     await createJob({
       // userId:"654dfef70325ab149be055ba",
-      userId:user?.uid,
+      userId:user?.id,
       jobTitle:values?.jobtitle,
       jobDescription:values?.jobdescription,
       teamDept:values?.teamdepartment,

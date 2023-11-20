@@ -55,6 +55,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import Navbar from '@/components/sharedComponents/Navbar';
+import { currentUser } from '@clerk/nextjs';
  
 
 
@@ -183,9 +184,10 @@ fetchData().then((a)=>{
     e.preventDefault()
     
     // console.log(chapter) 
+    const user = await currentUser()
 
     // console.log("chapterId",chapter?._id)
-   const book =  await sendComment({content:comment?.content,sender:user?.uid,receiver:applicant._id,applicantId:params?.id})
+   const book =  await sendComment({content:comment?.content,sender:user?.id,receiver:applicant._id,applicantId:params?.id})
   //  "651b4d41ab245ed190e19ee0"
     
   //  console.log(book)  
@@ -224,9 +226,9 @@ fetchData().then((a)=>{
  async function onSubmit(values: z.infer<typeof formSchema>) {
   // Do something with the form values.
   // ✅ This will be type-safe and validated.
-
+  const user = await currentUser()
   await scheduleInterview({
-interviewer:user?.uid,
+interviewer:user?.id,
 applicant:applicant?._id,
 job:job?._id,
 scheduledDate:startDateValue.toISOString(),
