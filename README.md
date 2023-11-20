@@ -3,12 +3,14 @@
 Welcome to the Seguidor Job Application Platform! We have streamlined our application process to make it easy for candidates to apply and for hiring managers to track applications.
 
 ## Application Landing Page
+
 To apply for a job with Seguidor, visit our Application Landing Page:
 [Application Landing Page](https://seguidor-7hradwrod-andy-intelligence.vercel.app/site)
 
 This is where candidates can explore job openings, submit their applications, and learn more about our company.
 
 ## Hiring Manager Dashboard
+
 Hiring managers can track and manage applications through our dedicated Hiring Manager Dashboard:
 [Hiring Manager Dashboard](https://seguidor-7hradwrod-andy-intelligence.vercel.app/)
 
@@ -16,50 +18,48 @@ Upon accessing the dashboard, hiring managers will find tools to efficiently rev
 
 Thank you for choosing Seguidor! We look forward to connecting with talented individuals and making the hiring process seamless for our team.
 
-
-
-
-
-
-
-
-
-
-
-
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# design file link
 
-First, run the development server:
+https://www.figma.com/file/HB91nBpmMgXpQ9SUUBMn5M/Winning-Team?type=design&node-id=51-955&mode=design&t=y0PwMLjCIISujnaT-0
+
+# team info
+
+https://docs.google.com/document/d/1KTY8KA_yLXE6HMfa5rj43MRiBWH6sgeBDRn5_JZunDc/edit
+
+## Overview
+
+The Applicant-Tracking-System is a comprehensive solution designed to enhance the recruitment process by efficiently managing and tracking job applicants. This system aims to simplify the hiring workflow, from posting job openings to selecting and onboarding candidates.
+
+## Features
+
+- **Job Posting:** Easily post job openings with relevant details.
+- **Communication:** Enable seamless communication between recruiters and candidates within the system.
+- **Automated Emails:** Automatically send acceptance or rejection emails to applicants based on their application status.
+- **Interview Scheduling:** Schedule and manage interviews with candidates through the system.
+- **Analytics:** Gain valuable insights and analytics on the recruitment process for informed decision-making.
+
+## Technologies Used
+
+- **Programming Language:** [JavaScript, TypeScript]
+- **Database:** [MongoDB]
+- **Web Framework:** [NextJs]
+- **Frontend:** [ReactJs]
+- **Backend:** [NextJs]
+- **Version Control:** [Git]
+
+## Installation
+
+To run the Applicant-Tracking-System locally, follow these installation steps:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repository
+git clone [repository_url]
+
+# Navigate to the project directory
+cd Applicant-Tracking-System
+
+# Install dependencies
+npm install
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
