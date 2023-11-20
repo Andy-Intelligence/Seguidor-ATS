@@ -5,7 +5,7 @@ import FooterNav from './FooterNav'
 import SocialPlatform from './SocialPlatform'
 const Footer = () => {
     return (
-        <footer>
+        <footer className='h-full'>
             <Subscribe />
             <Logo />
             <FooterNav />
