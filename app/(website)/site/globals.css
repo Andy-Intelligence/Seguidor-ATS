@@ -22,6 +22,7 @@ html {
   margin-left: auto;
   margin-right: auto;
   background: var(--BACKGROUND, #fff);
+  /* background-color:red; */
 }
 body {
   margin: 0;
