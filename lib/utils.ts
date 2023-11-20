@@ -117,3 +117,76 @@ export default function convertToStandardDate(dateString:any) {
   const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds} ${ampm}`;
   return formattedDate;
 }
+
+
+export function extractTimeWithMeridian(dateTimeString:any) {
+  const dateObject = new Date(dateTimeString);
+
+  // Extracting hours and minutes
+  const hours = dateObject.getUTCHours();
+  const minutes = dateObject.getUTCMinutes();
+
+  // Determine AM or PM
+  const meridian = hours >= 12 ? 'PM' : 'AM';
+
+  // Convert hours to 12-hour format
+  const formattedHours = hours % 12 || 12;
+
+  // Format the time as a string
+  const formattedTime = `${formattedHours}:${String(minutes).padStart(2, '0')} ${meridian}`;
+
+  return formattedTime;
+}
+
+
+export function formatEmailDate(inputDate:any) {
+  const date = new Date(inputDate);
+
+  // Format date
+  const formattedDate = new Intl.DateTimeFormat('en', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+
+  // Format time
+  const formattedTime = new Intl.DateTimeFormat('en', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  }).format(date);
+
+  // Combine formatted date and time
+  const result = `${formattedDate} by ${formattedTime}`;
+
+  return result;
+}
+
+
+export function formatEmailStartTime(inputDate:any) {
+  const date = new Date(inputDate);
+
+  // Format time
+  const formattedTime = new Intl.DateTimeFormat('en', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  }).format(date);
+
+  return formattedTime;
+}
+
+export function formatEmailEndTime(inputDate:any) {
+  const date = new Date(inputDate);
+
+  // Format time
+  const formattedTime = new Intl.DateTimeFormat('en', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  }).format(date);
+
+  return formattedTime;
+}
+
+

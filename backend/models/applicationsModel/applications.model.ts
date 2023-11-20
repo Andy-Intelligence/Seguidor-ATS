@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 
 const applicationSchema = new mongoose.Schema({
-Applicant:{type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', 
-    },
+// Applicant:{type: mongoose.Schema.Types.ObjectId,
+//     ref: 'User', 
+//     },
     name:{type:String},
     email:{type:String},
     mobile:{type:String},
@@ -16,7 +16,7 @@ Applicant:{type: mongoose.Schema.Types.ObjectId,
     coverletter:{type:String,},
     attachments:{type:String,},
     video:{type:String,},
-    noteAndFeedBack:[{type:mongoose.Schema.Types.ObjectId, ref:"Comment",}],
+    noteAndFeedBack:[{type:mongoose.Schema.Types.ObjectId, ref:"Comment"}],
 },
 {
     timestamps: true, // Enable timestamps (createdAt and updatedAt)

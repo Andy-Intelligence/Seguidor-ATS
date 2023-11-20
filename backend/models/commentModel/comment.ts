@@ -1,5 +1,7 @@
 
 import mongoose from 'mongoose'
+import Application from '../applicationsModel/applications.model';
+
 
 const commentSchema = new mongoose.Schema({
   content: {
@@ -16,7 +18,7 @@ const commentSchema = new mongoose.Schema({
   },
   receiver: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Applicant',
+    ref: 'Application',
     required: true,
   },
 //   timestamp: {

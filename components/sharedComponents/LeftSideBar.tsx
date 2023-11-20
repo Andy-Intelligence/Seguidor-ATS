@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { UserAuth } from '@/context/MyContext';
 import { usePathname } from "next/navigation";
 import { useEffect } from 'react';
+import  {OrganizationSwitcher, SignOutButton, SignedIn} from "@clerk/nextjs"
 
 
 const LeftSidebar = () => {
@@ -56,11 +57,11 @@ const LeftSidebar = () => {
         if(!mongoDbUser){
           await updateUser( {
             userId:googleUser.uid,
+            name:googleUser?.displayName,
+            email:googleUser.email,
             // authProvider:googleUser.providerData,
             // objectId:mongoDbUser?._id,
             // username:userInfo?.username || user?.username,
-            name:googleUser?.displayName,
-            email:googleUser.email,
             // bio:userInfo?.bio || "",
             // image:userInfo?.image || user?.imageUrl
             
@@ -95,7 +96,7 @@ const LeftSidebar = () => {
   return (
     <aside className=" text-black p-4 space-y-4 min-h-screen flex flex-col items-center w-[201px]">
       <Link href={'/'}>
-      <div className="flex flex-col items-center text-2xl font-bold">Logo</div>
+      <div className="flex flex-col items-center text-3xl font-bold">Seguidor</div>
       </Link>
       {/* Button with Icon */} 
         <div className='sidebarUnderline w-full'></div>
@@ -121,10 +122,10 @@ const LeftSidebar = () => {
 
       {/* Sidebar Links */}
       <div className=" flex flex-col items-left space-y-2 gap-[20px]">
-        <Link href="/candidates">
+        <Link href="/allcandidates">
           Candidates
         </Link>
-        <Link href="/interviews">
+        <Link href="/tasks">
           Interviews
         </Link>
         <Link href="/talent-board">
@@ -139,13 +140,30 @@ const LeftSidebar = () => {
         <Link href="/help">
           Help
         </Link>
-        <Link href="/settings">
-          Settings
-        </Link>
         <Link href="/onboard">
           Onboard
         </Link>
-        {!user ? (<button className="gitHub-btn bg-orange-500 text-white rounded-xl p-2" type="button" onClick={handleSignIn}>
+        <Link href="/analytics">
+          Analytics
+        </Link>
+        <Link href="/settings">
+          Settings
+        </Link>
+        <SignedIn>
+          <SignOutButton signOutCallback={()=>{router.push('/sign-in')}}>
+              <div className='flex cursor-pointer text-red-500'>
+                LogOut
+              </div>
+          </SignOutButton>
+        </SignedIn>
+
+        <OrganizationSwitcher appearance={{
+          elements:{
+            organizationSwitcherTrigger:"py-2 px-4"
+          }
+        }}/>
+
+        {/* {!user ? (<button className="gitHub-btn bg-orange-500 text-white rounded-xl p-2" type="button" onClick={handleSignIn}>
               GoogleSignIn
           </button>):
           (<button className="gitHub-btn bg-orange-500 text-white rounded-xl p-2" type="button" onClick={handleSignOut}>
@@ -159,7 +177,7 @@ const LeftSidebar = () => {
         <div className="font-bold text-red-600 text-2xl">
           <p>Please SignUp or login</p> 
         </div>
-      )}
+      )} */}
       </div>
     </aside>
   );

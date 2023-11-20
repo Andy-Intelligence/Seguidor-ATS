@@ -5,6 +5,7 @@ import '../globals.css'
 import Navbar from '@/components/sharedComponents/Navbar'
 import LeftSidebar from '@/components/sharedComponents/LeftSideBar'
 import { MyProvider } from '@/context/MyContext'
+import { ClerkProvider } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,26 +20,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+        <ClerkProvider>
     <html lang="en">
       <body className={inter.className}>
-      <main className="flex flex-row  font-roboto ">
-      <section className="grow">
+      <div className="flex flex-row  font-roboto ">
+      <div className="grow">
       <LeftSidebar/>
-      </section>
-      <section className="navbarOverviewContainer grow flex flex-col">
-        <div>
-          <Navbar/>
-        </div>
-        <div className="p-2">
-        <MyProvider>
-          {/* <Overview/> */}{children}
-        </MyProvider>
-        </div>
-      </section>
-    </main>
-        {/* {children} */}
+      </div>
+      <div className="navbarOverviewContainer grow flex flex-col">
+          {children}
+      </div>
+    </div>
         
       </body>
     </html>
+        </ClerkProvider>
   )
 }

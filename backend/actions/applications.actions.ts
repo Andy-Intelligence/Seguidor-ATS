@@ -1,6 +1,6 @@
-import Application from "../models/applicationsModel/applications.model";
-import Job from "../models/jobModel/job.model";
-import { connectToDB } from "../mongoDb/connect";
+// import Application from "../models/applicationsModel/applications.model";
+// import Job from "../models/jobModel/job.model";
+// import { connectToDB } from "../mongoDb/connect";
 
 
 

@@ -8,17 +8,17 @@ import Application from "../models/applicationsModel/applications.model";
 const cloudinary = require('cloudinary').v2;
 
 import { uploadToCloudinary } from "@/lib/cloudinaryUtil";
- 
+ import {Resend} from "resend"
+ import Welcome from "../../app/emails/Welcome"
+ import Reject from "../../app/emails/Rejected"
 import Comment from "../models/commentModel/comment";
+import Interview from "../models/interviewModel/interview";
+import RejectedInterview from "../models/interviewModel/rejectInterview"
+import { formatEmailDate, formatEmailEndTime, formatEmailStartTime } from "@/lib/utils";
 
 
 
-cloudinary.config({
-  cloud_name: 'dm7gmrkki',
-  api_key: '398486115139613',
-  api_secret: 'R7wAMNqAU3WCOG5eZgT_DOjBg8Y',
-});
- 
+
 
 
 export async function linkedInCreateJob() {
@@ -59,7 +59,7 @@ export async function linkedInCreateJob() {
   
       const data = await response.json();
       // Handle the data returned from the API
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       throw new Error(`Failed to create job: ${error}`);
     }
@@ -178,9 +178,18 @@ export async function getAllPostedJobs(){
   connectToDB()
   try {
     // .populate("author")
-  const res = await Job.find({})
+  const res = await Job.find({}).populate({
+    path: 'applications',
+    populate: {
+      path: 'noteAndFeedBack',
+      populate: {
+        path: 'sender receiver',
+        // model: 'User Applicant', // Replace with the actual model name for sender and receiver
+      },
+    },
+  }).populate("author").exec();
   const jobs = JSON.parse(JSON.stringify(res))
-  console.log("jobs",jobs)
+  // console.log("jobs",jobs)
   return jobs
 
 } catch (error:any) {
@@ -202,11 +211,6 @@ interface Params {
   coverletter?:any;
   yearsofexperience?:string | undefined | null;
   portfolioworksample?:any;
-  // bio?:string | null | undefined;
-  // image?:string | null | undefined;
-  // path?:string | null | undefined;
-  // email?:string | null | undefined;
-  // objectId?:string | null | undefined;
 }
 
 
@@ -256,7 +260,7 @@ export async function jobApplication({
       // Update the user's 'books' field to include the book's ID
       const job = await Job.findOne({ _id: "654f451b9d9a151d64d0a5c7" });
       const c = job?.applications?.push(createdApplication?._id?.toString());
-      console.log(c);
+      // console.log(c);
 
       // Save the updated user
       await job.save();
@@ -331,7 +335,7 @@ export async function sendComment({content,sender,receiver,applicantId}:Params):
         // Update the user's 'books' field to include the book's ID
         const applicant = await Application.findOne({ _id: applicantId });
         const c = applicant?.noteAndFeedBack?.push(createdComment?._id?.toString());
-        console.log(c)
+        // console.log(c)
   
         // Save the updated user
         await applicant.save();
@@ -361,7 +365,7 @@ interface ApplicantParams{
 
 
 export async function getSingleApplicant({ applicantId,jobId }: ApplicantParams) {
-  console.log("a");
+  // console.log("a");
   connectToDB();
 
   try {
@@ -375,7 +379,7 @@ export async function getSingleApplicant({ applicantId,jobId }: ApplicantParams)
         
       },
     }) // Add fields you want to populate 'field1 field2' .populate("noteAndFeedBack")
-console.log(res)
+// console.log(res)
     if (!res) {
       console.log('Applicant not found');
       return {};
@@ -403,6 +407,70 @@ console.log(res)
 
 
 
+// function to get all applicants
+export async function getAllApplicantComment() {
+  connectToDB();
+      const a = await Application.find({})
+  try {
+    const res = await Comment.find({}).populate('sender')
+    // .populate('receiver')
+    // .exec();
+    // console.log("Applicants", res);
+
+    if (!res) {
+      console.log('Applicants not found');
+      return {};
+    }
+
+    const applicants = JSON.parse(JSON.stringify(res));
+
+    return applicants || {};
+  } catch (error) {
+    console.error('Error searching in the database for applicants:', error);
+    return {};
+  }
+}
+
+
+export async function getAllApplicant() {
+  connectToDB();
+      
+  try {
+    const a = await Application.find({})
+    // .populate('receiver')
+    // .exec();
+    // console.log("Applicants", a);
+
+    if (!a) {
+      console.log('Applicants not found');
+      return {};
+    }
+
+    const applicants = JSON.parse(JSON.stringify(a));
+
+    return applicants || {};
+  } catch (error) {
+    console.error('Error searching in the database for applicants:', error);
+    return {};
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 interface JobParams {
@@ -418,7 +486,7 @@ export async function getSingleJob({jobId}:JobParams){
   try {
     const res = await Job.findOne({ _id: jobId }).populate("author").populate('applications')
     const job = JSON.parse(JSON.stringify(res))
-    console.log("singlejob", job)
+    // console.log("singlejob", job)
 // const sanitizedJob = {
 //   _id: job?._id,
 //   name: job?.name,
@@ -436,4 +504,262 @@ export async function getSingleJob({jobId}:JobParams){
     
     return {}
   }  
+}
+
+
+interface InterviewProps {
+  interviewer?:string;
+  applicant?:string;
+  job?:string;
+  scheduledDate?:string;
+  interviewEndTime?:string;
+  title?:string;
+  description?:string;
+  summary?:string;
+  venue?:string;
+  details?:string;
+  inviteLink?:string;
+  applicantEmail:string;
+  applicantName?:string;
+  jobTitle?:string;
+}
+
+
+
+export async function scheduleInterview({
+  interviewer,
+  applicant,
+  job,
+  scheduledDate,
+  interviewEndTime,
+  title,
+  description,
+  summary,
+  venue,
+  details,
+  inviteLink,
+  applicantEmail,
+  applicantName,
+  jobTitle
+}:InterviewProps){
+  
+
+
+    const resend = new Resend(process.env.resendapikey);
+    try {
+
+  
+      const user = await User.findOne({ id: interviewer });
+      // const userr = JSON.parse(JSON.stringify(res))
+  
+      const scheduledInterview = await Interview.create({
+  interviewer:user?._id,
+  applicant:applicant,
+  job:job,
+  scheduledDate:scheduledDate,
+  interviewEndTime:interviewEndTime,
+  title:title,
+  description:description,
+  summary:summary,
+  venue:venue,
+  details:details,
+  inviteLink:inviteLink
+      });
+  
+      if (scheduledInterview) {
+        // Update the user's 'books' field to include the book's ID
+        // const job = await Job.findOne({ _id: "654f451b9d9a151d64d0a5c7" });
+        // const c = job?.applications?.push(createdApplication?._id?.toString());
+        // console.log(c);
+  
+        // Save the updated user
+        await scheduledInterview.save();
+        
+          if(scheduledInterview){
+            console.log("sending")
+            console.log(applicantEmail)
+          resend.emails.send({
+            from: 'onboarding@resend.dev',
+            // to: 'usoroandidiong@gmail.com',
+            to:String(applicantEmail),
+            subject: 'Thank You for Applying!',
+            // html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+            react:Welcome({name:applicantName, 
+              interviewer:user?.name,
+              job:jobTitle,
+              scheduledDate:formatEmailDate(scheduledDate),
+              interviewStartTime:formatEmailStartTime(scheduledDate),
+              interviewEndTime:formatEmailEndTime(interviewEndTime),
+              title,
+              description,
+              summary,
+              venue,
+              details,
+              inviteLink})
+          });
+          console.log("sent")
+        }
+      }
+  
+      // Additional logic after application creation if needed
+  
+    } catch (error: any) {
+      throw new Error(`Failed to create Interview: ${error.message}`);
+    }
+
+
+}
+
+
+
+
+
+
+
+
+interface RejectInterviewProps {
+  interviewer?:string;
+  applicant?:string;
+  job?:string;
+  scheduledDate?:string;
+  interviewEndTime?:string;
+  title?:string;
+  description?:string;
+  summary?:string;
+  venue?:string;
+  details?:string;
+  inviteLink?:string;
+  applicantEmail:string;
+  applicantName?:string;
+  jobTitle?:string;
+}
+
+
+
+
+
+
+
+export async function RejectInterview({
+  interviewer,
+  applicant,
+  job,
+  scheduledDate,
+  interviewEndTime,
+  title,
+  description,
+  summary,
+  venue,
+  details,
+  inviteLink,
+  applicantEmail,
+  applicantName,
+  jobTitle
+}:RejectInterviewProps){
+  
+
+
+    const resend = new Resend(process.env.resendapikey);
+    try {
+
+  
+      const user = await User.findOne({ id: interviewer });
+      // const userr = JSON.parse(JSON.stringify(res))
+  
+      const rejectedInterview = await RejectedInterview.create({
+        applicant:applicant,
+        job:job,
+  // interviewer:user?._id,
+  // scheduledDate:scheduledDate,
+  // interviewEndTime:interviewEndTime,
+  // title:title,
+  // description:description,
+  // summary:summary,
+  // venue:venue,
+  // details:details,
+  // inviteLink:inviteLink
+      });
+  
+      if (rejectedInterview) {
+        // Update the user's 'books' field to include the book's ID
+        // const job = await Job.findOne({ _id: "654f451b9d9a151d64d0a5c7" });
+        // const c = job?.applications?.push(createdApplication?._id?.toString());
+        // console.log(c);
+  
+        // Save the updated user
+        await rejectedInterview.save();
+        
+          if(rejectedInterview){
+            // console.log("sending")
+            // console.log(applicantEmail)
+          resend.emails.send({
+            from: 'onboarding@resend.dev',
+            // to: 'usoroandidiong@gmail.com',
+            to:String(applicantEmail),
+            subject: 'Thank You for Applying!',
+            // html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+            react:Reject({
+              name:applicantName, 
+              // interviewer:user?.name,
+              job:jobTitle,
+              // scheduledDate:formatEmailDate(scheduledDate),
+              // interviewStartTime:formatEmailStartTime(scheduledDate),
+              // interviewEndTime:formatEmailEndTime(interviewEndTime),
+              // title,
+              // description,
+              // summary,
+              // venue,
+              // details,
+              // inviteLink
+            })
+          });
+          // console.log("sent")
+        }
+      }
+  
+      // Additional logic after application creation if needed
+  
+    } catch (error: any) {
+      throw new Error(`Failed to Reject Interview: ${error.message}`);
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function getAllScheduledInterviews() {
+  connectToDB();
+      // const a = await Interview.find({})
+  try {
+    const res = await Interview.find({}).populate('applicant').populate("interviewer").populate("job")
+    // .populate('receiver')
+    // .exec();
+    // console.log("Interviews", res);
+
+    if (!res) {
+      console.log('Interviews not found');
+      return {};
+    }
+
+    const interviews = JSON.parse(JSON.stringify(res));
+
+    return interviews || {};
+  } catch (error) {
+    console.error('Error finding all Interviews:', error);
+    return {};
+  }
 }

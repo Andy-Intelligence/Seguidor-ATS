@@ -5,15 +5,82 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+
 // import { getSingleApplicant } from '@/backend/actions/applications.actions';
-import { getSingleApplicant, getSingleJob } from '@/backend/actions/job.actions';
+import { RejectInterview, getSingleApplicant, scheduleInterview } from '@/backend/actions/job.actions';
+import { getSingleJob } from '@/backend/actions/job.actions';
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import convertToStandardDate from '@/lib/utils';
 import { UserAuth } from '@/context/MyContext';
 import { sendComment } from '@/backend/actions/job.actions';
+// import DayScheduleButton from '@/components/buttons/dayschedule';
 
 
+
+
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
+import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
+import { StaticDateTimePicker } from '@mui/x-date-pickers/StaticDateTimePicker';
+
+
+
+
+
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { renderTimeViewClock } from '@mui/x-date-pickers/timeViewRenderers';
+import dayjs, { Dayjs } from 'dayjs';
+import { toast } from "@/components/ui/use-toast"
+
+ 
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+ 
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import Navbar from '@/components/sharedComponents/Navbar';
+ 
+
+
+
+
+
+
+const formSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+})
+
+
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -23,6 +90,8 @@ interface TabPanelProps {
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
+
+  
   
   return (
     <div
@@ -59,12 +128,28 @@ interface ApplicantInfoProp{
   email?:string;
 }
 
+
+
+
+
 export default function Page({ params }: { params: { id: string,jobId:string; } }) {
   // const router = useRouter()
 
   const { user } = UserAuth() ?? { user: null };
+
+  const router = useRouter();
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
       
     const [comment, setComment] = useState({content:""})
+
+    // const [startValue, setStartValue] = React.useState<Dayjs | null>();
+    const [endValue, setEndValue] = React.useState<any>();
+    const [startDateValue, setStartDateValue] = React.useState<any>();
+    // const [startValue, setStartValue] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
+    // const [endValue, setEndValue] = React.useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
 
   const [value, setValue] = useState(0);
   const [applicant,setApplicant] = useState<any>()
@@ -113,7 +198,100 @@ fetchData().then((a)=>{
     setValue(newValue);
   };
 
+ 
+  const formSchema = z.object({
+    title: z.string().min(2, {
+      message: "title must be at least 2 characters.",
+    }),
+    description: z.string().min(2, {
+      message: "description must be at least 2 characters.",
+    }),
+    summary: z.string().min(2, {
+      message: "summary must be at least 2 characters.",
+    }),
+    venue: z.string().min(2, {
+      message: "venue must be at least 2 characters.",
+    }),
+    details: z.string().min(2, {
+      message: "details must be at least 2 characters.",
+    }),
+    inviteLink: z.string().min(2, {
+      message: "inviteLink must be at least 2 characters.",
+    }),
+  })
+   
+ // 2. Define a submit handler.
+ async function onSubmit(values: z.infer<typeof formSchema>) {
+  // Do something with the form values.
+  // ✅ This will be type-safe and validated.
+
+  await scheduleInterview({
+interviewer:user?.uid,
+applicant:applicant?._id,
+job:job?._id,
+scheduledDate:startDateValue.toISOString(),
+interviewEndTime:endValue.toISOString(),
+title:values?.title,
+description:values?.description,
+summary:values?.summary,
+venue:values?.venue,
+details:values?.details,
+inviteLink:values?.inviteLink,
+applicantEmail:applicant?.email,
+applicantName:applicant?.name,
+jobTitle:job?.jobTitle,
+    
+  })
+
+  toast({
+    title: "You submitted the following values:",
+    description: (
+      <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+        <code className="text-white">Form Submitted</code>
+      </pre>
+    ),
+  })
+
+
+
+  console.log(startDateValue,endValue,values)
+}
+
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      summary: "",
+      venue: "",
+      details: "",
+      inviteLink: "",
+    },
+  })
+ 
+
+
+ const handleReject = async ()=>{
+
+  await RejectInterview({
+    applicant:applicant?._id,
+    job:job?._id,
+    applicantName:applicant?.name,
+    applicantEmail:applicant?.email,
+    jobTitle:job?.jobTitle,
+  })
+
+  router.back()
+ } 
+
+
+
   return (
+    <div>
+      <div>
+        <Navbar/>
+      </div>
     <div className="applicantInfoBg w-full min-h-screen p-2 gap-2 flex flex-col">
             <div className="w-full flex items-center justify-between">
               <div className='color98 font-[400] text-[22px]'>Applicant</div>
@@ -137,30 +315,12 @@ fetchData().then((a)=>{
                     <div className='flex items-start justify-start'>
                         <img className='h-[80px] w-[80px] rounded-full' alt='profile-img' src='http://res.cloudinary.com/dm7gmrkki/image/upload/v1699822046/dc4fumkfrhy2ssjzzdje.png'/>
                     </div>
-                    {/* <div className='flex flex-col items-start text-left justify-start'>
+                    <div className='flex flex-col items-start text-left justify-center gap-1'>
                         <div className='flex items-center gap-2'>
                           <h1 className='text-[22px] font-[400] '>{applicant?.name} </h1><span className='applicantTagColor px-2 rounded-[30px] text-[14px] font-[400] py-1'>Applied</span>
                         </div>
                         <h3 className='candidateExperienceColor text-[16px] font-[400] '>{applicant?.email}</h3>
-                        <div className='flex items-center justify-center gap-4 mt-2'>
-                        <span>
-                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.97 17.33C20.97 17.69 20.89 18.06 20.72 18.42C20.55 18.78 20.33 19.12 20.04 19.44C19.55 19.98 19.01 20.37 18.4 20.62C17.8 20.87 17.15 21 16.45 21C15.43 21 14.34 20.76 13.19 20.27C12.04 19.78 10.89 19.12 9.75 18.29C8.6 17.45 7.51 16.52 6.47 15.49C5.44 14.45 4.51 13.36 3.68 12.22C2.86 11.08 2.2 9.94 1.72 8.81C1.24 7.67 1 6.58 1 5.54C1 4.86 1.12 4.21 1.36 3.61C1.6 3 1.98 2.44 2.51 1.94C3.15 1.31 3.85 1 4.59 1C4.87 1 5.15 1.06 5.4 1.18C5.66 1.3 5.89 1.48 6.07 1.74L8.39 5.01C8.57 5.26 8.7 5.49 8.79 5.71C8.88 5.92 8.93 6.13 8.93 6.32C8.93 6.56 8.86 6.8 8.72 7.03C8.59 7.26 8.4 7.5 8.16 7.74L7.4 8.53C7.29 8.64 7.24 8.77 7.24 8.93C7.24 9.01 7.25 9.08 7.27 9.16C7.3 9.24 7.33 9.3 7.35 9.36C7.53 9.69 7.84 10.12 8.28 10.64C8.73 11.16 9.21 11.69 9.73 12.22C10.27 12.75 10.79 13.24 11.32 13.69C11.84 14.13 12.27 14.43 12.61 14.61C12.66 14.63 12.72 14.66 12.79 14.69C12.87 14.72 12.95 14.73 13.04 14.73C13.21 14.73 13.34 14.67 13.45 14.56L14.21 13.81C14.46 13.56 14.7 13.37 14.93 13.25C15.16 13.11 15.39 13.04 15.64 13.04C15.83 13.04 16.03 13.08 16.25 13.17C16.47 13.26 16.7 13.39 16.95 13.56L20.26 15.91C20.52 16.09 20.7 16.3 20.81 16.55C20.91 16.8 20.97 17.05 20.97 17.33Z" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10"/>
-                        </svg>
-                        </span>
-                        <span>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-
-                        </span>
-                        <span>
-                            <BiLogoLinkedin size={25}/>
-                        </span>
-                    </div>
-                    </div> */}
-                    <div className="flex space-x-8">
+                        <div className="flex space-x-8">
   <div className="relative cursor-pointer transition-transform transform group">
     <div className="bg-gray-300 w-12 h-12 rounded-full flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.97 17.33C20.97 17.69 20.89 18.06 20.72 18.42C20.55 18.78 20.33 19.12 20.04 19.44C19.55 19.98 19.01 20.37 18.4 20.62C17.8 20.87 17.15 21 16.45 21C15.43 21 14.34 20.76 13.19 20.27C12.04 19.78 10.89 19.12 9.75 18.29C8.6 17.45 7.51 16.52 6.47 15.49C5.44 14.45 4.51 13.36 3.68 12.22C2.86 11.08 2.2 9.94 1.72 8.81C1.24 7.67 1 6.58 1 5.54C1 4.86 1.12 4.21 1.36 3.61C1.6 3 1.98 2.44 2.51 1.94C3.15 1.31 3.85 1 4.59 1C4.87 1 5.15 1.06 5.4 1.18C5.66 1.3 5.89 1.48 6.07 1.74L8.39 5.01C8.57 5.26 8.7 5.49 8.79 5.71C8.88 5.92 8.93 6.13 8.93 6.32C8.93 6.56 8.86 6.8 8.72 7.03C8.59 7.26 8.4 7.5 8.16 7.74L7.4 8.53C7.29 8.64 7.24 8.77 7.24 8.93C7.24 9.01 7.25 9.08 7.27 9.16C7.3 9.24 7.33 9.3 7.35 9.36C7.53 9.69 7.84 10.12 8.28 10.64C8.73 11.16 9.21 11.69 9.73 12.22C10.27 12.75 10.79 13.24 11.32 13.69C11.84 14.13 12.27 14.43 12.61 14.61C12.66 14.63 12.72 14.66 12.79 14.69C12.87 14.72 12.95 14.73 13.04 14.73C13.21 14.73 13.34 14.67 13.45 14.56L14.21 13.81C14.46 13.56 14.7 13.37 14.93 13.25C15.16 13.11 15.39 13.04 15.64 13.04C15.83 13.04 16.03 13.08 16.25 13.17C16.47 13.26 16.7 13.39 16.95 13.56L20.26 15.91C20.52 16.09 20.7 16.3 20.81 16.55C20.91 16.8 20.97 17.05 20.97 17.33Z" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10"/>
@@ -186,13 +346,208 @@ fetchData().then((a)=>{
       {applicant?.linkedin}
     </div>
   </div>
-</div>
+                    </div>
+                        </div>
+                    {/* <div className='flex flex-col items-start text-left justify-start'>
+                        <div className='flex items-center gap-2'>
+                          <h1 className='text-[22px] font-[400] '>{applicant?.name} </h1><span className='applicantTagColor px-2 rounded-[30px] text-[14px] font-[400] py-1'>Applied</span>
+                        </div>
+                        <h3 className='candidateExperienceColor text-[16px] font-[400] '>{applicant?.email}</h3>
+                        <div className='flex items-center justify-center gap-4 mt-2'>
+                        <span>
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.97 17.33C20.97 17.69 20.89 18.06 20.72 18.42C20.55 18.78 20.33 19.12 20.04 19.44C19.55 19.98 19.01 20.37 18.4 20.62C17.8 20.87 17.15 21 16.45 21C15.43 21 14.34 20.76 13.19 20.27C12.04 19.78 10.89 19.12 9.75 18.29C8.6 17.45 7.51 16.52 6.47 15.49C5.44 14.45 4.51 13.36 3.68 12.22C2.86 11.08 2.2 9.94 1.72 8.81C1.24 7.67 1 6.58 1 5.54C1 4.86 1.12 4.21 1.36 3.61C1.6 3 1.98 2.44 2.51 1.94C3.15 1.31 3.85 1 4.59 1C4.87 1 5.15 1.06 5.4 1.18C5.66 1.3 5.89 1.48 6.07 1.74L8.39 5.01C8.57 5.26 8.7 5.49 8.79 5.71C8.88 5.92 8.93 6.13 8.93 6.32C8.93 6.56 8.86 6.8 8.72 7.03C8.59 7.26 8.4 7.5 8.16 7.74L7.4 8.53C7.29 8.64 7.24 8.77 7.24 8.93C7.24 9.01 7.25 9.08 7.27 9.16C7.3 9.24 7.33 9.3 7.35 9.36C7.53 9.69 7.84 10.12 8.28 10.64C8.73 11.16 9.21 11.69 9.73 12.22C10.27 12.75 10.79 13.24 11.32 13.69C11.84 14.13 12.27 14.43 12.61 14.61C12.66 14.63 12.72 14.66 12.79 14.69C12.87 14.72 12.95 14.73 13.04 14.73C13.21 14.73 13.34 14.67 13.45 14.56L14.21 13.81C14.46 13.56 14.7 13.37 14.93 13.25C15.16 13.11 15.39 13.04 15.64 13.04C15.83 13.04 16.03 13.08 16.25 13.17C16.47 13.26 16.7 13.39 16.95 13.56L20.26 15.91C20.52 16.09 20.7 16.3 20.81 16.55C20.91 16.8 20.97 17.05 20.97 17.33Z" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10"/>
+                        </svg>
+                        </span>
+                        <span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 20.5H7C4 20.5 2 19 2 15.5V8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5Z" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9" stroke="#292D32" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+
+                        </span>
+                        <span>
+                            <BiLogoLinkedin size={25}/>
+                        </span>
+                    </div>
+                    </div> */}
+                    
+                    
                 </div>
 
                 <div className='flex flex-col items-center gap-2'>
                   <div className='flex flex-row items-start gap-4'>
-                    <span className='reject font-[400] text-[16px]'>Reject</span>
-                    <span className='scheduleInterview font-[400] text-[16px]'>Schedule Interview</span>
+                    <span onClick={handleReject} className='hover:cursor-pointer reject font-[400] text-[16px]'>Reject</span>
+                    <div>
+                    {/* <Button >Open modal</Button> */}
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                      className='overflow-scroll'
+                    >
+                      <Box sx={style}>
+                      {/* <DayScheduleButton /> */}
+
+            <div className='overflow-y-scroll h-screen mt-10 w-full'>
+
+                      <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-full">
+
+
+
+
+                        <h1>Interview Date</h1>
+  
+<LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer
+        components={[
+          'DateTimePicker',
+          'MobileDateTimePicker',
+          'DesktopDateTimePicker',
+          'StaticDateTimePicker',
+        ]}
+      >
+        <DemoItem label="">
+          <StaticDateTimePicker defaultValue={dayjs('2022-04-17T15:30')} value={startDateValue}
+          onChange={(newValue) => setStartDateValue(newValue)} />
+        </DemoItem>
+      </DemoContainer>
+    </LocalizationProvider>
+
+    <h1>Interview End Time</h1>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['TimePicker']}>
+        <TimePicker
+          label=""
+          viewRenderers={{
+            hours: renderTimeViewClock,
+            minutes: renderTimeViewClock,
+            seconds: renderTimeViewClock,
+          }}
+          value={endValue}
+          onChange={(newValue) => setEndValue(newValue)}
+        />
+      </DemoContainer>
+    </LocalizationProvider>
+
+
+
+                          <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Title</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="title" {...field} />
+                                </FormControl>
+                                <FormDescription>
+                                  This is your public display name.
+                                </FormDescription>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="description"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="description" {...field} />
+                                </FormControl>
+                                {/* <FormDescription>
+                                  This is your public display name.
+                                </FormDescription> */}
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="summary"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Summary</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="summary" {...field} />
+                                </FormControl>
+                                {/* <FormDescription>
+                                  This is your public display name.
+                                </FormDescription> */}
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="venue"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Venue</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="venue" {...field} />
+                                </FormControl>
+                                {/* <FormDescription>
+                                  This is your public display name.
+                                </FormDescription> */}
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="details"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Details</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="details" {...field} />
+                                </FormControl>
+                                {/* <FormDescription>
+                                  This is your public display name.
+                                </FormDescription> */}
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="inviteLink"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>InviteLink</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="inviteLink" {...field} />
+                                </FormControl>
+                                {/* <FormDescription>
+                                  This is your public display name.
+                                </FormDescription> */}
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+
+                          <Button type="submit">Submit</Button>
+                        </form>
+                      </Form>
+
+                        {/* <Typography id="modal-modal-title" variant="h6" component="h2">
+                          Text in a modal
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                        </Typography>  */}
+                        </div>
+                      </Box>
+                    </Modal>
+                  </div>
+                    <span onClick={handleOpen} className='hover:cursor-pointer scheduleInterview font-[400] text-[16px]'>Schedule Interview</span>
+
+
                   </div>
                   <div className='flex items-center justify-center gap-2'>
                     <span>
@@ -291,7 +646,7 @@ fetchData().then((a)=>{
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={2}>
                     <div className='flex items-center justify-start'>
-                    <a href='https://www.google.com' className='linkBlue text-[16px] font-[400]' target='_blank' rel='noopener noreferrer'>
+                    <a href={`https://${applicant?.portfolioworksample}`} className='linkBlue text-[16px] font-[400]' target='_blank' rel='noopener noreferrer'>
                       {applicant?.portfolioworksample}
                     </a>
                       <span>
@@ -315,7 +670,7 @@ fetchData().then((a)=>{
 
 
                      { applicant?.noteAndFeedBack?.slice().reverse().map((item: any) => {
-                     return( <div className='flex flex-row gap-2 items-start justify-start w-full'>
+                     return( <div className='flex flex-row gap-2 items-start justify-start w-full my-4'>
                         <div className='flex items-start justify-start'>
                             <img className='h-[42px] w-[42px] rounded-full' alt='profile-img' src='https://cdn.pixabay.com/photo/2018/08/28/12/41/avatar-3637425_640.png'/>
                         </div>
@@ -332,6 +687,7 @@ fetchData().then((a)=>{
                   </CustomTabPanel>
                 </Box>
               </section>
+    </div>
     </div>
   )
 }

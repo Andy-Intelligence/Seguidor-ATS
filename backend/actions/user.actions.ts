@@ -2,8 +2,6 @@
 import { revalidatePath } from "next/cache";
 import User from "../models/userModels/user.model";
 import { connectToDB } from "../mongoDb/connect"
-import { getAuthUrl } from "@/lib/auth";
-import { createGoogleMeetLink } from "@/lib/meetApi";
 
 
 
@@ -13,33 +11,33 @@ import { createGoogleMeetLink } from "@/lib/meetApi";
 
 
 
-export async function linkedInSignInUser() {
-    const url = 'https://api.linkedin.com/v2/userinfo';
-    const token = 'AQUd45TTnWIHsZ1y_fHT6lLc9YOeGJjYvYoId8ezZSZQqHeNkstSyNdtnrson5-rK38qojt1pikrqvoeMyRU5_AdvOZgMt-lX5164h8alnfxbMA5KI_p9S3oL0X6VbK0fDUFuGU-zoVAN8B82C2Xx4ylQL2YBFXP-BP07boYbUcyK8iX85dB4z5jq_R4BQs7XVyTT0OxV3oZhBZKU82s8mER5FzNMTvC2OLlVKuh2NZkAKZIKvt1U7TU49r5Ca3apsIz40gdwtOusmK4AnNVCViyyOUu9ZzlCTQTONfybCUuvCFcwHYOV7PSayrjtU2E2-yRJK5H-DTr-_3JUYB3kgmXND6lSA';
+// export async function linkedInSignInUser() {
+//     const url = 'https://api.linkedin.com/v2/userinfo';
+//     const token = 'AQUd45TTnWIHsZ1y_fHT6lLc9YOeGJjYvYoId8ezZSZQqHeNkstSyNdtnrson5-rK38qojt1pikrqvoeMyRU5_AdvOZgMt-lX5164h8alnfxbMA5KI_p9S3oL0X6VbK0fDUFuGU-zoVAN8B82C2Xx4ylQL2YBFXP-BP07boYbUcyK8iX85dB4z5jq_R4BQs7XVyTT0OxV3oZhBZKU82s8mER5FzNMTvC2OLlVKuh2NZkAKZIKvt1U7TU49r5Ca3apsIz40gdwtOusmK4AnNVCViyyOUu9ZzlCTQTONfybCUuvCFcwHYOV7PSayrjtU2E2-yRJK5H-DTr-_3JUYB3kgmXND6lSA';
   
-    const headers = {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    };
+//     const headers = {
+//       'Authorization': `Bearer ${token}`,
+//       'Content-Type': 'application/json',
+//     };
   
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: headers,
-      });
+//     try {
+//       const response = await fetch(url, {
+//         method: 'GET',
+//         headers: headers,
+//       });
   
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+//       if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//       }
   
-      const data = await response.json();
-      // Handle the data returned from the API
-      console.log(data);
+//       const data = await response.json();
+//       // Handle the data returned from the API
+//       console.log(data);
   
-    } catch (error:any) {
-      throw new Error(`Failed to sign in user: ${error.message}`);
-    }
-  }
+//     } catch (error:any) {
+//       throw new Error(`Failed to sign in user: ${error.message}`);
+//     }
+//   }
 
 
 
@@ -111,9 +109,9 @@ export async function updateUser({userId,username,name,bio,image,path,email,obje
 
 
 
-        if (path === '/profile/edit'){
-            revalidatePath(path);
-        }
+        // if (path === '/profile/edit'){
+        //     revalidatePath(path);
+        // }
 
      
     } catch (error:any) {
@@ -121,3 +119,7 @@ export async function updateUser({userId,username,name,bio,image,path,email,obje
     }
 
 }
+
+
+
+

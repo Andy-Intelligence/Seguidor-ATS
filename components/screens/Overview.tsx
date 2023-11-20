@@ -14,7 +14,6 @@ import {PiCaretLeftBold} from 'react-icons/pi'
 import {PiCaretRightBold} from 'react-icons/pi'
 import { register } from 'swiper/element/bundle';
 
-
 import {
   Select,
   SelectContent,
@@ -45,8 +44,8 @@ import JobRoleCard from '../cards/JobRoleCard';
 import DailyTaskCard from '../cards/DailyTaskCard';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { linkedInSignInUser } from '@/backend/actions/user.actions';
-import { getAllPostedJobs } from '@/backend/actions/job.actions';
+
+import { getAllApplicant, getAllApplicantComment, getAllPostedJobs, getAllScheduledInterviews } from '@/backend/actions/job.actions';
 
 register()
 const Overview =  () => {
@@ -64,16 +63,76 @@ const Overview =  () => {
   const [allJobs, setAllJobs] =  React.useState<any>([])
 
 
+
+
+
+  const [allApplicant,setAllApplicant] = useState<any>()
+  const [totalComment,setTotalComment] = useState<any>()
+  const [tasks,setTasks] = useState<any>()
+  const [job,setJob] = useState<any>()
+  // console.log("me",params?.jobId)
+
+  useEffect(()=>{
+// console.log("firing")
+const fetchData = async () => {
+  try {
+    // const jobId = params?.id;
+    const res = await getAllApplicantComment();
+    
+    // const res2 = await getSingleJob({ jobId:params?.jobId });
+    // setJob(res2)
+    setAllApplicant(allApplicant);
+    // console.log("applicant", applicant);
+    return res
+  } catch (error) {
+    console.error("Error fetching all applicant:", error);
+  }
+};
+
+fetchData().then((a)=>{
+    setAllApplicant(a)
+    
+    
+  });
+  },[])
+
+
+
   useEffect(()=>{
     const me = async ()=>{
-    
-      const allJobs = await getAllPostedJobs()
-      setAllJobs(allJobs)
-    
-    //  const a = await linkedInSignInUser()
-    //  console.log(allJobs)
+
+      const scheduledInterviews = await getAllScheduledInterviews()
+      setTasks(scheduledInterviews)
+     console.log(scheduledInterviews)
     }
     me()
+
+
+      },[])
+
+
+
+
+
+
+
+  useEffect(()=>{
+    const me = async ()=>{
+
+      const allJobs = await getAllPostedJobs()
+      setAllJobs(allJobs)
+     console.log(allJobs)
+    }
+    me()
+
+    let totalNoteAndFeedBack = allJobs.reduce((acc:any, job:any) => {
+      return acc + job.applications.reduce((accApp:any, application:any) => {
+        return accApp + application.noteAndFeedBack.length;
+      }, 0);
+    }, 0);
+
+    setTotalComment(totalNoteAndFeedBack)
+
       },[])
 
 
@@ -82,31 +141,83 @@ const Overview =  () => {
     router.push('/jobs/all')
   }
   const handleRouteToTask = ()=>{
-    router.push('/candidates/tasks')
+    router.push('/tasks')
   }
 
-  const frameworks = [ //note that the value should start with small letter while the label should start with big letter
+  // const frameworks = [
+  //    //note that the value should start with small letter while the label should start with big letter
+  //    allJobs.map((item:any)=>{
+  //     return (
+  //       {
+  //         value: item?.jobTitle,
+  //         label: item?.jobTitle
+  //       }
+  //     )
+  //    })
+  // ]
+
+  // const frameworks = allJobs.map((item: any) => {
+  //   return {
+  //     value: item?.jobTitle,
+  //     label: item?.jobTitle,
+  //   };
+  // });
+
+  const frameworks = allJobs.map((item: any) => {
+    return {
+      value: item?.jobTitle.toLowerCase(),
+      label: item?.jobTitle.charAt(0).toUpperCase() + item?.jobTitle.slice(1),
+    };
+  });
+
+
+
+  const data = [
     {
-      value: "cashier",
-      label: "Cashier",
+      name: 'Page A',
+      uv: 0,
+      pv: 2400,
+      amt: 2400,
     },
     {
-      value: "attendant",
-      label: "Attendant",
+      name: 'Page B',
+      uv: 0,
+      pv: 9000,
+      amt: 9000, 
     },
     {
-      value: "caterer",
-      label: "Caterer",
+      name: 'Page C',
+      uv: 0,
+      pv: 9800,
+      amt: 2290,
     },
     {
-      value: "mechanic",
-      label: "Mechanic",
+      name: 'Page D',
+      uv: 0,
+      pv: 3908,
+      amt: 2000,
     },
     {
-      value: "nurse",
-      label: "Nurse",
+      name: 'Page E',
+      uv: 4000,
+      pv: 4800,
+      amt: 2181,
     },
-  ]
+    {
+      name: 'Page F',
+      uv: 5000,
+      pv: 3800,
+      amt: 2500,
+    },
+    {
+      name: 'Page G',
+      uv: 6000,
+      pv: 4300,
+      amt: 2100,
+    },
+  ];
+  
+  
 
   return (
     <main className='flex flex-col items-center space-y-4'>
@@ -126,16 +237,16 @@ const Overview =  () => {
             className='mySwiper summaryMainContainer w-[75vw] flex flex-row items-center justify-center gap-[41px]  '
             >
             
-            <SwiperSlide><div><Summary summaryHeader='Posted Jobs' summaryTotal={allJobs?.length}/></div></SwiperSlide>
-            <SwiperSlide><div><Summary summaryHeader='Applicants' summaryTotal={123} /></div></SwiperSlide>
-            <SwiperSlide><div><Summary summaryHeader='Team' summaryTotal={10} /></div></SwiperSlide>
-            <SwiperSlide><div><Summary summaryHeader='Employed' summaryTotal={23} /></div></SwiperSlide>
+            <SwiperSlide><div><Summary key={1} data={data} summaryHeader='Posted Jobs' summaryTotal={allJobs?.length}/></div></SwiperSlide>
+            <SwiperSlide><div><Summary key={2} data={data} summaryHeader='Applicants' summaryTotal={allApplicant?.length} /></div></SwiperSlide>
+            <SwiperSlide><div><Summary key={3} data={data}summaryHeader='Team' summaryTotal={10} /></div></SwiperSlide>
+            <SwiperSlide><div><Summary key={4} data={data}summaryHeader='Employed' summaryTotal={23} /></div></SwiperSlide>
             </Swiper>
 
             <div className = " text-white flex items-center justify-center" ref={(node) => setNextEl(node)}><PiCaretRightBold size={45} className= "summaryNavButton"/></div>       
         </div>
-        <div className='flex flex-row  justify-evenly w-full '>
-            <section className='w-[424px]'>
+        <div className='flex gap-4 w-full '>
+            <section className='w-2/5'>
                   <header className='activeJobsHeader flex flex-row items-center justify-between w-full rounded-[4px] '>
                     <div className='flex flex-row items-center justify-between w-full pl-2'>
                       <div>
@@ -151,7 +262,7 @@ const Overview =  () => {
                               className="w-[200px] flex items-center justify-between activeJobsButton font-[400] text-[20px]"
                             >
                               {value
-                                ? frameworks?.find((framework) => framework?.value === value)?.label
+                                ? frameworks?.find((framework:any) => framework?.value === value)?.label
                                 : "Select Job Role"}
                               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -161,7 +272,7 @@ const Overview =  () => {
                               <CommandInput placeholder="Search Job Role..." />
                               <CommandEmpty>No Job Role found.</CommandEmpty>
                               <CommandGroup>
-                                {frameworks.map((framework) => (
+                                {frameworks.map((framework:any) => (
                                   <CommandItem
                                     key={framework.value}
                                     value={framework?.value}
@@ -187,13 +298,17 @@ const Overview =  () => {
                     </div>
                   </header>
                   <div onClick={handleSeeAllClick} className='jobRoleBackground flex flex-col gap-4 p-2'>
-                    {allJobs?.map((item:any)=>{
+                    {allJobs?.reverse().slice(0,3).map((item:any)=>{
                       return (
                         <JobRoleCard 
+                        key = {item?._id}
                         jobtitle ={item?.jobTitle}
                         jobtype ={item?.jobType}
                         employmentstatus ={item?.employmentStatus}
-                        jobdescription ={item?.jobDescription}/>
+                        jobdescription ={item?.jobDescription}
+                        applications={item?.applications}
+                        jobauthor={item?.author?.name}
+                        />
                       )
                     })}
                     <div className='w-full flex justify-end items-end '>
@@ -207,7 +322,7 @@ const Overview =  () => {
                   </div>
             </section>
 
-            <div className='flex flex-col space-y-8'>
+            <div className='flex flex-col w-3/5 space-y-8'>
            
               <section onClick={handleRouteToTask} className='w-full dailyTaskBackgroundColor p-2 flex flex-col gap-2'>
                 <div className='flex items-center space-x-1'>
@@ -223,7 +338,23 @@ const Overview =  () => {
                   </div>
 
                 </div> 
-                <DailyTaskCard/>
+                {tasks?.reverse().slice(0,2).map((task:any)=>{
+                  return (
+                    <DailyTaskCard 
+                    applicantImg={task?.applicant?.passport}
+                    taskStartTime = {task?.scheduledDate}
+                    taskEndTime = {task?.interviewEndTime}
+                    applicantName = {task?.applicant?.name}
+                    applicantJob = {task?.job?.jobTitle}
+                    jobTitle = {task?.job?.jobTitle}
+                    jobType = {task?.job?.jobType}
+                    employmentStatus = {task?.job?.employmentStatus}
+                    inviteLink = {task?.inviteLink}
+                    interviewer = {task?.interviewer?.name}
+                    />
+                  )
+                })}
+                
               </section> 
        
 
@@ -237,20 +368,28 @@ const Overview =  () => {
 
                     </div>
                     <div className='dailyTaskTagBackgroundColor flex items-center justify-center text-white h-[19px] w-[22px] rounded-[2px] text-[14px] font-[400]'>
-                      2
+                    {/* {totalComment} */}4
                     </div>
+
+                    
+
+
+                    
 
                   </div> 
 
-                  <div>
-                          <div className='flex items-start justify-start gap-[6px]'>
+                  <div className='gap-2'> 
+                    {/* {allApplicant?.slice().reverse().map((item:any)=>{
+                      return (
+                    <div className='flex items-start justify-start gap-[6px]'>
                         <div>
                           <img className='h-[30px] w-[30px] rounded-full' alt='profile-img' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600'/>
                         </div>
                         <div className='flex flex-col w-full'>
-                          <div className='text-[14px] text-left font-[400]'>Andidiong Usoro</div>
-                          <div className='text-[12px] font-[400] text-left'>usoroandidiong@gmail.com</div>
-                          <div className='messageBackground p-1 text-[14px] font-[400] my-2'>quidem m corporis!</div>
+                          <div className='text-[14px] text-left font-[400]'>{item?.sender?.name}</div>
+                          <div className='text-[12px] font-[400] text-left'>{item?.sender?.email}usoroandidiong@gmail.com</div>
+                          <div className='messageBackground p-1 text-[14px] font-[400] my-2'>{item?.content}</div>
+                          <Link href={`candidates/information/655139e4fb0268f5fb1a9105`}><span className='text-blue'>@andy{item?.receiver.name}</span></Link>
 
                           <form>
                             <input type='text' placeholder='write here...' className='messageBackground rounded-[4px] h-[40px] w-full'/>
@@ -260,6 +399,47 @@ const Overview =  () => {
                             </div>
                         </div>
                         </div>
+                      )
+                    })} */}
+
+{
+allJobs?.slice(0,3).reverse().map((job:any) => {
+  return (
+    job?.applications?.slice().reverse().map((applications:any) => {
+      return (
+        applications?.noteAndFeedBack?.slice().reverse().map((noteAndFeedBack:any) => {
+          return (
+            <div className='flex items-start justify-start gap-[6px] my-2'>
+              <div>
+                <img className='h-[30px] w-[30px] rounded-full' alt='profile-img' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600'/>
+              </div>
+              <div className='flex flex-col w-full'>
+                <div className='text-[14px] text-left font-[400]'>{noteAndFeedBack?.sender?.name}</div>
+                <div className='text-[12px] font-[400] text-left'>{noteAndFeedBack?.sender?.email}usoroandidiong@gmail.com</div>
+                <div className='messageBackground p-1 text-[14px] font-[400] my-2'>{noteAndFeedBack?.content}</div>
+                <div className=''>
+                <Link href={`jobs/${job._id}/candidates/information/655139e4fb0268f5fb1a9105`}><span className='text-blue-800'>@{noteAndFeedBack?.receiver.name}</span></Link>
+                </div>
+                {/* <form>
+                  <input type='text' placeholder='write here...' className='messageBackground rounded-[4px] h-[40px] w-full'/>
+                </form>
+                <div className='w-full flex justify-end items-end '>
+                  <div className='sendButton flex items-end text-[14px] font-[400]'>Send</div>
+                </div> */}
+              </div>
+            </div>
+          )
+        })
+      )
+    })
+  )
+})
+}
+
+
+
+
+                          
                   </div>
               </section>
 
@@ -268,6 +448,7 @@ const Overview =  () => {
     </main>
   )
 }
+
 
 export default Overview
 
