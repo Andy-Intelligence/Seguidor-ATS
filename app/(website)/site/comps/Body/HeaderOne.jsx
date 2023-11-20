@@ -27,11 +27,11 @@ const HeaderOne = () => {
 
         <div className="imgOne">
           <Image src={firstImage} alt=" relative illustration" width={500} />
-          <Image
+          {/* <Image
             src={Frame}
             alt="second-image"
             className=" seconder absolute top-[54rem] right-[23rem]"
-          />
+          /> */}
         </div>
       </div>
     </div>

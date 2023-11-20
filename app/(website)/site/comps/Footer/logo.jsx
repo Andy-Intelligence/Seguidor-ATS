@@ -5,7 +5,8 @@ const Logo = () => {
   return (
     <Link href="/">
       <h1 className="font-normal mt-[-3rem] text-5xl">
-      <Image src={mainLogo} alt="Main-logo" className="footerLogo" />
+      {/* <Image src={mainLogo} alt="Main-logo" className="footerLogo" /> */}
+      <span className="text-3xl font-[700]">Seguidor</span>
       </h1>
     </Link>
   );
