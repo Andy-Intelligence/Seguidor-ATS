@@ -13,7 +13,7 @@ import dribble from "../../../../../app/(website)/site/images/dribble.svg";
 const Body = () => {
   return (
     <main>
-      <div className="body ">
+      <div className="body p-4 flex items-start justify-start">
         <div>
           <h2 className=" working p-7 text-3xl mt-7 ml-5 font-semibold">
             Unlock the Power of Modern HR with
