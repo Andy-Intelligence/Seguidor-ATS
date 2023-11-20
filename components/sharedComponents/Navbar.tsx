@@ -1,6 +1,8 @@
 "use client"
 import Link from 'next/link';
 import {FiLink2} from 'react-icons/fi'
+import { UserButton } from "@clerk/nextjs";
+import  {SignedIn} from "@clerk/nextjs"
 import {
   Select,
   SelectContent,
@@ -8,7 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { currentUser } from "@clerk/nextjs"
 
 
 interface SearchProp{
@@ -18,6 +21,7 @@ interface SearchProp{
 
 const Navbar = ({onSearch}:SearchProp) => {
 
+  
 
 // const [query,setQuery] = useState<any>()
 
@@ -30,6 +34,22 @@ const Navbar = ({onSearch}:SearchProp) => {
 //   items?.name.toLocaleLowerCase().indexOf(query.toLocaleLowerCase() !== -1)
 // })
 const [searchQuery, setSearchQuery] = useState<string>('');
+// const [user, setUser] = useState<any>();
+
+// useEffect(()=>{
+  
+//   const user = async ()=>{
+//     const user = await currentUser();
+//     setUser(user)
+
+//   }
+
+
+//   user()
+// },[])
+
+
+
 
 const handleSearch = (event: any) => {
   const query = event.target.value;
@@ -41,6 +61,15 @@ const handleSearch = (event: any) => {
   setSearchQuery(query);
 };
 
+// import { UserButton } from "@clerk/nextjs";
+ 
+// export default function Home() {
+//   return (
+//     <div>
+//       <UserButton afterSignOutUrl="/"/>
+//     </div>
+//   )
+// }
 
   return (
     <nav className="navbar p-4 flex justify-between w-full items-center ">
@@ -110,7 +139,12 @@ const handleSearch = (event: any) => {
           <option value="option1">Option 1</option>
           <option value="option2">Option 2</option>
         </select> */}
-      <Select>
+
+
+
+
+        
+      {/* <Select>
         <SelectTrigger className="navBarSelect w-[15rem] p-1">
         <div className='flex items-center justify-between gap-[10px]'>
               <div>
@@ -137,9 +171,10 @@ const handleSearch = (event: any) => {
           <SelectItem value="null1">null1</SelectItem>
           <SelectItem value="null2">null2</SelectItem>
         </SelectContent>
-      </Select>
+      </Select> */}
 
       </div>
+      <UserButton afterSignOutUrl="/"/>
     </nav>
   );
 };

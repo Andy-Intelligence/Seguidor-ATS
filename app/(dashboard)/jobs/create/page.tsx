@@ -114,9 +114,8 @@ const formSchema = z.object({
       message: "overview must not be longer than 1000 characters.",
     }),
     qualifications: z.string({
-      required_error: "Please select an email to display.",
-    })
-    .email(),
+      required_error: "Please select a qualification to display.",
+    }),
     name: z.boolean().default(false).optional(),
     mobile: z.boolean().default(false).optional(),
     linkedinprofile: z.boolean().default(false).optional(),

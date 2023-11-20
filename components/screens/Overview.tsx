@@ -44,7 +44,7 @@ import JobRoleCard from '../cards/JobRoleCard';
 import DailyTaskCard from '../cards/DailyTaskCard';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { linkedInSignInUser } from '@/backend/actions/user.actions';
+
 import { getAllApplicant, getAllApplicantComment, getAllPostedJobs, getAllScheduledInterviews } from '@/backend/actions/job.actions';
 
 register()
@@ -169,6 +169,54 @@ fetchData().then((a)=>{
       label: item?.jobTitle.charAt(0).toUpperCase() + item?.jobTitle.slice(1),
     };
   });
+
+
+
+  const data = [
+    {
+      name: 'Page A',
+      uv: 0,
+      pv: 2400,
+      amt: 2400,
+    },
+    {
+      name: 'Page B',
+      uv: 0,
+      pv: 9000,
+      amt: 9000, 
+    },
+    {
+      name: 'Page C',
+      uv: 0,
+      pv: 9800,
+      amt: 2290,
+    },
+    {
+      name: 'Page D',
+      uv: 0,
+      pv: 3908,
+      amt: 2000,
+    },
+    {
+      name: 'Page E',
+      uv: 4000,
+      pv: 4800,
+      amt: 2181,
+    },
+    {
+      name: 'Page F',
+      uv: 5000,
+      pv: 3800,
+      amt: 2500,
+    },
+    {
+      name: 'Page G',
+      uv: 6000,
+      pv: 4300,
+      amt: 2100,
+    },
+  ];
+  
   
 
   return (
@@ -189,16 +237,16 @@ fetchData().then((a)=>{
             className='mySwiper summaryMainContainer w-[75vw] flex flex-row items-center justify-center gap-[41px]  '
             >
             
-            <SwiperSlide><div><Summary  summaryHeader='Posted Jobs' summaryTotal={allJobs?.length}/></div></SwiperSlide>
-            <SwiperSlide><div><Summary  summaryHeader='Applicants' summaryTotal={allApplicant?.length} /></div></SwiperSlide>
-            <SwiperSlide><div><Summary summaryHeader='Team' summaryTotal={10} /></div></SwiperSlide>
-            <SwiperSlide><div><Summary summaryHeader='Employed' summaryTotal={23} /></div></SwiperSlide>
+            <SwiperSlide><div><Summary key={1} data={data} summaryHeader='Posted Jobs' summaryTotal={allJobs?.length}/></div></SwiperSlide>
+            <SwiperSlide><div><Summary key={2} data={data} summaryHeader='Applicants' summaryTotal={allApplicant?.length} /></div></SwiperSlide>
+            <SwiperSlide><div><Summary key={3} data={data}summaryHeader='Team' summaryTotal={10} /></div></SwiperSlide>
+            <SwiperSlide><div><Summary key={4} data={data}summaryHeader='Employed' summaryTotal={23} /></div></SwiperSlide>
             </Swiper>
 
             <div className = " text-white flex items-center justify-center" ref={(node) => setNextEl(node)}><PiCaretRightBold size={45} className= "summaryNavButton"/></div>       
         </div>
-        <div className='flex flex-row gap-2 justify-evenly w-full '>
-            <section className='w-[424px]'>
+        <div className='flex gap-4 w-full '>
+            <section className='w-2/5'>
                   <header className='activeJobsHeader flex flex-row items-center justify-between w-full rounded-[4px] '>
                     <div className='flex flex-row items-center justify-between w-full pl-2'>
                       <div>
@@ -250,14 +298,17 @@ fetchData().then((a)=>{
                     </div>
                   </header>
                   <div onClick={handleSeeAllClick} className='jobRoleBackground flex flex-col gap-4 p-2'>
-                    {allJobs?.map((item:any)=>{
+                    {allJobs?.reverse().slice(0,3).map((item:any)=>{
                       return (
                         <JobRoleCard 
                         key = {item?._id}
                         jobtitle ={item?.jobTitle}
                         jobtype ={item?.jobType}
                         employmentstatus ={item?.employmentStatus}
-                        jobdescription ={item?.jobDescription}/>
+                        jobdescription ={item?.jobDescription}
+                        applications={item?.applications}
+                        jobauthor={item?.author?.name}
+                        />
                       )
                     })}
                     <div className='w-full flex justify-end items-end '>
@@ -271,7 +322,7 @@ fetchData().then((a)=>{
                   </div>
             </section>
 
-            <div className='flex flex-col w-full space-y-8'>
+            <div className='flex flex-col w-3/5 space-y-8'>
            
               <section onClick={handleRouteToTask} className='w-full dailyTaskBackgroundColor p-2 flex flex-col gap-2'>
                 <div className='flex items-center space-x-1'>
@@ -287,7 +338,7 @@ fetchData().then((a)=>{
                   </div>
 
                 </div> 
-                {tasks?.reverse().slice().map((task:any)=>{
+                {tasks?.reverse().slice(0,2).map((task:any)=>{
                   return (
                     <DailyTaskCard 
                     applicantImg={task?.applicant?.passport}
@@ -352,7 +403,7 @@ fetchData().then((a)=>{
                     })} */}
 
 {
-allJobs?.slice().reverse().map((job:any) => {
+allJobs?.slice(0,3).reverse().map((job:any) => {
   return (
     job?.applications?.slice().reverse().map((applications:any) => {
       return (
@@ -397,6 +448,7 @@ allJobs?.slice().reverse().map((job:any) => {
     </main>
   )
 }
+
 
 export default Overview
 

@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <MyProvider>
+        {/* <MyProvider> */}
       <main className="flex flex-row  font-roboto ">
       <section className="navbarOverviewContainer grow flex flex-col">
         <div className='websiteNavbar'>
@@ -97,7 +97,7 @@ export default function RootLayout({
         </div>
       </section>
     </main>
-    </MyProvider>
+    {/* </MyProvider> */}
         {/* {children} */}
         
       </body>

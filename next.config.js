@@ -15,7 +15,9 @@ const nextConfig = {
         // your project has ESLint errors.
         ignoreDuringBuilds: true,
       },
+      
       images: {
+        domains: ['lh3.googleusercontent.com'],
         remotePatterns: [
           {
             protocol: "https",

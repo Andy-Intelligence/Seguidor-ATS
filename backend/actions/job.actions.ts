@@ -187,8 +187,7 @@ export async function getAllPostedJobs(){
         // model: 'User Applicant', // Replace with the actual model name for sender and receiver
       },
     },
-  })
-  .exec();
+  }).populate("author").exec();
   const jobs = JSON.parse(JSON.stringify(res))
   // console.log("jobs",jobs)
   return jobs
@@ -366,7 +365,7 @@ interface ApplicantParams{
 
 
 export async function getSingleApplicant({ applicantId,jobId }: ApplicantParams) {
-  console.log("a");
+  // console.log("a");
   connectToDB();
 
   try {
@@ -416,7 +415,7 @@ export async function getAllApplicantComment() {
     const res = await Comment.find({}).populate('sender')
     // .populate('receiver')
     // .exec();
-    console.log("Applicants", res);
+    // console.log("Applicants", res);
 
     if (!res) {
       console.log('Applicants not found');
@@ -440,7 +439,7 @@ export async function getAllApplicant() {
     const a = await Application.find({})
     // .populate('receiver')
     // .exec();
-    console.log("Applicants", a);
+    // console.log("Applicants", a);
 
     if (!a) {
       console.log('Applicants not found');
@@ -487,7 +486,7 @@ export async function getSingleJob({jobId}:JobParams){
   try {
     const res = await Job.findOne({ _id: jobId }).populate("author").populate('applications')
     const job = JSON.parse(JSON.stringify(res))
-    console.log("singlejob", job)
+    // console.log("singlejob", job)
 // const sanitizedJob = {
 //   _id: job?._id,
 //   name: job?.name,
@@ -691,8 +690,8 @@ export async function RejectInterview({
         await rejectedInterview.save();
         
           if(rejectedInterview){
-            console.log("sending")
-            console.log(applicantEmail)
+            // console.log("sending")
+            // console.log(applicantEmail)
           resend.emails.send({
             from: 'onboarding@resend.dev',
             // to: 'usoroandidiong@gmail.com',
@@ -714,7 +713,7 @@ export async function RejectInterview({
               // inviteLink
             })
           });
-          console.log("sent")
+          // console.log("sent")
         }
       }
   
@@ -749,7 +748,7 @@ export async function getAllScheduledInterviews() {
     const res = await Interview.find({}).populate('applicant').populate("interviewer").populate("job")
     // .populate('receiver')
     // .exec();
-    console.log("Interviews", res);
+    // console.log("Interviews", res);
 
     if (!res) {
       console.log('Interviews not found');

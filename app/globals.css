@@ -280,5 +280,26 @@ background-color: rgba(117, 208, 214, 0.2); /* 20% opacity */
 
 
 
+/* 
 
+.company {
+  position: absolute;
+  top: 3rem;
+  left: 50rem;
+}
 
+.company h1 {
+  color: var(--Buttion-color, #3637ee);
+}
+
+.company h2 {
+  color: #000;
+  margin-left: 6.7rem;
+  font-size: 1.5rem;
+  margin-left: 0.3rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 44px;
+} */

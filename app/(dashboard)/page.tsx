@@ -1,8 +1,14 @@
 import Overview from "@/components/screens/Overview"
 import LeftSideBar from "@/components/sharedComponents/LeftSideBar"
 import Navbar from "@/components/sharedComponents/Navbar"
+import { currentUser } from "@clerk/nextjs"
 
-export default function Home() {
+
+
+
+export default async function Home() {
+  // const user = await currentUser();
+  // console.log(user)
   return (
     <div>
       <div className="mb-4">

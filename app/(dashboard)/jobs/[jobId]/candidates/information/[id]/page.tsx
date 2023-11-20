@@ -646,7 +646,7 @@ jobTitle:job?.jobTitle,
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={2}>
                     <div className='flex items-center justify-start'>
-                    <a href='https://www.google.com' className='linkBlue text-[16px] font-[400]' target='_blank' rel='noopener noreferrer'>
+                    <a href={`https://${applicant?.portfolioworksample}`} className='linkBlue text-[16px] font-[400]' target='_blank' rel='noopener noreferrer'>
                       {applicant?.portfolioworksample}
                     </a>
                       <span>
@@ -670,7 +670,7 @@ jobTitle:job?.jobTitle,
 
 
                      { applicant?.noteAndFeedBack?.slice().reverse().map((item: any) => {
-                     return( <div className='flex flex-row gap-2 items-start justify-start w-full'>
+                     return( <div className='flex flex-row gap-2 items-start justify-start w-full my-4'>
                         <div className='flex items-start justify-start'>
                             <img className='h-[42px] w-[42px] rounded-full' alt='profile-img' src='https://cdn.pixabay.com/photo/2018/08/28/12/41/avatar-3637425_640.png'/>
                         </div>

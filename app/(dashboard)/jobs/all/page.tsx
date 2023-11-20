@@ -129,7 +129,8 @@ export default function Home() {
 
       </div>
     </nav>
-        <main className="grid grid-cols-2 gap-4">
+    <div className='w-fulll flex items-center justify-center'>
+        <main className="grid grid-cols-2 items-center justify-center gap-10  p-2">
         {filteredjobs?.map((item:any)=>{
                       return (
                         <div onClick={(e)=>handleClick(e,item?._id)}>
@@ -138,11 +139,17 @@ export default function Home() {
                         jobtitle ={item?.jobTitle}
                         jobtype ={item?.jobType}
                         employmentstatus ={item?.employmentStatus}
-                        jobdescription ={item?.jobDescription}/>
+                        jobdescription ={item?.jobDescription}
+                        applications={item?.applications}
+                        jobauthor={item?.author?.name}
+                        />
                         </div>
+                        
                       )
                     })}
+                   
         </main>
+        </div>
     </div>
   )
 }

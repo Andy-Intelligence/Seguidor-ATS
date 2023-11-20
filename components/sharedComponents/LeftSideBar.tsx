@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { UserAuth } from '@/context/MyContext';
 import { usePathname } from "next/navigation";
 import { useEffect } from 'react';
+import  {OrganizationSwitcher, SignOutButton, SignedIn} from "@clerk/nextjs"
 
 
 const LeftSidebar = () => {
@@ -139,13 +140,30 @@ const LeftSidebar = () => {
         <Link href="/help">
           Help
         </Link>
-        <Link href="/settings">
-          Settings
-        </Link>
         <Link href="/onboard">
           Onboard
         </Link>
-        {!user ? (<button className="gitHub-btn bg-orange-500 text-white rounded-xl p-2" type="button" onClick={handleSignIn}>
+        <Link href="/analytics">
+          Analytics
+        </Link>
+        <Link href="/settings">
+          Settings
+        </Link>
+        <SignedIn>
+          <SignOutButton signOutCallback={()=>{router.push('/sign-in')}}>
+              <div className='flex cursor-pointer text-red-500'>
+                LogOut
+              </div>
+          </SignOutButton>
+        </SignedIn>
+
+        <OrganizationSwitcher appearance={{
+          elements:{
+            organizationSwitcherTrigger:"py-2 px-4"
+          }
+        }}/>
+
+        {/* {!user ? (<button className="gitHub-btn bg-orange-500 text-white rounded-xl p-2" type="button" onClick={handleSignIn}>
               GoogleSignIn
           </button>):
           (<button className="gitHub-btn bg-orange-500 text-white rounded-xl p-2" type="button" onClick={handleSignOut}>
@@ -159,7 +177,7 @@ const LeftSidebar = () => {
         <div className="font-bold text-red-600 text-2xl">
           <p>Please SignUp or login</p> 
         </div>
-      )}
+      )} */}
       </div>
     </aside>
   );

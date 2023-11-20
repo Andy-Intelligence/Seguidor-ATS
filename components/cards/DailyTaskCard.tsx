@@ -30,8 +30,8 @@ const DailyTaskCard = ({
   return (
     <main className='flex items-start w-full '>
         <div className='dailyTaskTimeColor font-[700] text-[15.58px]'>{extractTimeWithMeridian(taskStartTime)}</div>
-    <div className='taskBackgrorund flex items-center justify-center w-full rounded-[22.87px]'>
-        <div className='flex flex-col items-center  justify-center w-1/2 border-r border-black '>
+    <div className='taskBackgrorund flex items-center justify-start w-full rounded-[22.87px]'>
+        <div className='flex flex-col items-center   justify-center w-1/3 border-r border-black '>
             <img className='h-[43px] w-[43px] rounded-full' alt='profile-img' src={applicantImg}/>
             <h1 className='text-[22px] font-[400] '>{applicantName}</h1>
             <h3 className='text-[14px] font-[400] '>{applicantJob}</h3>
@@ -55,8 +55,8 @@ const DailyTaskCard = ({
                 </span>
             </div>
         </div>
-        <div className='flex flex-col items-center justify-center gap-1 w-1/2 p-4'>
-            <div className='flex text-[22px] font-[400] justify-start w-full'>
+        <div className='flex flex-col items-center justify-center gap-1 w-2/3 p-4'>
+            <div className='flex text-[22px] font-[400] justify-center w-full'>
               <span>
                 <svg width="37" height="38" viewBox="0 0 37 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.95325 26.0235L18.6742 34.0274L32.3952 26.0235" stroke="#181818" strokeWidth="2.28683" strokeLinecap="round" strokeLinejoin="round"/>
