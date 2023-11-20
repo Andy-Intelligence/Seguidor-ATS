@@ -316,16 +316,25 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
 
     return (
-      <main>
-        <div className="bgColorFF flex flex-col gap-2 w-full p-2">
+      <main className="p-4">
+      <div className=''>
+        <div className="bgColorFF h-full flex flex-col gap-2 p-2">
           <div className="flex flex-col gap-1">
             <h1 className="text-[21px] font-[500] whitespace-normal break-words">{job?.jobTitle}</h1>
             <p className="text-[14px] font-[400] whitespace-normal break-words">{job?.jobDescription}</p>
             <div className="flex flex-row items-center justify-left gap-8">
-              <div className="flex items-center gap-1  text-[13px] font-[500]"><div className="rounded-full bg-black w-[5px] h-[5px]"></div>JobType: {job?.jobType}</div> 
-              <div className="flex items-center gap-1 text-[13px] font-[500]"><div className="rounded-full bg-black w-[5px] h-[5px]"></div>Team/Department: {job?.teamDept}</div>
-              <div className="flex items-center gap-1 text-[13px] font-[500]"><div className="rounded-full bg-black w-[5px] h-[5px]"></div>Experience Needed: {job?.yrsOfExp} years</div>
-              <div className="flex items-center gap-1 text-[13px] font-[500]"><div className="rounded-full bg-black w-[5px] h-[5px]"></div>location: {job?.location}</div>
+              <div className="flex items-center gap-1 text-[13px] font-[500]">
+                <div className="rounded-full bg-black w-[5px] h-[5px]"></div>JobType: {job?.jobType}
+              </div>
+              <div className="flex items-center gap-1 text-[13px] font-[500]">
+                <div className="rounded-full bg-black w-[5px] h-[5px]"></div>Team/Department: {job?.teamDept}
+              </div>
+              <div className="flex items-center gap-1 text-[13px] font-[500]">
+                <div className="rounded-full bg-black w-[5px] h-[5px]"></div>Experience Needed: {job?.yrsOfExp} years
+              </div>
+              <div className="flex items-center gap-1 text-[13px] font-[500]">
+                <div className="rounded-full bg-black w-[5px] h-[5px]"></div>Location: {job?.location}
+              </div>
             </div>
             <span className="text-[13px] font-[500] reject">Deadline: {formatDate(job?.deadline)}</span>
           </div>
@@ -333,260 +342,260 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             <h1 className="text-[16px] font-[500]">Company Overview</h1>
             <p className="text-[14px] font-[400] whitespace-normal break-words">{job?.companyOverview}</p>
           </div>
-            <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <h1 className="text-[16px] font-[500]">Qualifications</h1>
-            <div className="flex items-center  gap-4">
-            <Badge className="flex items-center justify-center" variant="secondary">{job?.qualifications}</Badge>
-            {/* <Badge className='flex items-center justify-center' variant="secondary">Secondary</Badge><Badge className="flex items-center justify-center" variant="secondary">Secondary</Badge> */}
+            <div className="flex items-center gap-4">
+              <Badge className="flex items-center justify-center" variant="secondary">{job?.qualifications}</Badge>
+              {/* Additional badges can be added here */}
             </div>
-
           </div>
-
-
-            <h1 className="color98 text-[16px] font-[400]">Candidate Form</h1>
-
+        </div>
+    
+        <div>
+          <h1 className="color98 text-[16px] font-[400]">Candidate Form</h1>
+    
           <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" grid grid-cols-2 gap-4  ">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="name" {...field} value={field?.value} className='bgColorF8'/>
-              </FormControl>
-              <FormDescription>
-                Type in your Name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="linkedin"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Linkedin Profile</FormLabel>
-              <FormControl>
-                <Input placeholder="linkedin profile" {...field} value={field?.value} className='bgColorF8'/>
-              </FormControl>
-              <FormDescription>
-                Type in the link to your linkedin profile.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="yearsofexperience"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Years Of Experience</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value} >
-                <FormControl>
-                  <SelectTrigger className="bgColorF8">
-                    <SelectValue placeholder="Select your years of experience" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="1">1</SelectItem>
-                  <SelectItem value="2">2</SelectItem>
-                  <SelectItem value="3">3</SelectItem>
-                  <SelectItem value="4">4</SelectItem>
-                  <SelectItem value="5">5</SelectItem>
-                  <SelectItem value="6">6</SelectItem>
-                  <SelectItem value="7">7</SelectItem>
-                  <SelectItem value="8">8</SelectItem>
-                  <SelectItem value="9">9</SelectItem>
-                  <SelectItem value="10">10</SelectItem>
-                  <SelectItem value="11">11</SelectItem>
-                  <SelectItem value="12">12</SelectItem>
-                  <SelectItem value="13">13</SelectItem>
-                  <SelectItem value="14">14</SelectItem>
-                  <SelectItem value="15">15</SelectItem>
-                  <SelectItem value="16">16</SelectItem>
-                  <SelectItem value="17">17</SelectItem>
-                  <SelectItem value="18">18</SelectItem>
-                </SelectContent>
-              </Select>
-              {/* <FormDescription>
-                You can manage email addresses in your{" "}
-                <Link href="/examples/forms">email settings</Link>.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="email"   {...field} value={field?.value}  className='bgColorF8' />
-              </FormControl>
-              <FormDescription>
-                Type in your Email.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="mobile"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Mobile</FormLabel>
-              <FormControl>
-                <Input placeholder="mobile"   {...field} value={field?.value}  className='bgColorF8' />
-              </FormControl>
-              <FormDescription>
-                Type in your mobile no.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="portfolioworksample"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>portfolio/worksample</FormLabel>
-              <FormControl>
-                <Input placeholder="portfolio or worksample"   {...field} value={field?.value}  className='bgColorF8' />
-              </FormControl>
-              <FormDescription>
-                Type in a link to your portfolio or worksample.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-{/* <FormField
-  control={form.control}
-  name="resume"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Resume (PDF)</FormLabel>
-      <FormControl>
-        <Input
-          type="file"
-          accept=".pdf"
-          className="bgColorF8"
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            field.onChange(file);
-          }}
-        />
-      </FormControl>
-      <FormDescription>
-        Upload your resume in PDF format.
-      </FormDescription>
-      <FormMessage />
-    </FormItem>
-  )}
-/> */}
-
-
-{/* <input type="file" onChange={handleFileChange} /> */}
-
-
-        <FormField
-              name="coverletter"
-              render={({ field }) => {
-                return (
+          <form onSubmit={form.handleSubmit(onSubmit)} className="  ">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="name" {...field} value={field?.value} className='bgColorF8'/>
+                  </FormControl>
+                  <FormDescription>
+                    Type in your Name.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="linkedin"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Linkedin Profile</FormLabel>
+                  <FormControl>
+                    <Input placeholder="linkedin profile" {...field} value={field?.value} className='bgColorF8'/>
+                  </FormControl>
+                  <FormDescription>
+                    Type in the link to your linkedin profile.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="yearsofexperience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Years Of Experience</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value} >
+                    <FormControl>
+                      <SelectTrigger className="bgColorF8">
+                        <SelectValue placeholder="Select your years of experience" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="1">1</SelectItem>
+                      <SelectItem value="2">2</SelectItem>
+                      <SelectItem value="3">3</SelectItem>
+                      <SelectItem value="4">4</SelectItem>
+                      <SelectItem value="5">5</SelectItem>
+                      <SelectItem value="6">6</SelectItem>
+                      <SelectItem value="7">7</SelectItem>
+                      <SelectItem value="8">8</SelectItem>
+                      <SelectItem value="9">9</SelectItem>
+                      <SelectItem value="10">10</SelectItem>
+                      <SelectItem value="11">11</SelectItem>
+                      <SelectItem value="12">12</SelectItem>
+                      <SelectItem value="13">13</SelectItem>
+                      <SelectItem value="14">14</SelectItem>
+                      <SelectItem value="15">15</SelectItem>
+                      <SelectItem value="16">16</SelectItem>
+                      <SelectItem value="17">17</SelectItem>
+                      <SelectItem value="18">18</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {/* <FormDescription>
+                    You can manage email addresses in your{" "}
+                    <Link href="/examples/forms">email settings</Link>.
+                  </FormDescription> */}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="email"   {...field} value={field?.value}  className='bgColorF8' />
+                  </FormControl>
+                  <FormDescription>
+                    Type in your Email.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="mobile"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Mobile</FormLabel>
+                  <FormControl>
+                    <Input placeholder="mobile"   {...field} value={field?.value}  className='bgColorF8' />
+                  </FormControl>
+                  <FormDescription>
+                    Type in your mobile no.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="portfolioworksample"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>portfolio/worksample</FormLabel>
+                  <FormControl>
+                    <Input placeholder="portfolio or worksample"   {...field} value={field?.value}  className='bgColorF8' />
+                  </FormControl>
+                  <FormDescription>
+                    Type in a link to your portfolio or worksample.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+    
+    {/* <FormField
+      control={form.control}
+      name="resume"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Resume (PDF)</FormLabel>
+          <FormControl>
+            <Input
+              type="file"
+              accept=".pdf"
+              className="bgColorF8"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                field.onChange(file);
+              }}
+            />
+          </FormControl>
+          <FormDescription>
+            Upload your resume in PDF format.
+          </FormDescription>
+          <FormMessage />
+        </FormItem>
+      )}
+    /> */}
+    
+    
+    {/* <input type="file" onChange={handleFileChange} /> */}
+    
+    
+            <FormField
+                  name="coverletter"
+                  render={({ field }) => {
+                    return (
+                      <FormItem className="flex flex-col items-center justify-center space-y-4 col-span-2">
+                        <FormLabel>Cover Letter</FormLabel>
+                        <FormControl>
+                          <Input
+                            className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
+                            type="file"
+                            accept="application/msword,text/plain,application/pdf"
+                            multiple
+                            {...field}
+                            value={field?.value ?? ''}
+                            onChange={(event) => {
+                              handleCoverletterChange(event);
+                              field?.onChange(event);
+                            }}
+                            // onChange={(e)=> handleImage(e, field.onChange)}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+            <FormField
+                name="passport"
+                render={({ field }) => (
                   <FormItem className="flex flex-col items-center justify-center space-y-4 col-span-2">
-                    <FormLabel>Cover Letter</FormLabel>
+                    <FormLabel>Passport</FormLabel>
                     <FormControl>
                       <Input
                         className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
                         type="file"
-                        accept="application/msword,text/plain,application/pdf"
+                        accept="image/png,image/jpeg,image/jpg,image/gif"
                         multiple
                         {...field}
                         value={field?.value ?? ''}
                         onChange={(event) => {
-                          handleCoverletterChange(event);
+                          handlePassportChange(event);
                           field?.onChange(event);
                         }}
-                        // onChange={(e)=> handleImage(e, field.onChange)}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                );
-              }}
-            />
-        <FormField
-            name="passport"
-            render={({ field }) => (
-              <FormItem className="flex flex-col items-center justify-center space-y-4 col-span-2">
-                <FormLabel>Passport</FormLabel>
-                <FormControl>
-                  <Input
-                    className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
-                    type="file"
-                    accept="image/png,image/jpeg,image/jpg,image/gif"
-                    multiple
-                    {...field}
-                    value={field?.value ?? ''}
-                    onChange={(event) => {
-                      handlePassportChange(event);
-                      field?.onChange(event);
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-        <FormField
-              name="resume"
-              render={({ field }) => {
-                return (
-                  <FormItem className="flex flex-col items-center justify-center space-y-4 col-span-2">
-                    <FormLabel>Resume</FormLabel>
-                    <FormControl>
-                      <Input
-                        className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
-                        type="file"
-                        accept="application/msword,text/plain,application/pdf"
-                        multiple
-                        {...field}
-                        value={field?.value ?? ''}
-                        onChange={(event) => {
-                          handleFileChange(event);
-                          field?.onChange(event);
-                        }}
-                        // onChange={(e)=> handleImage(e, field.onChange)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-
-
-        <Button onClick={handleClick} type="submit">Submit</Button>
-      </form>
-    </Form>   
-  
-    </div>
-      </main>
+                )}
+              />
+    
+            <FormField
+                  name="resume"
+                  render={({ field }) => {
+                    return (
+                      <FormItem className="flex flex-col items-center justify-center space-y-4 col-span-2">
+                        <FormLabel>Resume</FormLabel>
+                        <FormControl>
+                          <Input
+                            className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
+                            type="file"
+                            accept="application/msword,text/plain,application/pdf"
+                            multiple
+                            {...field}
+                            value={field?.value ?? ''}
+                            onChange={(event) => {
+                              handleFileChange(event);
+                              field?.onChange(event);
+                            }}
+                            // onChange={(e)=> handleImage(e, field.onChange)}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+    
+    
+            <Button onClick={handleClick} type="submit">Submit</Button>
+          </form>
+          </Form>
+        </div>
+      </div>
+    </main>
     )
   }
   
 
-  
+ 
   
   
   
