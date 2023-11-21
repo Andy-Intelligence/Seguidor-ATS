@@ -74,5 +74,5 @@ git clone [repository_url]
 cd Applicant-Tracking-System
 
 # Install dependencies
-npm install
+npm run dev
 ```
