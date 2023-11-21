@@ -32,6 +32,19 @@ https://docs.google.com/document/d/1KTY8KA_yLXE6HMfa5rj43MRiBWH6sgeBDRn5_JZunDc/
 
 The Applicant-Tracking-System is a comprehensive solution designed to enhance the recruitment process by efficiently managing and tracking job applicants. This system aims to simplify the hiring workflow, from posting job openings to selecting and onboarding candidates.
 
+
+## Before we continue this is what the automatic accept and reject email looks like
+
+# Accept Email with Scheduled Interview
+![Alt Text](assets/accept.jpg)
+
+# Reject Email 
+![Alt Text](assets/reject.jpg)
+
+
+
+
+
 ## Features
 
 - **Job Posting:** Easily post job openings with relevant details.
