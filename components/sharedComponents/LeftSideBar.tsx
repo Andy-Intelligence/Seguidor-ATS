@@ -123,31 +123,49 @@ const LeftSidebar = () => {
       {/* Sidebar Links */}
       <div className=" flex flex-col items-left space-y-2 gap-[20px]">
         <Link href="/allcandidates">
+          <span>
           Candidates
+          </span>
         </Link>
         <Link href="/tasks">
+        <span>        
           Interviews
+          </span>
         </Link>
-        <Link href="/talent-board">
-          Talent Board
+        <Link href="/working-on">
+          <span>  
+              Talent Board
+          </span>
         </Link>
-        <Link href="/my-team">
+        <Link href="/working-on">
+        <span>    
           My Team
+        </span>
         </Link>
-        <Link href="/employed">
+        <Link href="/working-on">
+        <span>     
           Employed 
+          </span>
         </Link>
-        <Link href="/help">
+        <Link href="/working-on">
+        <span>  
           Help
+        </span>
         </Link>
         <Link href="/onboard">
+        <span>    
           Onboard
+          </span>
         </Link>
-        <Link href="/analytics">
+        <Link href="/working-on">
+        <span>
           Analytics
+        </span>
         </Link>
-        <Link href="/settings">
+        <Link href="/working-on">
+        <span>
           Settings
+        </span>
         </Link>
         <SignedIn>
           <SignOutButton signOutCallback={()=>{router.push('/sign-in')}}>
