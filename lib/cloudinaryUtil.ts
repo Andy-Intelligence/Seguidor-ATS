@@ -13,7 +13,7 @@ cloudinary.config({
 // Function to upload a file to Cloudinary
 export const uploadToCloudinary = (file:any) => {
   return new Promise<any>((resolve, reject) => {
-    cloudinary.uploader.upload(file,{secure: true}, (error: any, result: any) => {
+    cloudinary.uploader.upload(file, (error: any, result: any) => {
       if (error) {
         reject(error);
       } else {
