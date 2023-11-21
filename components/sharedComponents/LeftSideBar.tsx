@@ -133,22 +133,22 @@ const LeftSidebar = () => {
           </span>
         </Link>
         <Link href="/working-on">
-          <span>  
+          <span className='text-red-400'>  
               Talent Board
           </span>
         </Link>
         <Link href="/working-on">
-        <span>    
+        <span className='text-red-400'>    
           My Team
         </span>
         </Link>
         <Link href="/working-on">
-        <span>     
+        <span className='text-red-400'>     
           Employed 
           </span>
         </Link>
         <Link href="/working-on">
-        <span>  
+        <span className='text-red-400'>  
           Help
         </span>
         </Link>
@@ -158,18 +158,18 @@ const LeftSidebar = () => {
           </span>
         </Link>
         <Link href="/working-on">
-        <span>
+        <span className='text-red-400'>
           Analytics
         </span>
         </Link>
         <Link href="/working-on">
-        <span>
+        <span className='text-red-400'>
           Settings
         </span>
         </Link>
         <SignedIn>
           <SignOutButton signOutCallback={()=>{router.push('/sign-in')}}>
-              <div className='flex cursor-pointer text-red-500'>
+              <div className='flex cursor-pointer font-[400]'>
                 LogOut
               </div>
           </SignOutButton>
