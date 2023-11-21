@@ -49,7 +49,9 @@ import { createJob, linkedInCreateJob,  } from '@/backend/actions/job.actions';
 // import { useContext } from 'react';
 // import {UserAuth} from '@/context/MyContext'
 import Navbar from '@/components/sharedComponents/Navbar';
-import { currentUser } from '@clerk/nextjs';
+// import { currentUser } from '@clerk/nextjs';
+// import {  auth } from '@clerk/nextjs';
+import { useAuth } from '@clerk/nextjs';
 
 const items = [
   {
@@ -156,9 +158,20 @@ const style = {
 
 
 export default function Home() {
+  const pastMonth = new Date(2020, 10, 15);
+const defaultSelected: DateRange = {
+  from: pastMonth,
+  to: addDays(pastMonth, 4)
+};
   // const {user} = UserAuth()
+  // const { userId } = auth()
+  const { isLoaded, userId, sessionId, getToken } = useAuth();
 
-  const [open, setOpen] = React.useState(false);
+   // In case the user signs out while on the page.
+ 
+  
+
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -176,6 +189,9 @@ React.useEffect(()=>{
   }
   me()
 },[])
+
+
+const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
@@ -200,15 +216,21 @@ React.useEffect(()=>{
  const qualifications = useWatch({control:form.control, name:'qualifications'})
  
 
+ if (!isLoaded || !userId) {
+  return null;
+}
+console.log("i am userId",userId)
+
       // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>)=> {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values?.jobtitle)
-    const user = await currentUser()
+    // const user = await currentUser()
     await createJob({
       // userId:"654dfef70325ab149be055ba",
-      userId:user?.id,
+      // userId:user?.id,
+      userId:userId,
       jobTitle:values?.jobtitle,
       jobDescription:values?.jobdescription,
       teamDept:values?.teamdepartment,
@@ -254,12 +276,7 @@ React.useEffect(()=>{
   };
 
 
-  const pastMonth = new Date(2020, 10, 15);
-  const defaultSelected: DateRange = {
-    from: pastMonth,
-    to: addDays(pastMonth, 4)
-  };
-  const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
+
 
   let footer = <p>Please pick the first day.</p>;
   if (range?.from) {

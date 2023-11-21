@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useEffect, useState } from 'react';
-import { currentUser } from "@clerk/nextjs"
+// import { currentUser } from "@clerk/nextjs"
 
 
 interface SearchProp{
