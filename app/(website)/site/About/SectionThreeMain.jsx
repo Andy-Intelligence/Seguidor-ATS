@@ -3,9 +3,9 @@ import computer from '../images/computer.svg'
 const SectionThreeMain = () => {
     return (
         <div className="sectionOne">
-          <h1 className=" font-semibold text-center">exceptional Support</h1>  
+          <h1 className=" font-semibold text-center ">exceptional Support</h1>  
           <p>We're more than a software provider; We're your partner in HR
-          <span className="block mt-1">
+          <span className="block mt-1 text-md">
             success. Our dedicated support team is ready to assist you
           </span>
           <span className="block mt-1">
