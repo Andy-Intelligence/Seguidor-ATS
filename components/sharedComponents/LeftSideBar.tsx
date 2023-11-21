@@ -162,6 +162,11 @@ const LeftSidebar = () => {
           Analytics
         </span>
         </Link>
+        <Link href="/userprofile">
+        <span className=''>
+          Profile
+        </span>
+        </Link>
         <Link href="/working-on">
         <span className='text-red-400'>
           Settings

@@ -17,7 +17,7 @@ const nextConfig = {
       },
       
       images: {
-        domains: ['lh3.googleusercontent.com'],
+        domains: ['lh3.googleusercontent.com','res.cloudinary.com'],
         remotePatterns: [
           {
             protocol: "https",
@@ -34,6 +34,10 @@ const nextConfig = {
           {
             protocol: "https",
             hostname: "placehold.co",
+          },
+          {
+            protocol: "http",
+            hostname: "res.cloudinary.com",
           },
         ],
       },
