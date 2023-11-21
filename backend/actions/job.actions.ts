@@ -68,7 +68,7 @@ export async function linkedInCreateJob() {
 
 
   interface CreateJobProp{
-    userId?:string | undefined;
+    userId?:string | undefined | null;
     jobTitle?:string | undefined;
     jobDescription?:string | undefined;
     teamDept?:string | undefined;
@@ -508,7 +508,7 @@ export async function getSingleJob({jobId}:JobParams){
 
 
 interface InterviewProps {
-  interviewer?:string;
+  interviewer?:string | undefined | null;
   applicant?:string;
   job?:string;
   scheduledDate?:string;

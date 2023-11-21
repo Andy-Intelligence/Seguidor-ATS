@@ -55,8 +55,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import Navbar from '@/components/sharedComponents/Navbar';
-import { currentUser } from '@clerk/nextjs';
- 
+// import { currentUser } from '@clerk/nextjs';
+import { useAuth } from '@clerk/nextjs';
 
 
 
@@ -137,8 +137,12 @@ export default function Page({ params }: { params: { id: string,jobId:string; } 
   // const router = useRouter()
 
   // const { user } = UserAuth() ?? { user: null };
+  const { isLoaded, userId, sessionId, getToken } = useAuth();
+
+  // In case the user signs out while on the page.
 
   const router = useRouter();
+
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -184,10 +188,10 @@ fetchData().then((a)=>{
     e.preventDefault()
     
     // console.log(chapter) 
-    const user = await currentUser()
+    // const user = await currentUser()
 
     // console.log("chapterId",chapter?._id)
-   const book =  await sendComment({content:comment?.content,sender:user?.id,receiver:applicant._id,applicantId:params?.id})
+   const book =  await sendComment({content:comment?.content,sender:userId,receiver:applicant._id,applicantId:params?.id})
   //  "651b4d41ab245ed190e19ee0"
     
   //  console.log(book)  
@@ -226,9 +230,10 @@ fetchData().then((a)=>{
  async function onSubmit(values: z.infer<typeof formSchema>) {
   // Do something with the form values.
   // ✅ This will be type-safe and validated.
-  const user = await currentUser()
+  // const user = await currentUser()
   await scheduleInterview({
-interviewer:user?.id,
+// interviewer:user?.id,
+interviewer:userId,
 applicant:applicant?._id,
 job:job?._id,
 scheduledDate:startDateValue.toISOString(),
@@ -286,6 +291,11 @@ jobTitle:job?.jobTitle,
 
   router.back()
  } 
+
+
+ if (!isLoaded || !userId) {
+  return null;
+}
 
 
 
