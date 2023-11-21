@@ -36,10 +36,10 @@ The Applicant-Tracking-System is a comprehensive solution designed to enhance th
 ## Before we continue this is what the automatic accept and reject email looks like
 
 # Accept Email with Scheduled Interview
-![Alt Text](assets/accept.jpg)
+![Alt Text](public/assets/accept.jpg)
 
 # Reject Email 
-![Alt Text](assets/reject.jpg)
+![Alt Text](public/assets/reject.jpg)
 
 
 
