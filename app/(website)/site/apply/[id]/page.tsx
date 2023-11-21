@@ -111,13 +111,14 @@ export default function Home({ params }: { params: { id: string } }) {
 
 
   useEffect(()=>{ 
-      console.log(params.id)
+      // console.log(params.id)
+      console.log(userId)
       
     const fetchData = async () =>{
       const jobId = params.id
       const res = await getSingleJob({jobId:params?.id})
       setJob(res) 
-      console.log(job)
+      // console.log(job)
      
 }  
 fetchData()
@@ -144,7 +145,7 @@ fetchData()
         const imageDataUrl = event.target?.result?.toString()
    || '';
 
-   console.log(imageDataUrl)
+  //  console.log(imageDataUrl)
   
    fieldChange(imageDataUrl)
   
@@ -260,7 +261,7 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
-      console.log("rf",coverletter)
+      // console.log("rf",coverletter)
       if (true) { //later set a condition here
         const [base64Resume,base64Passport,base64Coverletter] = await Promise.all([
           fileToBase64(file),
@@ -268,9 +269,9 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           coverletterToBase64(coverletter)
         ])
 
-        console.log(base64Coverletter);
+        // console.log(base64Coverletter);
   
-        console.log("b",base64Coverletter)
+        // console.log("b",base64Coverletter)
         // Now you can use the base64 string in your jobApplication function
         await jobApplication({
           applicant:userId,
