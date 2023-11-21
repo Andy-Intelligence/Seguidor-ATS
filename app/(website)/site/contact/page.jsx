@@ -9,7 +9,7 @@ const Page = () => {
       <Nav />
       <ContactHeader />
       <div className="gathering mt-28">
-        <div className=" p-7 faqs">
+        <div className=" p-7 faqs flex flex-col gap-4">
           <h2 className=" font-bold mb-8 ">FAQs</h2>
           <Faqs params="How do i create an account on Seguidor?" />
           <Faqs params="How can i update my profile information?" />

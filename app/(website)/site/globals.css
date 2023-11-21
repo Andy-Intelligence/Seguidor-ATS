@@ -774,8 +774,13 @@ footer button {
 
 .gathering {
   display: grid;
+  align-items: start;
+  justify-content: center;
   grid-template-columns: 40% 50%;
   gap: 6rem;
+  margin-top: 3rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   
 }
 
