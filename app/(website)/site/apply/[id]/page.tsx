@@ -48,6 +48,7 @@ import { createJob, getSingleJob, jobApplication, linkedInCreateJob,  } from '@/
 // import { useContext } from 'react';
 // import {UserAuth} from '@/context/MyContext'
 import { fileToBase64 } from "@/lib/utils";
+import { useAuth } from '@clerk/nextjs';
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -98,6 +99,7 @@ const FormSchema = z.object({
 
 export default function Home({ params }: { params: { id: string } }) {
 
+  const { isLoaded, userId, sessionId, getToken } = useAuth();
 
 
   const [fileNames, setFileNames] = useState<string[]>([]);
@@ -271,6 +273,7 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log("b",base64Coverletter)
         // Now you can use the base64 string in your jobApplication function
         await jobApplication({
+          applicant:userId,
           name: values?.name,
           email: values?.email,
           mobile: values?.mobile,
@@ -280,6 +283,7 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           passport: base64Passport,
           yearsofexperience:values?.yearsofexperience,
           portfolioworksample: values?.portfolioworksample,
+          jobId:job?._id
         });
       } else {
         // Handle the case when there is no resume file
@@ -312,6 +316,10 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
 
 
+  // In case the user signs out while on the page.
+  if (!isLoaded || !userId) {
+    return null;
+  }
 
 
 

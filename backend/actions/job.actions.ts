@@ -244,7 +244,7 @@ export async function jobApplication({
     ]);
 
     const createdApplication = await Application.create({
-      Applicant: applicant,
+      id: applicant,
       name: name,
       email: email,
       mobile: mobile,
@@ -258,7 +258,7 @@ export async function jobApplication({
 
     if (createdApplication) {
       // Update the user's 'books' field to include the book's ID
-      const job = await Job.findOne({ _id: "654f451b9d9a151d64d0a5c7" });
+      const job = await Job.findOne({ _id: jobId });
       const c = job?.applications?.push(createdApplication?._id?.toString());
       // console.log(c);
 
