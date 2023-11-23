@@ -18,6 +18,7 @@ import { toast } from "@/components/ui/use-toast"
  
 
 import React from 'react'
+import { replaceHttpWithHttps } from "@/lib/utils"
 
 
 const FormSchema = z.object({
@@ -125,7 +126,7 @@ const JobRoleCard = ({jobtitle,jobtype,employmentstatus,jobdescription,applicati
             <div className='flex items-center justify-center '>All applicants:<div className='flex items-center justify-center'>
               {applications?.reverse().slice(0,3).map((item:any)=>{
                 return (
-                  <img className='h-[17px] w-[17px] rounded-full' src={item?.passport} alt='pics'/>
+                  <img className='h-[17px] w-[17px] rounded-full' src={replaceHttpWithHttps(item?.passport)} alt='pics'/>
                 )
               })}
               </div><span className='text-[12px] font-[500] break-all whitespace-normal'> +{applications?.length}</span></div>
@@ -133,7 +134,7 @@ const JobRoleCard = ({jobtitle,jobtype,employmentstatus,jobdescription,applicati
             <div className='flex items-center justify-center'>Best Match:<div className='flex items-center justify-center'>
             {applications?.reverse().slice(0,3).map((item:any)=>{
                 return (
-                  <img className='h-[17px] w-[17px] rounded-full' src={item?.passport} alt='pics'/>
+                  <img className='h-[17px] w-[17px] rounded-full' src={replaceHttpWithHttps(item?.passport)} alt='pics'/>
                 )
               })}</div><span className='text-[12px] font-[500] break-all whitespace-normal'> +{applications?.length}</span></div>
         </div>
