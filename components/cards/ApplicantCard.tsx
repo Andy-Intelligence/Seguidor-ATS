@@ -3,6 +3,7 @@ import React from 'react'
 import {BiLogoLinkedin} from 'react-icons/bi'
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from 'next/link'
+import { replaceHttpWithHttps } from '@/lib/utils'
 
 
 
@@ -40,7 +41,7 @@ const ApplicantCard = ({
         <img
           className='h-16 w-16 rounded-full'
           alt='profile-img'
-          src={passport}
+          src={replaceHttpWithHttps(passport)}
           // onError={(e:any) => {
           //   e.target.onerror = null;
           //   e.target.src = '/fallback-image.png';
