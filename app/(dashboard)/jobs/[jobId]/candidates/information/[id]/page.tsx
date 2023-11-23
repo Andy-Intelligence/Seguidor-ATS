@@ -13,7 +13,7 @@ import { RejectInterview, getSingleApplicant, scheduleInterview } from '@/backen
 import { getSingleJob } from '@/backend/actions/job.actions';
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import convertToStandardDate from '@/lib/utils';
+import convertToStandardDate, { replaceHttpWithHttps } from '@/lib/utils';
 // import { UserAuth } from '@/context/MyContext';
 import { sendComment } from '@/backend/actions/job.actions';
 // import DayScheduleButton from '@/components/buttons/dayschedule';
@@ -325,7 +325,7 @@ jobTitle:job?.jobTitle,
               <div className='flex flex-row justify-between items-center w-full'>
                   <div className='flex flex-row gap-4 items-center justify-center'>
                     <div className='flex items-start justify-start'>
-                        <img className='h-[80px] w-[80px] rounded-full' alt='profile-img' src='http://res.cloudinary.com/dm7gmrkki/image/upload/v1699822046/dc4fumkfrhy2ssjzzdje.png'/>
+                        <img className='h-[80px] w-[80px] rounded-full' alt='profile-img' src={replaceHttpWithHttps(applicant?.passport)}/>
                     </div>
                     <div className='flex flex-col items-start text-left justify-center gap-1'>
                         <div className='flex items-center gap-2'>
@@ -642,7 +642,7 @@ jobTitle:job?.jobTitle,
                   </Box>
                   <CustomTabPanel value={value} index={0}>  
                   <object
-                    data={applicant?.coverletter}
+                    data={replaceHttpWithHttps(applicant?.coverletter)}
                     type="application/pdf"
                     width="100%"
                     height="600px"
@@ -650,7 +650,7 @@ jobTitle:job?.jobTitle,
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={1}>
                   <object
-                    data={applicant?.resume}
+                    data={replaceHttpWithHttps(applicant?.resume)}
                     type="application/pdf"
                     width="100%"
                     height="600px"
