@@ -234,7 +234,7 @@ export async function jobApplication({
     // console.log(coverletter);
     // console.log(yearsofexperience,passport,coverletter);
 
-    const user = await User.findOne({ _id: applicant });
+    // const user = await User.findOne({ id: applicant });
 
     // Upload all files to Cloudinary
     const [resumeRes, passportRes, coverletterRes] = await Promise.all([
