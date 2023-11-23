@@ -1,4 +1,4 @@
-import { extractTimeWithMeridian } from '@/lib/utils';
+import { extractTimeWithMeridian, replaceHttpWithHttps } from '@/lib/utils';
 import React from 'react'
 
 interface TaskProp {
@@ -32,7 +32,7 @@ const DailyTaskCard = ({
         <div className='dailyTaskTimeColor font-[700] text-[15.58px]'>{extractTimeWithMeridian(taskStartTime)}</div>
     <div className='taskBackgrorund flex items-center justify-start w-full rounded-[22.87px]'>
         <div className='flex flex-col items-center   justify-center w-1/3 border-r border-black '>
-            <img className='h-[43px] w-[43px] rounded-full' alt='profile-img' src={applicantImg}/>
+            <img className='h-[43px] w-[43px] rounded-full' alt='profile-img' src={replaceHttpWithHttps(applicantImg)}/>
             <h1 className='text-[22px] font-[400] '>{applicantName}</h1>
             <h3 className='text-[14px] font-[400] '>{applicantJob}</h3>
             <div className='flex items-center justify-center gap-4 mt-3'>
