@@ -193,14 +193,19 @@ export function formatEmailEndTime(inputDate:any) {
 
 
 export function replaceHttpWithHttps(url:any) {
+  // Check if the string is undefined or null
+  if (!url) {
+    return url;
+  }
+
   // Check if the string starts with "http://"
-  if (url.startsWith('http://')) {
+  if (url.startsWith && url.startsWith('http://')) {
     // Replace "http://" with "https://"
     return url.replace(/^http:\/\//, 'https://');
   }
 
   // If the string already starts with "https://", return it as is
-  if (url.startsWith('https://')) {
+  if (url.startsWith && url.startsWith('https://')) {
     return url;
   }
 
