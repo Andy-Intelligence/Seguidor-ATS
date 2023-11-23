@@ -543,7 +543,7 @@ jobTitle:job?.jobTitle,
                             )}
                           />
 
-                          <Button type="submit">Submit</Button>
+                          <Button onClick={form.handleSubmit(onSubmit)} type="submit">Submit</Button>
                         </form>
                       </Form>
 

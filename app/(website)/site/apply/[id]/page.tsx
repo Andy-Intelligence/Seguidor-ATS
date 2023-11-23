@@ -325,10 +325,10 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
 
     return (
-      <main className="p-4">
+      <main className="p-4 ">
       <div className=''>
-        <div className="bgColorFF h-full flex flex-col gap-2 p-2">
-          <div className="flex flex-col gap-1">
+        <div className="bgColorFF  h-full flex flex-col gap-2 p-2">
+          <div className="flex flex-col gap-4">
             <h1 className="text-[21px] font-[500] whitespace-normal break-words">{job?.jobTitle}</h1>
             <p className="text-[14px] font-[400] whitespace-normal break-words">{job?.jobDescription}</p>
             <div className="flex flex-row items-center justify-left gap-8">
@@ -360,11 +360,11 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           </div>
         </div>
     
-        <div>
+        <div className="flex flex-col w-full items-center justify-center">
           <h1 className="color98 text-[16px] font-[400]">Candidate Form</h1>
     
           <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="  ">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-[50vw] gap-4">
             <FormField
               control={form.control}
               name="name"
@@ -374,9 +374,9 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                   <FormControl>
                     <Input placeholder="name" {...field} value={field?.value} className='bgColorF8'/>
                   </FormControl>
-                  <FormDescription>
+                  {/* <FormDescription>
                     Type in your Name.
-                  </FormDescription>
+                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -390,9 +390,9 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                   <FormControl>
                     <Input placeholder="linkedin profile" {...field} value={field?.value} className='bgColorF8'/>
                   </FormControl>
-                  <FormDescription>
+                  {/* <FormDescription>
                     Type in the link to your linkedin profile.
-                  </FormDescription>
+                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -447,9 +447,9 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                   <FormControl>
                     <Input placeholder="email"   {...field} value={field?.value}  className='bgColorF8' />
                   </FormControl>
-                  <FormDescription>
+                  {/* <FormDescription>
                     Type in your Email.
-                  </FormDescription>
+                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -463,9 +463,9 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                   <FormControl>
                     <Input placeholder="mobile"   {...field} value={field?.value}  className='bgColorF8' />
                   </FormControl>
-                  <FormDescription>
+                  {/* <FormDescription>
                     Type in your mobile no.
-                  </FormDescription>
+                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -477,11 +477,11 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                 <FormItem>
                   <FormLabel>portfolio/worksample</FormLabel>
                   <FormControl>
-                    <Input placeholder="portfolio or worksample"   {...field} value={field?.value}  className='bgColorF8' />
+                    <Input placeholder="link to portfolio or worksample"   {...field} value={field?.value}  className='bgColorF8' />
                   </FormControl>
-                  <FormDescription>
+                  {/* <FormDescription>
                     Type in a link to your portfolio or worksample.
-                  </FormDescription>
+                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -524,7 +524,8 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                         <FormLabel>Cover Letter</FormLabel>
                         <FormControl>
                           <Input
-                            className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
+                            // className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
+                            className='bg-green-700'
                             type="file"
                             accept="application/msword,text/plain,application/pdf"
                             multiple
@@ -537,7 +538,7 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                             // onChange={(e)=> handleImage(e, field.onChange)}
                           />
                         </FormControl>
-                        <FormMessage />
+                        {/* <FormMessage /> */}
                       </FormItem>
                     );
                   }}
@@ -549,7 +550,8 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                     <FormLabel>Passport</FormLabel>
                     <FormControl>
                       <Input
-                        className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
+                        // className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
+                        className='bg-green-700'
                         type="file"
                         accept="image/png,image/jpeg,image/jpg,image/gif"
                         multiple
@@ -561,7 +563,7 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                         }}
                       />
                     </FormControl>
-                    <FormMessage />
+                    {/* <FormMessage /> */}
                   </FormItem>
                 )}
               />
@@ -574,7 +576,8 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                         <FormLabel>Resume</FormLabel>
                         <FormControl>
                           <Input
-                            className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
+                            // className="inputGreen border border-transparent disabled:opacity-50 disabled:cursor-not-allowed file:bg-transparent file:text-neutral-200 file:border-none file:outline-none file:text-xs placeholder:text-neutral-400 focus:outline-none hover:cursor-pointer text-xs font-light"
+                            className='bg-green-700'
                             type="file"
                             accept="application/msword,text/plain,application/pdf"
                             multiple
@@ -587,7 +590,7 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                             // onChange={(e)=> handleImage(e, field.onChange)}
                           />
                         </FormControl>
-                        <FormMessage />
+                        {/* <FormMessage /> */}
                       </FormItem>
                     );
                   }}
