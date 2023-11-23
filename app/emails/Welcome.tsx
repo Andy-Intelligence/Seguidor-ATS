@@ -76,7 +76,7 @@ const Email = ({
             <Text className='font-bold text-blue-800'>invite Link :<Link href={inviteLink}>{inviteLink}</Link></Text>
 
             </Text>
-            <Button className='bg-blue-800 text text-white font-bold px-2 py-4 rounded-md' href='www.google.com'>
+            <Button className='bg-blue-800 text text-white font-bold px-2 py-4 rounded-md' href='https://seguidor-ats.vercel.app/site/joblisting'>
               Check out other Vacancies
             </Button>
           </Container>

@@ -64,7 +64,7 @@ const Email = ({
               Thanks for joining us in the application process for the role of {job}. 
               Unfortunately We cannot move further with your application please fill free to check other vacant positions by clicking the button below.
             </Text>
-            <Button className='bg-blue-800 text text-white font-bold px-2 py-4 rounded-md' href='www.google.com'>
+            <Button className='bg-blue-800 text text-white font-bold px-2 py-4 rounded-md' href='https://seguidor-ats.vercel.app/site/joblisting'>
               Check out other Vacancies
             </Button>
           </Container>
