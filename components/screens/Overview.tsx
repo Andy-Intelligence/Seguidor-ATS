@@ -405,7 +405,7 @@ fetchData().then((a)=>{
 {
 allJobs?.slice(0,2).reverse().map((job:any) => {
   return (
-    job?.applications?.slice().reverse().map((applications:any) => {
+    job?.applications?.slice().reverse().map((applications:any) =>{
       return (
         applications?.noteAndFeedBack?.slice().reverse().map((noteAndFeedBack:any) => {
           return (
@@ -445,7 +445,7 @@ allJobs?.slice(0,2).reverse().map((job:any) => {
 
             </div>
         </div>
-    </main>
+    </main> 
   )
 }
 
