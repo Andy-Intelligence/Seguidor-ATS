@@ -125,13 +125,13 @@ fetchData().then((a)=>{
     }
     me()
 
-    let totalNoteAndFeedBack = allJobs.reduce((acc:any, job:any) => {
-      return acc + job.applications.reduce((accApp:any, application:any) => {
-        return accApp + application.noteAndFeedBack.length;
-      }, 0);
-    }, 0);
+    // let totalNoteAndFeedBack = allJobs.reduce((acc:any, job:any) => {
+    //   return acc + job.applications.reduce((accApp:any, application:any) => {
+    //     return accApp + application.noteAndFeedBack.length;
+    //   }, 0);
+    // }, 0);
 
-    setTotalComment(totalNoteAndFeedBack)
+    // setTotalComment(totalNoteAndFeedBack)
 
       },[])
 
