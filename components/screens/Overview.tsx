@@ -368,7 +368,7 @@ fetchData().then((a)=>{
 
                     </div>
                     <div className='dailyTaskTagBackgroundColor flex items-center justify-center text-white h-[19px] w-[22px] rounded-[2px] text-[14px] font-[400]'>
-                    {/* {totalComment} */}4
+                    {/* {totalComment} */}2
                     </div>
 
                     
@@ -418,7 +418,7 @@ allJobs?.slice(0,2).reverse().map((job:any) => {
                 <div className='text-[12px] font-[400] text-left'>{noteAndFeedBack?.sender?.email}usoroandidiong@gmail.com</div>
                 <div className='messageBackground p-1 text-[14px] font-[400] my-2'>{noteAndFeedBack?.content}</div>
                 <div className=''>
-                <Link href={`jobs/${job?._id}/candidates/information/655139e4fb0268f5fb1a9105`}><span className='text-blue-800'>@{noteAndFeedBack?.receiver?.name}</span></Link>
+                <Link href={`jobs/${job?._id}/candidates/information/${applications?._id}`}><span className='text-blue-800'>@{noteAndFeedBack?.receiver?.name}</span></Link>
                 </div>
                 {/* <form>
                   <input type='text' placeholder='write here...' className='messageBackground rounded-[4px] h-[40px] w-full'/>
