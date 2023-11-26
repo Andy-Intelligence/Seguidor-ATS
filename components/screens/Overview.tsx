@@ -404,7 +404,7 @@ fetchData().then((a)=>{
 
                     </div>
                     <div className='dailyTaskTagBackgroundColor flex items-center justify-center text-white h-[19px] w-[22px] rounded-[2px] text-[14px] font-[400]'>
-                    {/* {totalComment} */}{noteAndFeedBack.length}
+                    {/* {totalComment} */}2
                     </div>
 
                   </div> 
