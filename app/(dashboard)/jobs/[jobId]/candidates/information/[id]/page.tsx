@@ -9,8 +9,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
 // import { getSingleApplicant } from '@/backend/actions/applications.actions';
-import { RejectInterview, getSingleApplicant  } from '@/backend/actions/job.actions';
-import { scheduleInterview } from '@/backend/actions/sendemails';
+import { RejectInterview, getSingleApplicant, scheduleInterview } from '@/backend/actions/job.actions';
 import { getSingleJob } from '@/backend/actions/job.actions';
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation';
