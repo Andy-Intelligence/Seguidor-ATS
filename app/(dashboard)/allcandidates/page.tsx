@@ -44,16 +44,6 @@ export default function Home() {
     
         const a = fetchData().then((a)=>{
             setAllApplicant(a)
-
-        });
-        
-    }, []);
-
-
-    useEffect(()=>{ 
-      
-        
-        const me = async () =>{
             {const a = allApplicant &&
                 allApplicant?.slice().reverse().map((job:any) => {
                   return (
@@ -74,10 +64,21 @@ export default function Home() {
                 })
                 setApplicants(a)
                 }
+
+        });
+        
+    }, []);
+
+
+    // useEffect(()=>{ 
       
-    }  
-    me()
-    },[])
+        
+    //     const me = async () =>{
+            
+      
+    // }  
+    // me()
+    // },[])
 
     
     // console.log(applicant)
