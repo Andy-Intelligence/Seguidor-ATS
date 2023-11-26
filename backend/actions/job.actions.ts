@@ -15,9 +15,9 @@ import Comment from "../models/commentModel/comment";
 import Interview from "../models/interviewModel/interview";
 import RejectedInterview from "../models/interviewModel/rejectInterview"
 import { formatEmailDate, formatEmailEndTime, formatEmailStartTime } from "@/lib/utils";
-import { NextResponse } from 'next/server';
-export const runtime = 'edge';
-export const dynamic = 'force-dynamic';
+// import { NextResponse } from 'next/server';
+// export const runtime = 'edge';
+// export const dynamic = 'force-dynamic';
 
 
 
@@ -525,96 +525,96 @@ interface InterviewProps {
   jobTitle?:string;
 }
 
-export async function scheduleInterview({
-  interviewer,
-  applicant,
-  job,
-  scheduledDate,
-  interviewEndTime,
-  title,
-  description,
-  summary,
-  venue,
-  details,
-  inviteLink,
-  applicantEmail,
-  applicantName,
-  jobTitle
-}:InterviewProps){
+// export async function scheduleInterview({
+//   interviewer,
+//   applicant,
+//   job,
+//   scheduledDate,
+//   interviewEndTime,
+//   title,
+//   description,
+//   summary,
+//   venue,
+//   details,
+//   inviteLink,
+//   applicantEmail,
+//   applicantName,
+//   jobTitle
+// }:InterviewProps){
   
 
 
-    const resend = new Resend(process.env.resendapikey);
-    try {
+//     const resend = new Resend(process.env.resendapikey);
+//     try {
 
   
-      const user = await User.findOne({ id: interviewer });
-      // const userr = JSON.parse(JSON.stringify(res))
+//       const user = await User.findOne({ id: interviewer });
+//       // const userr = JSON.parse(JSON.stringify(res))
   
-      const scheduledInterview = await Interview.create({
-  interviewer:user?._id,
-  applicant:applicant,
-  job:job,
-  scheduledDate:scheduledDate,
-  interviewEndTime:interviewEndTime,
-  title:title,
-  description:description,
-  summary:summary,
-  venue:venue,
-  details:details,
-  inviteLink:inviteLink
-      });
+//       const scheduledInterview = await Interview.create({
+//   interviewer:user?._id,
+//   applicant:applicant,
+//   job:job,
+//   scheduledDate:scheduledDate,
+//   interviewEndTime:interviewEndTime,
+//   title:title,
+//   description:description,
+//   summary:summary,
+//   venue:venue,
+//   details:details,
+//   inviteLink:inviteLink
+//       });
   
-      if (scheduledInterview) {
+//       if (scheduledInterview) {
 
-        await scheduledInterview.save();
+//         await scheduledInterview.save();
         
-          if(scheduledInterview){
-            // ##############
+//           if(scheduledInterview){
+//             // ##############
 
 
-            const res = await fetch('https://api.resend.com/emails', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.resendapikey}`,
-              },
-              body: JSON.stringify({
-                from: 'Acme <onboarding@resend.dev>',
-                to:String(applicantEmail),
-                subject: 'Thank You for Applying!',
-                react:Welcome({name:applicantName, 
-                  interviewer:user?.name,
-                  job:jobTitle,
-                  scheduledDate:formatEmailDate(scheduledDate),
-                  interviewStartTime:formatEmailStartTime(scheduledDate),
-                  interviewEndTime:formatEmailEndTime(interviewEndTime),
-                  title,
-                  description,
-                  summary,
-                  venue,
-                  details,
-                  inviteLink})
-              }),
-            });
+//             const res = await fetch('https://api.resend.com/emails', {
+//               method: 'POST',
+//               headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${process.env.resendapikey}`,
+//               },
+//               body: JSON.stringify({
+//                 from: 'Acme <onboarding@resend.dev>',
+//                 to:String(applicantEmail),
+//                 subject: 'Thank You for Applying!',
+//                 react:Welcome({name:applicantName, 
+//                   interviewer:user?.name,
+//                   job:jobTitle,
+//                   scheduledDate:formatEmailDate(scheduledDate),
+//                   interviewStartTime:formatEmailStartTime(scheduledDate),
+//                   interviewEndTime:formatEmailEndTime(interviewEndTime),
+//                   title,
+//                   description,
+//                   summary,
+//                   venue,
+//                   details,
+//                   inviteLink})
+//               }),
+//             });
 
-            if (res.ok) {
-              const data = await res.json();
-              return NextResponse.json(data);
-            }
+//             if (res.ok) {
+//               const data = await res.json();
+//               return NextResponse.json(data);
+//             }
 
-            // ###################
-        }
-      }
+//             // ###################
+//         }
+//       }
   
-      // Additional logic after application creation if needed
+//       // Additional logic after application creation if needed
   
-    } catch (error: any) {
-      throw new Error(`Failed to create Interview: ${error.message}`);
-    }
+//     } catch (error: any) {
+//       throw new Error(`Failed to create Interview: ${error.message}`);
+//     }
 
 
-}
+// }
 
 
 
