@@ -666,7 +666,7 @@ export async function scheduleInterview({
           if(scheduledInterview){
             // console.log("sending")
             // console.log(applicantEmail)
-          resend.emails.send({
+            const data = await  resend.emails.send({
             from: 'onboarding@resend.dev',
             // from: 'Acme <onboarding@resend.dev>',
             // to: 'usoroandidiong@gmail.com',
@@ -781,7 +781,7 @@ export async function RejectInterview({
           if(rejectedInterview){
             // console.log("sending")
             // console.log(applicantEmail)
-          resend.emails.send({
+         const data = await resend.emails.send({
             from: 'onboarding@resend.dev',
             // from: 'Acme <onboarding@resend.dev>',
             // to: 'usoroandidiong@gmail.com',
