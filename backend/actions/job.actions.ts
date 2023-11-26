@@ -667,7 +667,8 @@ export async function scheduleInterview({
             // console.log("sending")
             // console.log(applicantEmail)
           resend.emails.send({
-            from: 'onboarding@resend.dev',
+            // from: 'onboarding@resend.dev',
+            from: 'Acme <onboarding@resend.dev>',
             // to: 'usoroandidiong@gmail.com',
             to:String(applicantEmail),
             subject: 'Thank You for Applying!',
@@ -781,7 +782,8 @@ export async function RejectInterview({
             // console.log("sending")
             // console.log(applicantEmail)
           resend.emails.send({
-            from: 'onboarding@resend.dev',
+            // from: 'onboarding@resend.dev',
+            from: 'Acme <onboarding@resend.dev>',
             // to: 'usoroandidiong@gmail.com',
             to:String(applicantEmail),
             subject: 'Thank You for Applying!',
