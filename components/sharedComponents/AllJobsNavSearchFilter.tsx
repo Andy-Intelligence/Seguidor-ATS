@@ -43,32 +43,31 @@ const AllJobsNavSearchFilter = ({displaySwitch}:Props) => {
           <div className='flex flex-row items-center gap-2 '>
         <Select>
             <SelectTrigger className="w-[180px] selectorBackgroundColor">
-                <SelectValue placeholder="Theme" />
+                <SelectValue placeholder="Job Title" />
             </SelectTrigger>
             <SelectContent>
                 <SelectItem value="light">Product Manager</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem value="dark">Senior Developer</SelectItem>
+                <SelectItem value="system">Accountant</SelectItem>
             </SelectContent>
         </Select>
         <Select>
             <SelectTrigger className="w-[180px] selectorBackgroundColor ">
-                <SelectValue placeholder="Theme" />
+                <SelectValue placeholder="Job type" />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value="light">On Site</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem value="nnSite">On Site</SelectItem>
+                <SelectItem value="remote">remote</SelectItem>
+                <SelectItem value="hybrid">hybrid</SelectItem>
             </SelectContent>
         </Select>
         <Select >
             <SelectTrigger className="w-[180px] selectorBackgroundColor">
-                <SelectValue placeholder="Theme" />
+                <SelectValue placeholder="Employment status" />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value="light">Part time</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem value="parttime">Part time</SelectItem>
+                <SelectItem value="fulltime">full time</SelectItem>
             </SelectContent>
         </Select>
 
