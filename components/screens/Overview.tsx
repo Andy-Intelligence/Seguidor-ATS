@@ -70,6 +70,7 @@ const Overview =  () => {
   const [allApplicant,setAllApplicant] = useState<any>()
   const [totalComment,setTotalComment] = useState<any>()
   const [tasks,setTasks] = useState<any>()
+  const [tasklength,setTaskLength] = useState<any>()
   const [job,setJob] = useState<any>()
   // console.log("me",params?.jobId)
 
@@ -104,6 +105,8 @@ fetchData().then((a)=>{
 
       const scheduledInterviews = await getAllScheduledInterviews()
       setTasks(scheduledInterviews)
+      const tasklen = scheduledInterviews.length
+      setTaskLength(tasklen)
      console.log(scheduledInterviews)
     }
     me()
@@ -383,7 +386,7 @@ fetchData().then((a)=>{
 
                   </div>
                   <div className='dailyTaskTagBackgroundColor flex items-center justify-center text-white h-[19px] w-[22px] rounded-[2px] text-[14px] font-[400]'>
-                    {tasks.length}
+                    {tasklength}
                   </div>
 
                 </div> 
