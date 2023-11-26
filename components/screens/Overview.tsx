@@ -168,6 +168,14 @@ fetchData().then((a)=>{
     // }, 0);
 
     // setTotalComment(totalNoteAndFeedBack)
+    const totalComments = allJobs.reduce((accJobs:any, job:any) => {
+      const jobComments = job.applications.reduce((accApplications:any, application:any) => {
+        return accApplications + application.noteAndFeedBack.length;
+      }, 0);
+      return accJobs + jobComments;
+    }, 0);
+
+    setTotalComment(totalComments)
 
       },[])
 
@@ -404,7 +412,7 @@ fetchData().then((a)=>{
 
                     </div>
                     <div className='dailyTaskTagBackgroundColor flex items-center justify-center text-white h-[19px] w-[22px] rounded-[2px] text-[14px] font-[400]'>
-                    {/* {totalComment} */}2
+                    {/* {totalComment} */}{totalComment}
                     </div>
 
                   </div> 
