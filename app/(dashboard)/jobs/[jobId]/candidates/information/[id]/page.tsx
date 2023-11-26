@@ -226,43 +226,7 @@ fetchData().then((a)=>{
     }),
   })
    
- // 2. Define a submit handler.
- async function onSubmit(values: z.infer<typeof formSchema>) {
-  // Do something with the form values.
-  // ✅ This will be type-safe and validated.
-  // const user = await currentUser()
-  await scheduleInterview({
-// interviewer:user?.id,
-interviewer:userId,
-applicant:applicant?._id,
-job:job?._id,
-scheduledDate:startDateValue.toISOString(),
-interviewEndTime:endValue.toISOString(),
-title:values?.title,
-description:values?.description,
-summary:values?.summary,
-venue:values?.venue,
-details:values?.details,
-inviteLink:values?.inviteLink,
-applicantEmail:applicant?.email,
-applicantName:applicant?.name,
-jobTitle:job?.jobTitle,
-    
-  })
 
-  toast({
-    title: "You submitted the following values:",
-    description: (
-      <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-        <code className="text-white">Form Submitted</code>
-      </pre>
-    ),
-  })
-
-
-
-  console.log(startDateValue,endValue,values)
-}
 
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -291,6 +255,44 @@ jobTitle:job?.jobTitle,
 
   router.back()
  } 
+
+  // 2. Define a submit handler.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    // const user = await currentUser()
+    await scheduleInterview({
+  // interviewer:user?.id,
+  interviewer:userId,
+  applicant:applicant?._id,
+  job:job?._id,
+  scheduledDate:startDateValue.toISOString(),
+  interviewEndTime:endValue.toISOString(),
+  title:values?.title,
+  description:values?.description,
+  summary:values?.summary,
+  venue:values?.venue,
+  details:values?.details,
+  inviteLink:values?.inviteLink,
+  applicantEmail:applicant?.email,
+  applicantName:applicant?.name,
+  jobTitle:job?.jobTitle,
+      
+    })
+  
+    toast({
+      title: "You submitted the following values:",
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">Form Submitted</code>
+        </pre>
+      ),
+    })
+  
+  
+  
+    console.log(startDateValue,endValue,values)
+  }
 
 
  if (!isLoaded || !userId) {
@@ -455,9 +457,9 @@ jobTitle:job?.jobTitle,
                                 <FormControl>
                                   <Input placeholder="title" {...field} />
                                 </FormControl>
-                                <FormDescription>
+                                {/* <FormDescription>
                                   This is your public display name.
-                                </FormDescription>
+                                </FormDescription> */}
                                 <FormMessage />
                               </FormItem>
                             )}
