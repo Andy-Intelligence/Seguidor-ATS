@@ -378,7 +378,7 @@ fetchData().then((a)=>{
 
                   </div> 
 
-                  <div className='gap-2'> 
+                  <div className='flex flex-col gap-2'> 
                     {/* {allApplicant?.slice().reverse().map((item:any)=>{
                       return (
                     <div className='flex items-start justify-start gap-[6px]'>
