@@ -573,7 +573,7 @@ export async function scheduleInterview({
             // ##############
 
 
-            const res = await fetch('https://api.resend.com/emails', {
+            const res = await fetch('https://seguidor-ats.vercel.app/api/send', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
