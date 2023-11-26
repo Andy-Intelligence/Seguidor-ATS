@@ -415,7 +415,7 @@ allJobs?.slice(0,2).reverse().map((job:any) => {
               </div>
               <div className='flex flex-col w-full'>
                 <div className='text-[14px] text-left font-[400]'>{noteAndFeedBack?.sender?.name}</div>
-                <div className='text-[12px] font-[400] text-left'>{noteAndFeedBack?.sender?.email}usoroandidiong@gmail.com</div>
+                <div className='text-[12px] font-[400] text-left'>usoroandidiong@gmail.com</div>
                 <div className='messageBackground p-1 text-[14px] font-[400] my-2'>{noteAndFeedBack?.content}</div>
                 <div className=''>
                 <Link href={`jobs/${job?._id}/candidates/information/${applications?._id}`}><span className='text-blue-800'>@{noteAndFeedBack?.receiver?.name}</span></Link>
