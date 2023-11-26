@@ -61,6 +61,7 @@ const Overview =  () => {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
   const [allJobs, setAllJobs] =  React.useState<any>([])
+  const [a, setA] =  React.useState<any>()
 
 
 
@@ -122,6 +123,41 @@ fetchData().then((a)=>{
       const allJobs = await getAllPostedJobs()
       setAllJobs(allJobs)
      console.log(allJobs)
+     {const a = allJobs &&
+      allJobs?.slice(0,2).reverse().map((job:any) => {
+        return (
+          job?.applications?.slice().reverse().map((applications:any) =>{
+            return (
+              applications?.noteAndFeedBack?.slice().reverse().map((noteAndFeedBack:any) => {
+                return (
+                  <div className='flex items-start justify-start gap-[6px] my-2'>
+                    <div>
+                      <img className='h-[30px] w-[30px] rounded-full' alt='profile-img' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600'/>
+                    </div>
+                    <div className='flex flex-col w-full'>
+                      <div className='text-[14px] text-left font-[400]'>{noteAndFeedBack?.sender?.name}</div>
+                      <div className='text-[12px] font-[400] text-left'>{noteAndFeedBack?.sender?.email}usoroandidiong@gmail.com</div>
+                      <div className='messageBackground p-1 text-[14px] font-[400] my-2'>{noteAndFeedBack?.content}</div>
+                      <div className=''>
+                      <Link href={`jobs/${job?._id}/candidates/information/${applications?._id}`}><span className='text-blue-800'>@{noteAndFeedBack?.receiver?.name}</span></Link>
+                      </div>
+                      {/* <form>
+                        <input type='text' placeholder='write here...' className='messageBackground rounded-[4px] h-[40px] w-full'/>
+                      </form>
+                      <div className='w-full flex justify-end items-end '>
+                        <div className='sendButton flex items-end text-[14px] font-[400]'>Send</div>
+                      </div> */}
+                    </div>
+                  </div>
+                )
+              })
+            )
+          })
+        )
+      })
+      setA(a)
+      }
+      
     }
     me()
 
@@ -402,42 +438,9 @@ fetchData().then((a)=>{
                       )
                     })} */}
 
-{allJobs &&
-allJobs?.slice(0,2).reverse().map((job:any) => {
-  return (
-    job?.applications?.slice().reverse().map((applications:any) =>{
-      return (
-        applications?.noteAndFeedBack?.slice().reverse().map((noteAndFeedBack:any) => {
-          return (
-            <div className='flex items-start justify-start gap-[6px] my-2'>
-              <div>
-                <img className='h-[30px] w-[30px] rounded-full' alt='profile-img' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600'/>
-              </div>
-              <div className='flex flex-col w-full'>
-                <div className='text-[14px] text-left font-[400]'>{noteAndFeedBack?.sender?.name}</div>
-                <div className='text-[12px] font-[400] text-left'>{noteAndFeedBack?.sender?.email}usoroandidiong@gmail.com</div>
-                <div className='messageBackground p-1 text-[14px] font-[400] my-2'>{noteAndFeedBack?.content}</div>
-                <div className=''>
-                <Link href={`jobs/${job?._id}/candidates/information/${applications?._id}`}><span className='text-blue-800'>@{noteAndFeedBack?.receiver?.name}</span></Link>
-                </div>
-                {/* <form>
-                  <input type='text' placeholder='write here...' className='messageBackground rounded-[4px] h-[40px] w-full'/>
-                </form>
-                <div className='w-full flex justify-end items-end '>
-                  <div className='sendButton flex items-end text-[14px] font-[400]'>Send</div>
-                </div> */}
-              </div>
-            </div>
-          )
-        })
-      )
-    })
-  )
-})
-}
 
 
-
+{a}
 
                           
                   </div>
