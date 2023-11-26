@@ -258,6 +258,7 @@ fetchData().then((a)=>{
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    handleClose()
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     // const user = await currentUser()
@@ -280,9 +281,18 @@ fetchData().then((a)=>{
       
     })
   
-
-    handleClose()
-
+    toast({
+      title: "You submitted the following values:",
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">Form Submitted</code>
+        </pre>
+      ),
+    })
+  
+  
+  
+    console.log(startDateValue,endValue,values)
   }
 
 
