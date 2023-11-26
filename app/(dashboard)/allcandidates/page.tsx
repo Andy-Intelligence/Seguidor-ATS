@@ -26,7 +26,7 @@ export default function Home() {
       
         
         const me = async () =>{
-            {const applicants = allApplicant &&
+            {const a = allApplicant &&
                 allApplicant?.slice().reverse().map((job:any) => {
                   return (
                     job?.applications?.slice().reverse().map((applicant:any) =>{
@@ -44,7 +44,7 @@ export default function Home() {
                     })
                   )
                 })
-                setApplicants(applicants)
+                setApplicants(a)
                 }
       
     }  
