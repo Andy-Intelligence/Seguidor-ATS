@@ -231,6 +231,7 @@ fetchData().then((a)=>{
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     // const user = await currentUser()
+    handleClose()
     await scheduleInterview({
   // interviewer:user?.id,
   interviewer:userId,

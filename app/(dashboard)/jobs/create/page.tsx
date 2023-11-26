@@ -225,8 +225,9 @@ const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
   const onSubmit = async (values: z.infer<typeof formSchema>)=> {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values?.jobtitle)
+    // console.log(values?.jobtitle)
     // const user = await currentUser()
+    handleClose()
     await createJob({
       // userId:"654dfef70325ab149be055ba",
       // userId:user?.id,
@@ -253,12 +254,13 @@ const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
       // jobPostingOperationType:values?.jobposting,
       // workplaceTypes:values?.workplacetypes,
     })
-    console.log(values)
+    // console.log(values)
   }
 
 
 
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  handleClose()
     try {
       // Get the form values using form.getValues()
       const formValues = form.getValues();
