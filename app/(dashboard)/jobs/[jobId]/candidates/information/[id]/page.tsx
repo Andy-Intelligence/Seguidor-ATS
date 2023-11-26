@@ -225,40 +225,9 @@ fetchData().then((a)=>{
       message: "inviteLink must be at least 2 characters.",
     }),
   })
-   
-
-
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-      summary: "",
-      venue: "",
-      details: "",
-      inviteLink: "",
-    },
-  })
- 
-
-
- const handleReject = async ()=>{
-
-  await RejectInterview({
-    applicant:applicant?._id,
-    job:job?._id,
-    applicantName:applicant?.name,
-    applicantEmail:applicant?.email,
-    jobTitle:job?.jobTitle,
-  })
-
-  router.back()
- } 
-
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    handleClose()
+    // handleClose()
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     // const user = await currentUser()
@@ -294,6 +263,37 @@ fetchData().then((a)=>{
   
     console.log(startDateValue,endValue,values)
   }
+  
+  
+  
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      summary: "",
+      venue: "",
+      details: "",
+      inviteLink: "",
+    },
+  })
+ 
+
+
+ const handleReject = async ()=>{
+
+  await RejectInterview({
+    applicant:applicant?._id,
+    job:job?._id,
+    applicantName:applicant?.name,
+    applicantEmail:applicant?.email,
+    jobTitle:job?.jobTitle,
+  })
+
+  router.back()
+ } 
+
 
 
  if (!isLoaded || !userId) {
