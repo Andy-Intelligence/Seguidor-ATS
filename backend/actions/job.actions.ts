@@ -16,7 +16,8 @@ import Interview from "../models/interviewModel/interview";
 import RejectedInterview from "../models/interviewModel/rejectInterview"
 import { formatEmailDate, formatEmailEndTime, formatEmailStartTime } from "@/lib/utils";
 
-
+export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 
 
 
