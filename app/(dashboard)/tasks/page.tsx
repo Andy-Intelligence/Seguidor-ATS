@@ -71,6 +71,7 @@ export default function Page() {
                 </div> 
                 {filteredTask?.reverse().slice().map((task:any)=>{
                   return (
+                    <div className="my-2">
                     <DailyTaskCard 
                     applicantImg={task?.applicant?.passport}
                     taskStartTime = {task?.scheduledDate}
@@ -83,6 +84,7 @@ export default function Page() {
                     inviteLink = {task?.inviteLink}
                     interviewer = {task?.interviewer?.name}
                     />
+                    </div>
                   )
                 })}
               </section>

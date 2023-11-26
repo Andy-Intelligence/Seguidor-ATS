@@ -61,7 +61,7 @@ const Overview =  () => {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
   const [allJobs, setAllJobs] =  React.useState<any>([])
-  const [a, setA] =  React.useState<any>()
+  const [noteAndFeedBack, setNoteAndFeedBack] =  React.useState<any>()
 
 
 
@@ -123,7 +123,7 @@ fetchData().then((a)=>{
       const allJobs = await getAllPostedJobs()
       setAllJobs(allJobs)
      console.log(allJobs)
-     {const a = allJobs &&
+     {const noteandfeedback = allJobs &&
       allJobs?.slice(0,2).reverse().map((job:any) => {
         return (
           job?.applications?.slice().reverse().map((applications:any) =>{
@@ -155,7 +155,7 @@ fetchData().then((a)=>{
           })
         )
       })
-      setA(a)
+      setNoteAndFeedBack(noteandfeedback)
       }
       
     }
@@ -415,34 +415,7 @@ fetchData().then((a)=>{
                   </div> 
 
                   <div className='flex flex-col gap-2'> 
-                    {/* {allApplicant?.slice().reverse().map((item:any)=>{
-                      return (
-                    <div className='flex items-start justify-start gap-[6px]'>
-                        <div>
-                          <img className='h-[30px] w-[30px] rounded-full' alt='profile-img' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600'/>
-                        </div>
-                        <div className='flex flex-col w-full'>
-                          <div className='text-[14px] text-left font-[400]'>{item?.sender?.name}</div>
-                          <div className='text-[12px] font-[400] text-left'>{item?.sender?.email}usoroandidiong@gmail.com</div>
-                          <div className='messageBackground p-1 text-[14px] font-[400] my-2'>{item?.content}</div>
-                          <Link href={`candidates/information/655139e4fb0268f5fb1a9105`}><span className='text-blue'>@andy{item?.receiver.name}</span></Link>
-
-                          <form>
-                            <input type='text' placeholder='write here...' className='messageBackground rounded-[4px] h-[40px] w-full'/>
-                          </form>
-                            <div className='w-full flex justify-end items-end '>
-                                <div className='sendButton flex items-end  text-[14px] font-[400]'>Send</div>
-                            </div>
-                        </div>
-                        </div>
-                      )
-                    })} */}
-
-
-
-{a}
-
-                          
+                    {noteAndFeedBack}   
                   </div>
               </section>
 
