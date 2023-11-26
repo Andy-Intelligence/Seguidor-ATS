@@ -54,8 +54,8 @@ export default function Home() {
       
         
         const me = async () =>{
-            {const a = filteredApplicant &&
-                filteredApplicant?.slice().reverse().map((job:any) => {
+            {const a = allApplicant &&
+                allApplicant?.slice().reverse().map((job:any) => {
                   return (
                     job?.applications?.slice().reverse().map((applicant:any) =>{
                       return (
@@ -93,9 +93,9 @@ export default function Home() {
     setSearchQuery(query);
   };
 
-    const filteredApplicant = allApplicant.filter((applicant:any) =>
-    applicant.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+//     const filteredApplicant = allApplicant.filter((applicant:any) =>
+//     applicant.name.toLowerCase().includes(searchQuery.toLowerCase())
+//   );
 
 
 
