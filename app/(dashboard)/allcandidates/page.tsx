@@ -22,35 +22,7 @@ export default function Home() {
     const [applicants, setApplicants] = useState<any>([])
     const [loading, setLoading] = useState<any>(true)
 
-    useEffect(()=>{ 
-      
-        
-        const me = async () =>{
-            {const a = allApplicant &&
-                allApplicant?.slice().reverse().map((job:any) => {
-                  return (
-                    job?.applications?.slice().reverse().map((applicant:any) =>{
-                      return (
-                        <div onClick={(e)=>handleClick(e,job?._id,applicant?._id)}>
-                                    <ApplicantCard 
-                                    key={applicant?._id}
-                                    name={applicant?.name} email={applicant?.email}
-                                    mobile={applicant?.mobile} linkedin={applicant?.linkedin} resume={applicant?.resume}
-                                    passport={applicant?.passport} yearsofexperience={applicant?.yearsofexperience} 
-                                    portfolioworksample={applicant?.portfolioworksample}
-                                    coverletter={applicant?.coverletter} noteAndFeedBack={applicant?.noteAndFeedBack}/>
-                                    </div>
-                      )
-                    })
-                  )
-                })
-                setApplicants(a)
-                }
-      
-    }  
-    me()
-    },[])
-
+    
 
 
 
@@ -76,6 +48,37 @@ export default function Home() {
         });
         
     }, []);
+
+
+    useEffect(()=>{ 
+      
+        
+        const me = async () =>{
+            {const a = filteredApplicant &&
+                filteredApplicant?.slice().reverse().map((job:any) => {
+                  return (
+                    job?.applications?.slice().reverse().map((applicant:any) =>{
+                      return (
+                        <div onClick={(e)=>handleClick(e,job?._id,applicant?._id)}>
+                        <ApplicantCard 
+                        key={applicant?._id}
+                        name={applicant?.name} email={applicant?.email}
+                        mobile={applicant?.mobile} linkedin={applicant?.linkedin} resume={applicant?.resume}
+                        passport={applicant?.passport} yearsofexperience={applicant?.yearsofexperience} 
+                        portfolioworksample={applicant?.portfolioworksample}
+                        coverletter={applicant?.coverletter} noteAndFeedBack={applicant?.noteAndFeedBack}/>
+                        </div>
+                      )
+                    })
+                  )
+                })
+                setApplicants(a)
+                }
+      
+    }  
+    me()
+    },[])
+
     
     // console.log(applicant)
     const handleClick = (e:any,jobid:any,id:any)=>{
