@@ -1,5 +1,5 @@
 'use client'
-import { getAllApplicant, getSingleJob } from "@/backend/actions/job.actions"
+import { getAllApplicant, getAllPostedJobs, getSingleJob } from "@/backend/actions/job.actions"
 import ApplicantCard from "@/components/cards/ApplicantCard"
 import JobRoleCard from "@/components/cards/JobRoleCard"
 import AllJobsLeftSideBarSearchFilter from "@/components/sharedComponents/AllJobsLeftSideBarSearchFilter"
@@ -19,21 +19,37 @@ export default function Home() {
     const router = useRouter()
 
     const [allApplicant, setAllApplicant] = useState<any>([])
+    const [applicants, setApplicants] = useState<any>([])
     const [loading, setLoading] = useState<any>(true)
 
-    // useEffect(()=>{ 
+    useEffect(()=>{ 
       
         
-    //     const me = async () =>{
-    //       const jobId = params?.jobId
-    //       const res = await getSingleJob({jobId:params?.jobId})
-    //       console.log(res?.applications)
-    //       setApplicant(res) 
-    //       console.log("applicant",applicant)
+        const me = async () =>{
+            {const applicants = allApplicant &&
+                allApplicant?.slice().reverse().map((job:any) => {
+                  return (
+                    job?.applications?.slice().reverse().map((applicant:any) =>{
+                      return (
+                        <div onClick={(e)=>handleClick(e,job?._id,applicant?._id)}>
+                                    <ApplicantCard 
+                                    key={applicant?._id}
+                                    name={applicant?.name} email={applicant?.email}
+                                    mobile={applicant?.mobile} linkedin={applicant?.linkedin} resume={applicant?.resume}
+                                    passport={applicant?.passport} yearsofexperience={applicant?.yearsofexperience} 
+                                    portfolioworksample={applicant?.portfolioworksample}
+                                    coverletter={applicant?.coverletter} noteAndFeedBack={applicant?.noteAndFeedBack}/>
+                                    </div>
+                      )
+                    })
+                  )
+                })
+                setApplicants(applicants)
+                }
       
-    // }  
-    // me()
-    // },[params?.jobId])
+    }  
+    me()
+    },[])
 
 
 
@@ -42,10 +58,12 @@ export default function Home() {
         const fetchData = async () => {
           try {
    
-            const res = await getAllApplicant();
+            // const res = await getAllApplicant();
+            const res = await getAllPostedJobs();
             // setApplicant(res?.applications);
             // console.log("applicant", applicant);
             console.log(res)
+
             return res
           } catch (error) {
             console.error("Error fetching all Applicant:", error);
@@ -60,9 +78,9 @@ export default function Home() {
     }, []);
     
     // console.log(applicant)
-    const handleClick = (e:any,id:any)=>{
+    const handleClick = (e:any,jobid:any,id:any)=>{
         e.preventDefault()
-        router.push(`candidates/information/${id}`)
+        router.push(`jobs/${jobid}/candidates/information/${id}`)
     }
 
 
@@ -132,7 +150,7 @@ export default function Home() {
                     </div>
                     <div className="applicantCardMainContainer grid grid-cols-3 gap-4 p-2">
                         {/* <Link href={'/candidates/information'}> */}
-                        {filteredApplicant?.map((applicant:any)=>{
+                        {/* {filteredApplicant?.map((applicant:any)=>{
 
                             return (
                         <div onClick={(e)=>handleClick(e,applicant?._id)}>
@@ -145,16 +163,11 @@ export default function Home() {
                         coverletter={applicant?.coverletter} noteAndFeedBack={applicant?.noteAndFeedBack}/>
                         </div>
                             )
-                        })}
+                        })} */}
+                        {applicants}
+
                         
-                        {/* <ApplicantCard/>
-                        <ApplicantCard/>
-                        <ApplicantCard/>
-                        <ApplicantCard/>
-                        <ApplicantCard/>
-                        <ApplicantCard/>
-                        <ApplicantCard/>
-                        <ApplicantCard/> */}
+
                     </div>
                 </section>
             </div>
