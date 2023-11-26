@@ -289,7 +289,7 @@ fetchData().then((a)=>{
       ),
     })
   
-  
+    handleClose()
   
     console.log(startDateValue,endValue,values)
   }
