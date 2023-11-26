@@ -18,8 +18,8 @@ import Navbar from "@/components/sharedComponents/Navbar"
 export default function Home() {
     const router = useRouter()
 
-    const [allApplicant, setAllApplicant] = useState<any>([])
-    const [applicants, setApplicants] = useState<any>([])
+    const [allApplicant, setAllApplicant] = useState<any>()
+    const [applicants, setApplicants] = useState<any>()
     const [loading, setLoading] = useState<any>(true)
 
     
