@@ -157,6 +157,18 @@ fetchData().then((a)=>{
       })
       setNoteAndFeedBack(noteandfeedback)
       }
+
+
+      const totalComments = allJobs.reduce((accJobs:any, job:any) => {
+        const jobComments = job?.applications?.reduce((accApplications:any, application:any) => {
+          return accApplications + application?.noteAndFeedBack?.length;
+        }, 0);
+        return accJobs + jobComments;
+      }, 0);
+  
+      setTotalComment(totalComments)
+
+
       
     }
     me()
@@ -168,14 +180,7 @@ fetchData().then((a)=>{
     // }, 0);
 
     // setTotalComment(totalNoteAndFeedBack)
-    const totalComments = allJobs.reduce((accJobs:any, job:any) => {
-      const jobComments = job.applications.reduce((accApplications:any, application:any) => {
-        return accApplications + application.noteAndFeedBack.length;
-      }, 0);
-      return accJobs + jobComments;
-    }, 0);
-
-    setTotalComment(totalComments)
+    
 
       },[])
 
