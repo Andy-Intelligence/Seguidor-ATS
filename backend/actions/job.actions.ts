@@ -15,7 +15,7 @@ import Comment from "../models/commentModel/comment";
 import Interview from "../models/interviewModel/interview";
 import RejectedInterview from "../models/interviewModel/rejectInterview"
 import { formatEmailDate, formatEmailEndTime, formatEmailStartTime } from "@/lib/utils";
-
+import { NextResponse } from 'next/server';
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
@@ -525,8 +525,6 @@ interface InterviewProps {
   jobTitle?:string;
 }
 
-
-
 export async function scheduleInterview({
   interviewer,
   applicant,
@@ -568,37 +566,44 @@ export async function scheduleInterview({
       });
   
       if (scheduledInterview) {
-        // Update the user's 'books' field to include the book's ID
-        // const job = await Job.findOne({ _id: "654f451b9d9a151d64d0a5c7" });
-        // const c = job?.applications?.push(createdApplication?._id?.toString());
-        // console.log(c);
-  
-        // Save the updated user
+
         await scheduledInterview.save();
         
           if(scheduledInterview){
-            console.log("sending")
-            console.log(applicantEmail)
-          resend.emails.send({
-            from: 'onboarding@resend.dev',
-            // to: 'usoroandidiong@gmail.com',
-            to:String(applicantEmail),
-            subject: 'Thank You for Applying!',
-            // html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
-            react:Welcome({name:applicantName, 
-              interviewer:user?.name,
-              job:jobTitle,
-              scheduledDate:formatEmailDate(scheduledDate),
-              interviewStartTime:formatEmailStartTime(scheduledDate),
-              interviewEndTime:formatEmailEndTime(interviewEndTime),
-              title,
-              description,
-              summary,
-              venue,
-              details,
-              inviteLink})
-          });
-          console.log("sent")
+            // ##############
+
+
+            const res = await fetch('https://api.resend.com/emails', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.resendapikey}`,
+              },
+              body: JSON.stringify({
+                from: 'Acme <onboarding@resend.dev>',
+                to:String(applicantEmail),
+                subject: 'Thank You for Applying!',
+                react:Welcome({name:applicantName, 
+                  interviewer:user?.name,
+                  job:jobTitle,
+                  scheduledDate:formatEmailDate(scheduledDate),
+                  interviewStartTime:formatEmailStartTime(scheduledDate),
+                  interviewEndTime:formatEmailEndTime(interviewEndTime),
+                  title,
+                  description,
+                  summary,
+                  venue,
+                  details,
+                  inviteLink})
+              }),
+            });
+
+            if (res.ok) {
+              const data = await res.json();
+              return NextResponse.json(data);
+            }
+
+            // ###################
         }
       }
   
@@ -610,6 +615,87 @@ export async function scheduleInterview({
 
 
 }
+
+
+
+// export async function scheduleInterview({
+//   interviewer,
+//   applicant,
+//   job,
+//   scheduledDate,
+//   interviewEndTime,
+//   title,
+//   description,
+//   summary,
+//   venue,
+//   details,
+//   inviteLink,
+//   applicantEmail,
+//   applicantName,
+//   jobTitle
+// }:InterviewProps){
+  
+
+
+//     const resend = new Resend(process.env.resendapikey);
+//     try {
+
+  
+//       const user = await User.findOne({ id: interviewer });
+//       // const userr = JSON.parse(JSON.stringify(res))
+  
+//       const scheduledInterview = await Interview.create({
+//   interviewer:user?._id,
+//   applicant:applicant,
+//   job:job,
+//   scheduledDate:scheduledDate,
+//   interviewEndTime:interviewEndTime,
+//   title:title,
+//   description:description,
+//   summary:summary,
+//   venue:venue,
+//   details:details,
+//   inviteLink:inviteLink
+//       });
+  
+//       if (scheduledInterview) {
+
+//         await scheduledInterview.save();
+        
+//           if(scheduledInterview){
+//             console.log("sending")
+//             console.log(applicantEmail)
+//           resend.emails.send({
+//             from: 'onboarding@resend.dev',
+//             // to: 'usoroandidiong@gmail.com',
+//             to:String(applicantEmail),
+//             subject: 'Thank You for Applying!',
+//             // html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+//             react:Welcome({name:applicantName, 
+//               interviewer:user?.name,
+//               job:jobTitle,
+//               scheduledDate:formatEmailDate(scheduledDate),
+//               interviewStartTime:formatEmailStartTime(scheduledDate),
+//               interviewEndTime:formatEmailEndTime(interviewEndTime),
+//               title,
+//               description,
+//               summary,
+//               venue,
+//               details,
+//               inviteLink})
+//           });
+//           console.log("sent")
+//         }
+//       }
+  
+//       // Additional logic after application creation if needed
+  
+//     } catch (error: any) {
+//       throw new Error(`Failed to create Interview: ${error.message}`);
+//     }
+
+
+// }
 
 
 
