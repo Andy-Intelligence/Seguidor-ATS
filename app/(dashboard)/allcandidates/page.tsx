@@ -36,8 +36,9 @@ export default function Home() {
             console.log(res)
             setAllApplicant(res)
 
-            const a = allApplicant &&
-                allApplicant?.slice().reverse().map((job:any) => {
+            // const a = allApplicant &&
+           
+            const a =  res?.slice().reverse().map((job:any) => {
                   return (
                     job?.applications?.slice().reverse().map((applicant:any) =>{
                       return (
