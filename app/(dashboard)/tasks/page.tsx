@@ -16,6 +16,7 @@ export default function Page() {
 
 
   const [tasks,setTasks] = useState<any>()
+  const [taskLength,setTaskLength] = useState<any>()
 
 
 
@@ -24,6 +25,8 @@ export default function Page() {
 
       const scheduledInterviews = await getAllScheduledInterviews()
       setTasks(scheduledInterviews)
+      const tasklen = scheduledInterviews.length
+      setTaskLength(tasklen)
      console.log(scheduledInterviews)
     }
     me()
@@ -65,7 +68,7 @@ export default function Page() {
 
                   </div>
                   <div className='dailyTaskTagBackgroundColor flex items-center justify-center text-white h-[19px] w-[22px] rounded-[2px] text-[14px] font-[400]'>
-                    3
+                    {taskLength}
                   </div>
 
                 </div> 
