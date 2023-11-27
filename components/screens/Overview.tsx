@@ -297,7 +297,7 @@ fetchData().then((a)=>{
 
             {/* <div className = " text-white flex items-center justify-center" ref={(node) => setNextEl(node)}><PiCaretRightBold size={45} className= "summaryNavButton"/></div>        */}
         </div>
-        <div className='flex gap-4 w-full '>
+        <div className='flex gap-8 w-full '>
             <section className='w-2/5'>
                   <header className='activeJobsHeader flex flex-row items-center justify-between w-full rounded-[4px] '>
                     <div className='flex flex-row items-center justify-between w-full pl-2'>
