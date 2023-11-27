@@ -55,6 +55,7 @@ export default function Home() {
                   )
                 })
                 setApplicants(a)
+                console.log(applicants)
                 
             
 
