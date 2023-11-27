@@ -28,7 +28,6 @@ export default function Home() {
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
    
             // const res = await getAllApplicant();
             const res = await getAllPostedJobs();
@@ -37,7 +36,7 @@ export default function Home() {
             console.log(res)
             setAllApplicant(res)
 
-            {const a = allApplicant &&
+            const a = allApplicant &&
                 allApplicant?.slice().reverse().map((job:any) => {
                   return (
                     job?.applications?.slice().reverse().map((applicant:any) =>{
@@ -56,13 +55,11 @@ export default function Home() {
                   )
                 })
                 setApplicants(a)
-                }
+                console.log(applicants)
+                
             
 
-            return res
-          } catch (error) {
-            console.error("Error fetching all Applicant:", error);
-          }
+        
         };
     
         fetchData()
