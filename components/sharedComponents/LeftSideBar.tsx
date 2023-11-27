@@ -122,52 +122,52 @@ const LeftSidebar = () => {
 
       {/* Sidebar Links */}
       <div className=" flex flex-col items-left space-y-2 gap-[20px]">
-        <Link href="/allcandidates">
+        <Link className={pathname === '/allcandidates' ? 'active-link' : ''} href="/allcandidates">
           <span>
           Candidates
           </span>
         </Link>
-        <Link href="/tasks">
+        <Link className={pathname === '/tasks' ? 'active-link' : ''} href="/tasks">
         <span>        
           Interviews
           </span>
         </Link>
-        <Link href="/working-on">
+        <Link className={pathname === '/working-on' ? 'active-link' : ''} href="/working-on">
           <span className='text-red-400'>  
               Talent Board
           </span>
         </Link>
-        <Link href="/working-on">
+        <Link className={pathname === '/working-on' ? 'active-link' : ''} href="/working-on">
         <span className='text-red-400'>    
           My Team
         </span>
         </Link>
-        <Link href="/working-on">
+        <Link className={pathname === '/working-on' ? 'active-link' : ''} href="/working-on">
         <span className='text-red-400'>     
           Employed 
           </span>
         </Link>
-        <Link href="/working-on">
+        <Link className={pathname === '/working-on' ? 'active-link' : ''} href="/working-on">
         <span className='text-red-400'>  
           Help
         </span>
         </Link>
-        <Link href="/onboard">
+        <Link className={pathname === '/userprofile' ? 'active-link' : ''} href="/userprofile">
         <span>    
-          Onboard
+          Account 
           </span>
         </Link>
-        <Link href="/working-on">
+        <Link className={pathname === '/working-on' ? 'active-link' : ''} href="/working-on">
         <span className='text-red-400'>
           Analytics
         </span>
         </Link>
-        <Link href="/userprofile">
+        <Link className={pathname === '/profile' ? 'active-link' : ''} href="/profile">
         <span className=''>
           Profile
         </span>
         </Link>
-        <Link href="/working-on">
+        <Link className={pathname === '/working-on' ? 'active-link' : ''} href="/working-on">
         <span className='text-red-400'>
           Settings
         </span>

@@ -141,6 +141,11 @@ background-color: rgba(117, 208, 214, 0.2); /* 20% opacity */
 .messageBackground{
   background-color: #F8F8F8;
 }
+.active-link{
+  background-color:#F8F8F8; 
+  border-radius: 4px;
+  padding: 0.5rem;
+}
 .sendButton{
   color: #989898;
   text-decoration: underline;
