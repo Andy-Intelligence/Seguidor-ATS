@@ -274,7 +274,7 @@ fetchData().then((a)=>{
   return (
     <main className='flex flex-col items-center space-y-4'>
         <div className=' flex items-center justify-between w-full '>
-          <div className = " text-white flex items-center justify-center" ref={(node) => setPrevEl(node)}><PiCaretLeftBold size={45} className= "summaryNavButton"/></div>
+          {/* <div className = " text-white flex items-center justify-center" ref={(node) => setPrevEl(node)}><PiCaretLeftBold size={45} className= "summaryNavButton"/></div> */}
                 <Swiper
             // onSwiper={setSwiperRef}
             slidesPerView={3}
@@ -291,11 +291,11 @@ fetchData().then((a)=>{
             
             <SwiperSlide><div><Summary key={1} data={data} summaryHeader='Posted Jobs' summaryTotal={allJobs?.length}/></div></SwiperSlide>
             <SwiperSlide><div><Summary key={2} data={data} summaryHeader='Applicants' summaryTotal={allApplicant?.length} /></div></SwiperSlide>
-            <SwiperSlide><div><Summary key={3} data={data}summaryHeader='Team' summaryTotal={10} /></div></SwiperSlide>
             <SwiperSlide><div><Summary key={4} data={data}summaryHeader='Employed' summaryTotal={23} /></div></SwiperSlide>
+            {/* <SwiperSlide><div><Summary key={3} data={data}summaryHeader='Team' summaryTotal={10} /></div></SwiperSlide> */}
             </Swiper>
 
-            <div className = " text-white flex items-center justify-center" ref={(node) => setNextEl(node)}><PiCaretRightBold size={45} className= "summaryNavButton"/></div>       
+            {/* <div className = " text-white flex items-center justify-center" ref={(node) => setNextEl(node)}><PiCaretRightBold size={45} className= "summaryNavButton"/></div>        */}
         </div>
         <div className='flex gap-4 w-full '>
             <section className='w-2/5'>
@@ -349,7 +349,7 @@ fetchData().then((a)=>{
                         </div>
                     </div>
                   </header>
-                  <div onClick={handleSeeAllClick} className='jobRoleBackground flex flex-col gap-4 p-2'>
+                  <div onClick={handleSeeAllClick} className='jobRoleBackground flex flex-col justify-center gap-4 p-2'>
                     {allJobs?.reverse().slice(0,3).map( (item:any)=>{
                       return (
                         <JobRoleCard 

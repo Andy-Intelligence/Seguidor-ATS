@@ -112,7 +112,7 @@ export default function Home() {
             <AllJobsNavSearchFilter displaySwitch={false}/>
 
             <div className="flex flex-row gap-4 p-2">
-                <section>
+                <section className="p-2">
                 <AllJobsLeftSideBarSearchFilter/>
                 </section>
                 <section className=" w-full flex flex-col gap-2">
