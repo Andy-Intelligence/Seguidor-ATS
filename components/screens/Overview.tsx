@@ -272,7 +272,7 @@ fetchData().then((a)=>{
   
 
   return (
-    <main className='flex flex-col items-center space-y-4'>
+    <main className='flex flex-col items-center space-y-8'>
         <div className=' flex items-center justify-between w-full '>
           {/* <div className = " text-white flex items-center justify-center" ref={(node) => setPrevEl(node)}><PiCaretLeftBold size={45} className= "summaryNavButton"/></div> */}
                 <Swiper
