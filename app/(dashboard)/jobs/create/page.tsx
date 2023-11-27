@@ -788,10 +788,10 @@ const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
             <h1 className="text-[20px] font-[500] whitespace-normal break-words">{jobtitle}</h1>
             <p className="text-[13px] font-[400] whitespace-normal break-words">{jobdescription}</p>
             <div className="grid grid-cols-2 gap-1">
-              <div className="flex items-center gap-1  text-[13px] font-[500]"><div className="rounded-full bg-black w-[5px] h-[5px]"></div>{jobtype}</div> 
-              <div className="flex items-center gap-1 text-[13px] font-[500]"><div className="rounded-full bg-black w-[5px] h-[5px]"></div>{teamdepartment}</div>
-              <div className="flex items-center gap-1 text-[13px] font-[500]"><div className="rounded-full bg-black w-[5px] h-[5px]"></div>{yearsofexperience}</div>
-              <div className="flex items-center gap-1 text-[13px] font-[500]"><div className="rounded-full bg-black w-[5px] h-[5px]"></div>{location}</div>
+              <div className="flex items-center gap-1  text-[13px] font-[500]">{jobtype && <div className="rounded-full bg-black w-[5px] h-[5px]"></div> }{jobtype}</div> 
+              <div className="flex items-center gap-1 text-[13px] font-[500]">{teamdepartment && <div className="rounded-full bg-black w-[5px] h-[5px]"></div>}{teamdepartment}</div>
+              <div className="flex items-center gap-1 text-[13px] font-[500]">{yearsofexperience && <div className="rounded-full bg-black w-[5px] h-[5px]"></div> }{yearsofexperience}</div>
+              <div className="flex items-center gap-1 text-[13px] font-[500]">{yearsofexperience && <div className="rounded-full bg-black w-[5px] h-[5px]"></div>}{location}</div>
             </div>
             <span className="text-[13px] font-[500] reject">Deadline: {deadline?.toLocaleDateString()}</span>
           </div>
