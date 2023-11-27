@@ -35,6 +35,29 @@ export default function Home() {
             // setApplicant(res?.applications);
             // console.log("applicant", applicant);
             console.log(res)
+            setAllApplicant(res)
+
+            {const a = allApplicant &&
+                allApplicant?.slice().reverse().map((job:any) => {
+                  return (
+                    job?.applications?.slice().reverse().map((applicant:any) =>{
+                      return (
+                        <div onClick={(e)=>handleClick(e,job?._id,applicant?._id)}>
+                        <ApplicantCard 
+                        key={applicant?._id}
+                        name={applicant?.name} email={applicant?.email}
+                        mobile={applicant?.mobile} linkedin={applicant?.linkedin} resume={applicant?.resume}
+                        passport={applicant?.passport} yearsofexperience={applicant?.yearsofexperience} 
+                        portfolioworksample={applicant?.portfolioworksample}
+                        coverletter={applicant?.coverletter} noteAndFeedBack={applicant?.noteAndFeedBack}/>
+                        </div>
+                      )
+                    })
+                  )
+                })
+                setApplicants(a)
+                }
+            
 
             return res
           } catch (error) {
@@ -42,33 +65,12 @@ export default function Home() {
           }
         };
     
-        const a = fetchData().then((a)=>{
-            setAllApplicant(a)
+        // const a = fetchData().then((a)=>{
            
 
-        });
+        // });
 
-        {const a = allApplicant &&
-            allApplicant?.slice().reverse().map((job:any) => {
-              return (
-                job?.applications?.slice().reverse().map((applicant:any) =>{
-                  return (
-                    <div onClick={(e)=>handleClick(e,job?._id,applicant?._id)}>
-                    <ApplicantCard 
-                    key={applicant?._id}
-                    name={applicant?.name} email={applicant?.email}
-                    mobile={applicant?.mobile} linkedin={applicant?.linkedin} resume={applicant?.resume}
-                    passport={applicant?.passport} yearsofexperience={applicant?.yearsofexperience} 
-                    portfolioworksample={applicant?.portfolioworksample}
-                    coverletter={applicant?.coverletter} noteAndFeedBack={applicant?.noteAndFeedBack}/>
-                    </div>
-                  )
-                })
-              )
-            })
-            setApplicants(a)
-            }
-        
+       
     }, []);
 
 
