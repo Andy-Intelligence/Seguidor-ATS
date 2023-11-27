@@ -142,7 +142,7 @@ background-color: rgba(117, 208, 214, 0.2); /* 20% opacity */
   background-color: #F8F8F8;
 }
 .active-link{
-  background-color:#F8F8F8; 
+  background-color:rgba(211, 212, 221, 0.5);
   border-radius: 4px;
   padding: 0.5rem;
 }
