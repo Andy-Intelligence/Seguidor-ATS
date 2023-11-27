@@ -49,11 +49,11 @@ export default function Page() {
         <Navbar onSearch={handleSearch}/>
       </div>
     <div className="flex flex-col">
-            <AllJobsNavSearchFilter displaySwitch={false}/>
+            {/* <AllJobsNavSearchFilter displaySwitch={false}/> */}
 
             <div className="flex flex-row gap-4 p-2 w-full">
                 <section>
-                <AllJobsLeftSideBarSearchFilter/>
+                {/* <AllJobsLeftSideBarSearchFilter/> */}
                 </section>
                 <section className='dailyTaskBackgroundColor p-2 flex flex-col w-full'>
                 <div className='flex items-center space-x-1'>
