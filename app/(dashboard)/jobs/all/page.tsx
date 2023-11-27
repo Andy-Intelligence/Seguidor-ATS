@@ -131,7 +131,7 @@ export default function Home() {
     </nav>
     <div className='w-full flex items-center justify-center'>
         {/* <main className="grid grid-cols-2 justify-between gap-10  p-2"> */}
-        <main className="grid ww-full p-4 grid-cols-2 justify-evenly justify-items-center grid-flow-col gap-4">
+        <main className="grid w-full p-4 grid-cols-2 justify-evenly justify-items-center grid-flow-col gap-4">
         {filteredjobs?.map((item:any)=>{
                       return (
                         <div onClick={(e)=>handleClick(e,item?._id)}>
