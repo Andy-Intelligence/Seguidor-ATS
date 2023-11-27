@@ -140,9 +140,9 @@ const JobRoleCard = ({jobtitle,jobtype,employmentstatus,jobdescription,applicati
         </div>
         <div className='underline w-full'></div>
         <div className='flex items-center justify-start space-x-2 w-full text-[12px] font-[400] p-2'>
-            <div className='flex items-center justify-center'>Posted by:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full mx-1' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><span className='text-[12px] font-[400] break-all whitespace-normal'>{jobauthor}</span></div></div>
+            <div className='flex items-center justify-center'>Posted by:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full m-1' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><span className='text-[12px] font-[400] break-all whitespace-normal'>{jobauthor}</span></div></div>
             <div className='bg-black h-[5px] w-[5px] rounded-full'></div>
-            <div className='flex items-center justify-center'>Interviewer:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full mx-1' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><span className='text-[12px] font-[400] break-all whitespace-normal'>{jobauthor}</span></div></div>
+            <div className='flex items-center justify-center'>Interviewer:<div className='flex items-center justify-center'><img className='h-[17px] w-[17px] rounded-full m-1' src='https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pics'/><span className='text-[12px] font-[400] break-all whitespace-normal'>{jobauthor}</span></div></div>
         </div>
     </main>
   )
