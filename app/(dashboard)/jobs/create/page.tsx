@@ -298,7 +298,7 @@ const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
         <Navbar/>
       </div>
     
-    <main className="flex flex-row justify-between gap-4 w-full">
+    <main className="flex flex-row justify-between gap-4 w-full p-4">
     <div className="bgColorFF w-2/3 p-2">
           <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
