@@ -66,7 +66,7 @@ const DailyTaskCard = ({
               </span>
             <span className='flex items-start justify-start'>{jobTitle}</span>
             </div>
-            <div className='flex flex-row items-center justify-start gap-4 w-full'>
+            <div className='flex flex-row items-center justify-center gap-4 w-full'>
                   <div className='flex items-center justify-center gap-1'>
                     <span>
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
