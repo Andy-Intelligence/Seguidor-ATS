@@ -39,7 +39,7 @@ export default function RootLayout({
         
     //   </body>
     // </html>
-    <ClerkProvider>
+    <ClerkProvider >
 
     <html lang="en">
         <body className={inter.className}>

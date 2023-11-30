@@ -48,6 +48,7 @@ import { createJob, getSingleJob, jobApplication, linkedInCreateJob,  } from '@/
 // import { useContext } from 'react';
 // import {UserAuth} from '@/context/MyContext'
 import { fileToBase64 } from "@/lib/utils";
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@clerk/nextjs';
 
 const FormSchema = z.object({
@@ -98,6 +99,7 @@ const FormSchema = z.object({
 
 
 export default function Home({ params }: { params: { id: string } }) {
+  const router = useRouter()
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
@@ -261,6 +263,7 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
+      router.back()
       // console.log("rf",coverletter)
       if (true) { //later set a condition here
         const [base64Resume,base64Passport,base64Coverletter] = await Promise.all([

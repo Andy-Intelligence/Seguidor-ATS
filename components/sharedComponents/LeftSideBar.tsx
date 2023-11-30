@@ -172,6 +172,11 @@ const LeftSidebar = () => {
           Settings
         </span>
         </Link>
+        <Link className={pathname === '/onboarding' ? 'active-link' : ''} href="/onboarding">
+        <span className=''>
+          Onboard
+        </span>
+        </Link>
         <SignedIn>
           <SignOutButton signOutCallback={()=>{router.push('/sign-in')}}>
               <div className='flex cursor-pointer font-[400]'>

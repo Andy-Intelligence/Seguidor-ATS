@@ -1,7 +1,6 @@
 "use client"
 import Link from 'next/link';
 import {FiLink2} from 'react-icons/fi'
-import { UserButton } from "@clerk/nextjs";
 import  {SignedIn} from "@clerk/nextjs"
 import {
   Select,
@@ -12,6 +11,7 @@ import {
 } from "@/components/ui/select"
 import { useEffect, useState } from 'react';
 // import { currentUser } from "@clerk/nextjs"
+import { SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 
 interface SearchProp{
@@ -174,7 +174,22 @@ const handleSearch = (event: any) => {
       </Select> */}
 
       </div>
-      <UserButton afterSignOutUrl="/"/>
+      {/* <UserButton afterSignOutUrl="/"/> */}
+      <SignedOut>
+            <SignInButton
+              mode="modal"
+              afterSignInUrl="/user"
+              afterSignUpUrl="/user"
+            >
+                Sign In
+            </SignInButton>
+          </SignedOut>
+          <UserButton
+            afterSignOutUrl="/onboarding"
+            showName={true}
+            userProfileMode="navigation"
+            userProfileUrl="/user"
+          /> 
     </nav>
   );
 };

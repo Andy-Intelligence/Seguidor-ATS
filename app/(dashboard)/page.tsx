@@ -1,18 +1,23 @@
+
+import { fetchUser } from "@/backend/actions/user.actions";
 import Overview from "@/components/screens/Overview"
 import LeftSideBar from "@/components/sharedComponents/LeftSideBar"
 import Navbar from "@/components/sharedComponents/Navbar"
-import { currentUser } from "@clerk/nextjs"
 
+import { redirect } from "next/navigation";
+import { auth, currentUser, useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
+export default  function Home() {
 
+  // const userInfo = await fetchUser(userId);
+  // if (!userInfo?.onboarded) redirect("/onboarding");
 
-export default async function Home() {
-  // const user = await currentUser();
-  // console.log(user)
   return (
     <div>
       <div className="mb-4">
-      <Navbar/>  
+      <Navbar/> 
       </div>
       <div className="p-2">
       <Overview/>

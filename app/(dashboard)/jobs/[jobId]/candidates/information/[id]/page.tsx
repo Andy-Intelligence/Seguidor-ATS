@@ -138,6 +138,7 @@ export default function Page({ params }: { params: { id: string,jobId:string; } 
 
   // const { user } = UserAuth() ?? { user: null };
   const { isLoaded, userId, sessionId, getToken } = useAuth();
+  
 
   // In case the user signs out while on the page.
 

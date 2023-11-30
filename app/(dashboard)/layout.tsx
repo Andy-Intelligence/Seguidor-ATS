@@ -6,8 +6,12 @@ import Navbar from '@/components/sharedComponents/Navbar'
 import LeftSidebar from '@/components/sharedComponents/LeftSideBar'
 // import { MyProvider } from '@/context/MyContext'
 import { ClerkProvider } from '@clerk/nextjs'
+import { useEffect } from 'react'
 
+import { useAuth } from '@clerk/nextjs';
+import { fetchUser } from '@/backend/actions/user.actions'
 const inter = Inter({ subsets: ['latin'] })
+import { redirect } from 'next/navigation'
 
 // export const metadata: Metadata = {
 //   title: 'Create Next App',
@@ -19,21 +23,46 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // const { isLoaded, userId, sessionId, getToken } = useAuth();
+  // const user =  userId
+
+  // const userData = {
+  //     id:userId,
+  //     objectId:userInfo?._id,
+  //     username:userInfo?.username || user?.username,
+  //     name:userInfo?.name || user?.firstName || "",
+  //     bio:userInfo?.bio || "",
+  //     image:userInfo?.image || user?.imageUrl    
+  // }
+
+
+
+// useEffect(()=>{
+// const check= async()=>{
+//   if (!userId) return null; // to avoid typescript warnings
+
+//   const userInfo = await fetchUser(userId);
+//   if (!userInfo?.onboarded) redirect("/onboarded");
+
+// }
+// check()
+// },[])
+
+
   return (
-        <ClerkProvider>
-    <html lang="en">
-      <body className={inter.className}>
-      <div className="flex flex-row  font-roboto ">
-      <div className="grow">
-      <LeftSidebar/>
-      </div>
-      <div className="navbarOverviewContainer grow flex flex-col">
-          {children}
-      </div>
-    </div>
-        
-      </body>
-    </html>
-        </ClerkProvider>
+      <ClerkProvider >
+        <html lang="en">
+          <body className={inter.className}>
+          <div className="flex flex-row  font-roboto ">
+          <div className="grow">
+          <LeftSidebar/>
+          </div>
+          <div className="navbarOverviewContainer grow flex flex-col">
+              {children}
+          </div>
+        </div>
+          </body>
+        </html>
+      </ClerkProvider>
   )
 }

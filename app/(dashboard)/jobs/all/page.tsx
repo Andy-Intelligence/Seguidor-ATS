@@ -132,7 +132,7 @@ export default function Home() {
     <div className='w-full flex items-center justify-center'>
         {/* <main className="grid grid-cols-2 justify-between gap-10  p-2"> */}
         <main className="grid w-full p-4 grid-cols-2 justify-evenly justify-items-center  gap-4">
-        {filteredjobs?.map((item:any)=>{
+        {filteredjobs?.reverse().map((item:any)=>{
                       return (
                         <div onClick={(e)=>handleClick(e,item?._id)}>
                         <JobRoleCard
