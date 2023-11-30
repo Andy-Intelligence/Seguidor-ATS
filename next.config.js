@@ -6,7 +6,7 @@
 const nextConfig = {
     experimental:{
         serverActions:true,
-        serverActionsBodySizeLimit:"2mb",
+        serverActionsBodySizeLimit:"10mb",
         serverComponentsExternalPackages: ['mongoose']
 
     },

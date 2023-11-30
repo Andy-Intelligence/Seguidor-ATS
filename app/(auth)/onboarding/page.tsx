@@ -12,39 +12,71 @@ export default async function Home() {
   const user = await currentUser();
   if (!user) return null; // to avoid typescript warnings
 
-  const userInfo = await fetchUser(user.id);
-  if (userInfo?.onboarded) redirect("/");
+  // const userInfo = await fetchUser(user.id);
+  // if (userInfo?.onboarded) redirect("/");
 
-  const userData = {
-      id:user?.id,
-      objectId:userInfo?._id,
-      username:userInfo?.username || user?.username,
-      name:userInfo?.name || user?.firstName || "",
-      bio:userInfo?.bio || "",
-      image:userInfo?.image || user?.imageUrl    
+
+  let userInfo;
+
+  try {
+    // Try to fetch user info from the database
+    userInfo = await fetchUser(user.id);
+  } catch (error:any) {
+    // Handle the error (user not found) and continue without throwing an error
+    userInfo = null;
+  }
+
+  if (userInfo && userInfo.onboarded) {
+    // If userInfo is defined and onboarded is true, redirect to home page
+    redirect("/");
   }
 
 
-  return (
-    <main className="flex flex-row items-center justify-center w-full">
+
+  const userData = {
+    id: user?.id,
+    objectId: userInfo?._id || "",
+    username: userInfo?.username || user?.username || "",
+    name: userInfo?.name || user?.firstName || "",
+    bio: userInfo?.bio || "",
+    image: userInfo?.image || user?.imageUrl || "",
+  };
+
+  
+  return (   <main className="flex flex-row items-center justify-evenly w-full">
       <section className="w-1/2">
     <div className="">
-      <h1 className="font-bold text-4xl text-center">Logo</h1>
-      <h2 className="text-center">Kudos You Are Almost Done!</h2>
+      <h1 className="font-bold text-4xl text-center mt-5">Seguidor</h1>
+      <h2 className="text-center mb-5">Kudos You Are Almost Done!</h2>
     </div>
-    <div>
+    {/* <div>
       <Image src={illustration} alt="logo" quality={100} className="img" />
-      <div className="absolute bottom-1 left-0  floater ">
-        <p className="text-white  font-semibold text-2xl text-center">
+      <div className="absolute bottom-1 left-25  floater ">
+      <p className="text-white  font-semibold text-2xl text-center">
           Streamline Your Recruitment Effort with{" "}
           <span className="block text-white">
             our Advanced Application Tracking System{" "}
           </span>
         </p>
       </div>
-    </div>
+    </div> */}
+    <div className="relative w-full h-[80vh]">
+  {/* Image */}
+
+  <Image src={illustration} alt="logo"  quality={100} className="object-cover w-full h-full" />
+
+  {/* Text container */}
+  <div className="absolute bottom-0 left-0 right-0 bg-opacity-70 bg-gray-800 text-white text-center p-4">
+  <p className="text-white  font-semibold text-2xl text-center">
+          Streamline Your Recruitment Effort with{" "}
+          <span className="block text-white">
+            our Advanced Application Tracking System{" "}
+          </span>
+        </p>
+  </div>
+</div>
     </section>
-    <section className="w-1/2 bg-red-500 flex items-center justify-center">
+    <section className="  flex items-center justify-center">
     <AccountProfile user= {userData} btnTitle = "Continue"/>
     </section>
   </main>

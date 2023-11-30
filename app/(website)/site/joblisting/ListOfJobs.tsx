@@ -36,7 +36,7 @@ const ListOfJobs = ({ jobTitle,
         <div className="degree">{qualifications}</div>
       </div>
       {/* <Link href='/Jobs/Applicant-form'> */}
-      <button onClick={handleClick} className="ApplyButton">Apply</button>
+      <button onClick={handleClick} className="ApplyButton blue">Apply</button>
       {/* </Link> */}
     </div>
   );

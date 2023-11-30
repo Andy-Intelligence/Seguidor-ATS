@@ -27,7 +27,7 @@ const Body = () => {
             </span>
           </h2>
 
-          <Link href="site/SignUp">
+          <Link href="/onboarding">
             <button className="getStarted">Get Started</button>
           </Link>
           <div className=" spooter flex mt-14 align-center describe">

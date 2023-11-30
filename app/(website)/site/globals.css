@@ -671,15 +671,16 @@ footer button {
 .ApplyButton {
   height: 2.8125rem;
   width: 100%;
-  color: var(--Text-color-Active-white, #f9f9f9);
+  /* color: var(--Text-color-Active-white, #f9f9f9); */
   margin-top: 2rem;
   padding: 0.625rem 1.5rem;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
   border-radius: 0.25rem;
-  background: var(--Primay-color-Active-green, #538e53);
+  background-color: var(--Primay-color-Active-green, #3637EE);
 }
+
 
 .components {
   display: grid;

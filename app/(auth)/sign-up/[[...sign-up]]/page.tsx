@@ -5,8 +5,8 @@ export default function Home() {
    
 
   return (
-    <div>
-        <SignUp/>
+    <div className="flex items-center justify-center h-full w-full">
+        <SignUp />
     </div>
   )
 }

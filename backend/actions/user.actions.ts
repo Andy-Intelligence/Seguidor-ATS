@@ -45,17 +45,31 @@ import { connectToDB } from "../mongoDb/connect"
 
 
 
-
-  export async function fetchUser(userId: string | undefined) {
-    connectToDB();
-    try {
-  const res = await User.findOne({ id: userId }).exec() 
-  const user = JSON.parse(JSON.stringify(res))
-      return user
-    } catch (error: any) {
-      throw new Error(`Failed to fetch user: ${error.message}`);
-    }
+export async function fetchUser(userId: string | undefined | null) {
+  if (!userId) {
+    throw new Error('User ID is undefined or null');
   }
+
+  
+  connectToDB(); // Ensure your database is connected
+  try {
+    const res = await User.findOne({ id:userId }).exec();
+    
+    if (!res) {
+      // Handle the case where no user is found
+      throw new Error(`User with ID ${userId} not found`);
+    }
+
+    const user = JSON.parse(JSON.stringify(res));
+    return user;
+  } catch (error:any) {
+    // Log the error details for debugging
+    console.error('Error fetching user:', error);
+
+    // Rethrow the error with a more descriptive message
+    throw new Error(`Failed to fetch user: ${error.message}`);
+  }
+}
 
 // export async function fetchUser() {
 //     connectToDB();

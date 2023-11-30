@@ -24,6 +24,7 @@ import { ChangeEvent, useState } from 'react';
 import { updateUser } from '@/backend/actions/user.actions';
 import { usePathname, useRouter } from 'next/navigation';
 
+
 interface Props {
     user:{
         id?:string;
@@ -41,7 +42,6 @@ interface Props {
 function AccountProfile({user,btnTitle}:Props) {
 
 const [files, setFiles] = useState<File[]>([])
-// const {startUpload} = useUploadThing("media")
 const router = useRouter();
 const pathname = usePathname()
 
@@ -58,51 +58,11 @@ const pathname = usePathname()
 
 
 
-// const handleImage = (e:ChangeEvent<HTMLInputElement>, fieldChange:(value:string)=> void)=>{
-//   e.preventDefault();
-
-
-//   const fileReader = new FileReader();
-
-//   if(e.target.files && e.target.files.length > 0){
-//     const file = e.target.files[0];
-
-
-//     setFiles(Array.from(e.target.files))
-
-//     if(!file.type.includes('image')) return;
-
-//     fileReader.onload = async (event) => {
-//       const imageDataUrl = event.target?.result?.toString()
-//  || '';
-
-//  fieldChange(imageDataUrl)
-
-// }
-
-
-// fileReader.readAsDataURL(file);
-
-//   }
-
-
-// }
 
   const onSubmit = async (values:z.infer<typeof UserValidation>) =>{
     //this will be type safe and validated
       console.log(values)
-
-      // const blob = values.profile_photo;
-      // const hasImageChanged = isBase64Image(blob)
-
-      // if(hasImageChanged) {
-      //   const imgRes = await startUpload(files)
-
-
-        
-      // if(imgRes && imgRes[0].fileUrl){
-      //   values.profile_photo = imgRes[0].fileUrl;
-      // }
+      router.push("/")
 
 // call backend function to update user profile
 
@@ -129,7 +89,7 @@ await updateUser(
   // }
 
   return (
-    <div className='w-full flex items-center justify-center'>
+    <div className='container flex flex-col mx-auto items-center justify-center'>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col item-center justify-center gap-10">
         {/* <FormField

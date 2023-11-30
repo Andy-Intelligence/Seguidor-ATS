@@ -40,7 +40,7 @@ const [allJobs,setAllJobs]=useState<any>()
     <div>
       <Nav />
       <div className="flex items-center justify-center p-3 components w-full">
-        {allJobs?.map((item:any)=>{
+        {allJobs?.reverse().map((item:any)=>{
           return (
             <ListOfJobs
             jobTitle={item?.jobTitle}
